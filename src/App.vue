@@ -1,13 +1,24 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+import { useRoute } from 'vue-router';
+
+import DefaultLayout from './layouts/DefaultLayout.vue';
+
+const route = useRoute();
+
+const isLayout = computed(() => {
+  switch(route.meta.layout) {
+    case 'default':
+      return DefaultLayout;
+    default:
+      return null;
+  }
+});
 
 </script>
 
 <template>
-  <div class="container">
-    <p class="text-3xl font-bold underline">good</p>
-  </div>
+  <component :is="isLayout" >
+    <RouterView/>
+  </component>
 </template>
-
-<style scoped>
-
-</style>
