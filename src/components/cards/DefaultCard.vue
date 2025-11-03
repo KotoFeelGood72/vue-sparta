@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import ButtonComponent from '../ui/ButtonComponent.vue';
 
 
 export interface DefaultCardModel {
@@ -20,7 +21,7 @@ const { image, title, id, slug } = defineProps<DefaultCardModel>();
     </div>
     <div>
       <h3>{{ title }}</h3>
-      <button type="button">Заказать</button>
+      <ButtonComponent text="Заказать" size="small" variant="primary"/>
     </div>
   </RouterLink>
 </template>
