@@ -10,20 +10,20 @@ import SearchIcon from '../icons/SearchIcon.vue';
 
 <template>
   <header>
-    <div class="top">
-        <div class="container">
+    <div class="top bg-dark">
+        <div class="container flex justify-between items-center text-white">
           <RouterLink to="/">
           <LogoIcon/>
         </RouterLink>
-        <div>
+        <div class="flex items-center gap-2.5">
           <div><AddressIcon/></div>
-          <span>Владивосток</span>
+          <span class="text-18 font-light">Владивосток</span>
         </div>
-        <ul>
+        <ul class="flex items-center gap-6">
           <li>
-            <a href="#">
-              <PhoneCircleIcon/>
-              <span>+7 966 032 02 30</span>
+            <a href="#" class="flex items-center gap-2 bg-yellow text-dark py-2.5 px-5 rounded-full">
+              <PhoneCircleIcon class="flex items-center justify-center"/>
+              <span class="text-20 font-bold leading-none">+7 966 032 02 30</span>
             </a>
           </li>
           <li>
@@ -32,29 +32,29 @@ import SearchIcon from '../icons/SearchIcon.vue';
             </a>
           </li>
         </ul>
-        <ul>
+        <ul class="flex items-center gap-20">
           <li>
-            <RouterLink to="/">
+            <RouterLink to="/" class="flex items-center gap-2">
               <CartIcon/>
-              <span>Корзина (10)</span>
+              <span class="text-18 font-light">Корзина (10)</span>
             </RouterLink>
           </li>
           <li>
-            <RouterLink to="/">
+            <RouterLink to="/" class="flex items-center gap-2">
               <ProfileIcon/>
-              <span>Личный кабинет</span>
+              <span class="text-18 font-light">Личный кабинет</span>
             </RouterLink>
           </li>
         </ul>
         </div>
 
       </div>
-      <div class="bottom">
-        <div class="container">
-          <div>
-            <RouterLink to="/">Каталоги</RouterLink>
+      <div class="bottom bg-white h-[66px]">
+        <div class="container flex justify-between items-center gap-16">
+          <div class="h-full flex items-center">
+            <RouterLink to="/" class="flex items-center justify-center bg-yellow h-[66px] uppercase font-bold text-dark px-8">Каталоги</RouterLink>
           </div>
-          <ul>
+          <ul class="flex items-center gap-6">
             <li><RouterLink to="/">Запчасти</RouterLink></li>
             <li><RouterLink to="/">Агрегаты</RouterLink></li>
             <li><RouterLink to="/">Ремонт</RouterLink></li>
@@ -63,7 +63,7 @@ import SearchIcon from '../icons/SearchIcon.vue';
             <li><RouterLink to="/">О компании</RouterLink></li>
             <li><RouterLink to="/">Контакты</RouterLink></li>
           </ul>
-          <div>
+          <div class="flex items-center justify-center bg-yellow h-[66px] w-[77px]">
             <SearchIcon/>
           </div>
         </div>
