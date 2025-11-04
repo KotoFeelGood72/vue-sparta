@@ -10,7 +10,7 @@ import SearchIcon from '../icons/SearchIcon.vue';
 
 <template>
   <header>
-    <div class="top bg-dark">
+    <div class="top bg-dark py-3.5">
         <div class="container flex justify-between items-center text-white">
           <RouterLink to="/">
           <LogoIcon/>
