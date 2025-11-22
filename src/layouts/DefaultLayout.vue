@@ -15,6 +15,3 @@ import BreadcrumbsComponent from '@/components/ui/BreadcrumbsComponent.vue';
   </div>
 </template>
 
-<style scoped>
-
-</style>

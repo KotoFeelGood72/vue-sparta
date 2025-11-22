@@ -6,7 +6,7 @@ module.exports = {
       sm: '375px',
       md: '768px',
       lg: '1024px',
-      xl: '1187px',
+      xl: '1200px',
     },
     extend: {
       fontFamily: {
@@ -30,6 +30,8 @@ module.exports = {
         yellow: '#FDC043',
         yellowLight: '#FFB723',
         dark: '#383837',
+        gray: '#323232',
+        lightGray: '#EAEAEA',
 
       },
       fontSize: {

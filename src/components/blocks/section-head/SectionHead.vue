@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { SectionHeadModel } from './model';
+import ChevronButtonIcon from '@/components/icons/ChevronButtonIcon.vue';
 
 import ButtonComponent from '@/components/ui/ButtonComponent.vue';
 
@@ -16,9 +17,9 @@ const handleClick = () => {
 </script>
 
 <template>
-  <div class="section-head">
-    <h2>{{ title }}</h2>
-    <ButtonComponent :text="buttonText" size="small" variant="primary" @click="handleClick"/>
+  <div class="section-head flex items-center justify-between">
+    <h2 class="lg:text-55 font-bebas text-gray uppercase">{{ title }}</h2>
+    <ButtonComponent :text="buttonText" size="small" variant="primary" @click="handleClick" class="uppercase font-bold gap-2" :icon="ChevronButtonIcon"/>
   </div>
 </template>
 

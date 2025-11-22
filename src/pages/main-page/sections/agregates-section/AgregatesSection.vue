@@ -10,13 +10,13 @@ const { agregates } = defineProps<{ agregates: DefaultCardModel[] }>();
 <template>
   <div class="agregates-section">
     <div class="container">
-      <SectionHead title="Агрегаты" buttonText="смотреть все"/>
+      <SectionHead title="Агрегаты" buttonText="смотреть все" class="mb-3"/>
+      <ul class="grid lg:grid-cols-3 lg:gap-10">
+        <li v-for="agregate in agregates" :key="agregate.id">
+          <DefaultCard v-bind="agregate"/>
+        </li>
+      </ul>
     </div>
-    <ul>
-      <li v-for="agregate in agregates" :key="agregate.id">
-        <DefaultCard v-bind="agregate"/>
-      </li>
-    </ul>
   </div>
 </template>
 

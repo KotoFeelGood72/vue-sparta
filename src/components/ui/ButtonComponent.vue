@@ -1,15 +1,16 @@
 <script setup lang="ts">
 import LoadingIcon from '../icons/LoadingIcon.vue';
-import { computed } from 'vue';
+import { computed, type Component } from 'vue';
 
 export interface ButtonComponentModel {
   text: string
   size: 'small' | 'medium' | 'large'
   variant: 'primary' | 'secondary'
   loading?: boolean
+  icon?: Component
 }
 
-const { text, size, variant, loading } = defineProps<ButtonComponentModel>();
+const { text, size, variant, loading, icon } = defineProps<ButtonComponentModel>();
 
 const themeClass = computed(() => {
   return variant === 'primary' ? 'bg-yellow text-dark' : 'bg-dark text-white';
@@ -36,5 +37,6 @@ const sizeClass = computed(() => {
       <LoadingIcon/>
     </div>
     <span>{{ text }}</span>
+    <component :is="icon" />
   </div>
 </template>
