@@ -33,4 +33,18 @@ export default defineConfigWithVueTs(
       ],
     },
   },
+
+  // Разрешить однокомпонентные имена для Swiper
+  {
+    name: 'vue/multi-word-component-names',
+    files: ['**/*.{ts,js,vue}'],
+    rules: {
+      'vue/multi-word-component-names': [
+        'error',
+        {
+          ignores: ['Swiper', 'SwiperSlide'],
+        },
+      ],
+    },
+  },
 )

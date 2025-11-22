@@ -20,4 +20,12 @@ export const mainRoutes = [
       ],
     },
   },
+  {
+    path: '/icons',
+    component: () => import('@/pages/icons-page/IconsPage.vue'),
+    meta: {
+      layout: 'default',
+      title: 'Иконки',
+    },
+  },
 ]

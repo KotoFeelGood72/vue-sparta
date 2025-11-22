@@ -5,9 +5,9 @@ import BreadcrumbsComponent from '@/components/ui/BreadcrumbsComponent.vue';
 </script>
 
 <template>
-  <div class="layout">
+  <div class="layout bg-[#EFEFEF]">
     <TheHeader/>
-    <main>
+    <main >
       <BreadcrumbsComponent/>
       <slot/>
     </main>

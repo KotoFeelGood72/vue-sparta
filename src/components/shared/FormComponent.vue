@@ -9,10 +9,10 @@ const form = ref<FormHandler>(new FormHandler('', ''));
 </script>
 
 <template>
-  <div class="form-component">
-    <InputComponent v-model="form.name" placeholder="Имя" type="text" id="name" name="name" required />
-    <InputComponent v-model="form.phone" placeholder="Телефон" type="tel" id="phone" name="phone" required />
-    <ButtonComponent text="Отправить" size="medium" variant="primary" @click="form.submit()" />
+  <div class="form-component grid grid-cols-2 gap-8">
+    <InputComponent v-model="form.name" placeholder="Имя" type="text" id="name" name="name" required size="large" />
+    <InputComponent v-model="form.phone" placeholder="Телефон" type="tel" id="phone" name="phone" required size="large" />
+    <ButtonComponent text="заказать экспресс-доставку" size="large" variant="primary" @click="form.submit()" />
     <CheckboxesComponent value="1" id="1" name="1" required>
       Нажимая на кнопку, вы даете согласие на <a href="#">обработку персональных данных</a>
     </CheckboxesComponent>
