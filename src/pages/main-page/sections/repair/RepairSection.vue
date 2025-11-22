@@ -11,12 +11,13 @@ const { repairs } = defineProps<{ repairs: DefaultCardModel[] }>();
   <div class="repair-section">
     <div class="container">
       <SectionHead title="ремонт " buttonText="смотреть все"/>
+      <ul>
+        <li v-for="repair in repairs" :key="repair.id">
+          <DefaultCard v-bind="repair"/>
+        </li>
+      </ul>
+      <slot name="bottom"/>
     </div>
-    <ul>
-      <li v-for="repair in repairs" :key="repair.id">
-        <DefaultCard v-bind="repair"/>
-      </li>
-    </ul>
   </div>
 </template>
 
