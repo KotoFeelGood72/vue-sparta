@@ -28,4 +28,20 @@ export const mainRoutes = [
       title: 'Иконки',
     },
   },
+  {
+    path: '/repair',
+    component: () => import('@/pages/repair-page/RepairPage.vue'),
+    meta: {
+      layout: 'default',
+      title: 'Ремонт',
+    },
+  },
+  {
+    path: '/repair/:id',
+    component: () => import('@/pages/repair-page/RepairDetailPage.vue'),
+    meta: {
+      layout: 'default',
+      title: 'Ремонт',
+    },
+  },
 ]

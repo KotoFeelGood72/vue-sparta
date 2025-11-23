@@ -4,14 +4,13 @@ import BlockForm from '@/components/shared/BlockForm.vue';
 </script>
 
 <template>
-  <div class="repair-page pt-6">
+  <div class="repair-page lg:pt-6">
     <div class="container">
-      <h1>Ремонт ДВС и КПП </h1>
-      <div>
-        <div>
-          <img src="" alt="">
+      <div class="flex items-center rounded-[10px] overflow-hidden lg:h-[493px]">
+        <div class="flex items-center justify-center flex-shrink-0">
+          <img src="/images/repair-detail.png" alt="">
         </div>
-        <div>
+        <div class="lg:p-10 bg-gray text-white h-full lg:text-20 lg:leading-[175%] flex flex-col lg:gap-5">
           <p>Gd ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam
           </p>
           <p>

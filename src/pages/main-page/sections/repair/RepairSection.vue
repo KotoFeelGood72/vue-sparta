@@ -3,14 +3,14 @@ import SectionHead from '@/components/blocks/section-head/SectionHead.vue';
 import DefaultCard from '@/components/cards/DefaultCard.vue';
 import type { DefaultCardModel } from '@/components/cards/DefaultCard.vue';
 
-const { repairs } = defineProps<{ repairs: DefaultCardModel[] }>();
+const { repairs } = defineProps<{ repairs: DefaultCardModel[], headerHidden?: boolean }>();
 
 </script>
 
 <template>
   <div class="repair-section">
     <div class="container">
-      <SectionHead title="ремонт " buttonText="смотреть все" class="mb-3"/>
+      <SectionHead v-if="!headerHidden" title="ремонт" buttonText="смотреть все" class="mb-3"/>
       <ul class="grid lg:grid-cols-3 lg:gap-10">
         <li v-for="repair in repairs" :key="repair.id">
           <DefaultCard v-bind="repair"/>
