@@ -84,4 +84,16 @@ export const mainRoutes = [
       ],
     },
   },
+  // Страница о компании
+  {
+    path: '/about',
+    component: () => import('@/pages/about-page/AboutPage.vue'),
+    meta: {
+      layout: 'default',
+      breadcrumbs: [
+        { label: 'Главная', to: '/' },
+        { label: 'О компании' },
+      ],
+    },
+  },
 ]
