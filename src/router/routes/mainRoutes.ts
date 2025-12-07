@@ -1,6 +1,7 @@
 export const mainRoutes = [
   {
     path: '/',
+    name: 'main',
     component: () => import('@/pages/main-page/MainPage.vue'),
     meta: {
       layout: 'default',
@@ -37,11 +38,38 @@ export const mainRoutes = [
     },
   },
   {
+    path: '/cart',
+    component: () => import('@/pages/cart-page/CartPage.vue'),
+    meta: {
+      layout: 'default',
+      title: 'Личный кабинет (корзина)',
+      breadcrumbs: [
+        { label: 'Главная', to: '/' },
+        {
+          label: 'Личный кабинет (корзина)',
+        },
+      ],
+    },
+  },
+  {
     path: '/repair/:id',
     component: () => import('@/pages/repair-page/RepairDetailPage.vue'),
     meta: {
       layout: 'default',
       title: 'Ремонт',
+    },
+  },
+  {
+    path: '/shop',
+    component: () => import('@/pages/shop-page/ShopPage.vue'),
+    meta: {
+      layout: 'default',
+      title: 'Топливная аппаратура',
+      breadcrumbs: [
+        { label: 'Главная', to: '/' },
+        { label: 'Запчасти', to: '/shop' },
+        { label: 'Топливная аппаратура' },
+      ],
     },
   },
 ]

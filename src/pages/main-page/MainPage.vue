@@ -129,13 +129,13 @@ const repairs = [
 <template>
   <div class="main-page">
     <IntroSlider/>
-    <BrandSlider/>
-    <AgregatesSection :agregates="agregates"/>
-    <AboutBlock/>
-    <BrandSlider>
+    <BrandSlider class="mb-24"/>
+    <AgregatesSection :agregates="agregates" class="mb-24"/>
+    <AboutBlock class="mb-24"/>
+    <BrandSlider class="mb-10">
       <template #head>
         <div class="container">
-          <SectionHead title="категории запчастей" buttonText="смотреть все"/>
+          <SectionHead title="категории запчастей" buttonText="смотреть все" class="mb-6"/>
         </div>
       </template>
     </BrandSlider>
@@ -153,9 +153,10 @@ const repairs = [
       title="закажите экспресс-доставку"
       subtitle="Если у Вас есть сложности с выбором товара или другие вопросы, то Вы можете получить консультацию у наших менеджеров
 в рабочие часы компании."
-      theme="white"
+      theme="dark"
+      class="mb-20"
     />
-    <RepairSection :repairs="repairs"/>
+    <RepairSection :repairs="repairs" class="mb-24"/>
   </div>
 </template>
 

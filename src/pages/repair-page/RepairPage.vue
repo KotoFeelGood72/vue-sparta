@@ -28,14 +28,15 @@ const repairs = [
   <div class="repair-page pt-6">
     <RepairSection :repairs="repairs" header-hidden>
       <template #bottom>
-        <div>
+        <div class="text-20 font-normal leading-[175%] pt-10 pb-24">
           <p>Gd ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam</p>
           <p>Kst, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatu</p>
         </div>
       </template>
     </RepairSection>
     <BlockForm
-      image="/images/form-one.png"
+      image="/images/form-car.png"
+      customClass="!right-0"
       title="закажите экспресс-доставку"
       subtitle="Если у Вас есть сложности с выбором товара или другие вопросы, то Вы можете получить консультацию у наших менеджеров
 в рабочие часы компании."

@@ -16,11 +16,11 @@ const { image, title, id, slug } = defineProps<DefaultCardModel>();
 </script>
 
 <template>
-  <RouterLink :to="`/${slug}/${id}`" class="default-card bg-white lg:p-5 lg:pb-10 flex flex-col lg:gap-10 rounded-[10px] relative">
+  <RouterLink :to="`/${slug}/${id}`" class="default-card bg-white lg:p-5 lg:pb-10 flex flex-col lg:gap-10 rounded-[10px] relative h-full">
     <div>
       <img :src="image" :alt="title">
     </div>
-    <div>
+    <div class="flex flex-col flex-1 justify-between">
       <h3 class="lg:text-25 font-bold text-gray text-center lg:mb-10">{{ title }}</h3>
       <ButtonComponent text="Заказать" size="small" variant="primary" class="text-18 font-semibold uppercase max-w-[147px] mx-auto"/>
     </div>

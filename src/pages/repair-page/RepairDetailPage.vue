@@ -5,7 +5,7 @@ import BlockForm from '@/components/shared/BlockForm.vue';
 
 <template>
   <div class="repair-page lg:pt-6">
-    <div class="container">
+    <div class="container lg:pb-24">
       <div class="flex items-center rounded-[10px] overflow-hidden lg:h-[493px]">
         <div class="flex items-center justify-center flex-shrink-0">
           <img src="/images/repair-detail.png" alt="">
