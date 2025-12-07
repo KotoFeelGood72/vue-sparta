@@ -72,4 +72,16 @@ export const mainRoutes = [
       ],
     },
   },
+  {
+    path: '/shop/:id',
+    component: () => import('@/pages/product-page/ProductPage.vue'),
+    meta: {
+      layout: 'default',
+      breadcrumbs: [
+        { label: 'Главная', to: '/' },
+        { label: 'Агрегаты', to: '/shop' },
+        { label: 'Глушитель ЕК-12 312-04-03.50.600 (312040300 99)' },
+      ],
+    },
+  },
 ]
