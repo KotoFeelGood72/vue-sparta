@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
-import InstockIcon from '../icons/InstockIcon.vue';
+import CheckFillIcon from '../icons/CheckFillIcon.vue';
 import ButtonComponent from '../ui/ButtonComponent.vue';
 import CardDecoratorIcon from '../icons/CardDecoratorIcon.vue';
 
@@ -26,28 +26,28 @@ const props = defineProps<ProductCardModel>();
 <template>
   <div class="product-card bg-white rounded-[10px] p-5 relative h-full flex flex-col shadow-custom-deep">
     <CardDecoratorIcon class="absolute bottom-0 right-0 opacity-10"/>
-    
+
     <!-- Статус наличия -->
-    <div class="flex items-center gap-2 mb-4">
-      <div class="flex items-center justify-center w-5 h-5 rounded-full bg-yellow">
-        <InstockIcon class="w-4 h-4"/>
-      </div>
-      <span class="text-14 font-normal text-gray">{{ instock }}</span>
-    </div>
-    
+
     <!-- Изображение -->
     <div class="mb-4 flex-shrink-0">
       <img :src="image" :alt="title" class="w-full h-auto object-cover rounded-[5px]">
     </div>
-    
+    <div class="flex items-center gap-2 mb-4">
+      <div class="flex items-center justify-center">
+        <CheckFillIcon class="w-4 h-4"/>
+      </div>
+      <span class="text-14 font-normal text-gray">{{ instock }}</span>
+    </div>
+
     <!-- Название -->
     <h3 class="text-18 font-normal text-gray mb-3 flex-1 line-clamp-2">{{ title }}</h3>
-    
+
     <!-- Производитель -->
     <div class="mb-4">
       <span class="text-14 font-normal text-gray">Производитель: </span>
-      <RouterLink 
-        v-for="(manufacturer, index) in manufacturers" 
+      <RouterLink
+        v-for="(manufacturer, index) in manufacturers"
         :key="manufacturer.id"
         :to="`/manufacturer/${manufacturer.slug}`"
         class="text-14 font-normal text-gray hover:text-yellow transition-colors"
@@ -55,16 +55,16 @@ const props = defineProps<ProductCardModel>();
         {{ manufacturer.name }}<span v-if="index < manufacturers.length - 1">, </span>
       </RouterLink>
     </div>
-    
+
     <!-- Цена -->
     <div class="mb-4">
       <p class="text-30 font-bold text-gray">{{ price }}</p>
     </div>
-    
+
     <!-- Кнопка заказа -->
-    <ButtonComponent 
-      text="Заказать" 
-      size="small" 
+    <ButtonComponent
+      text="Заказать"
+      size="small"
       variant="secondary"
       class="w-full uppercase text-18 font-semibold"
     />

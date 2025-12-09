@@ -92,9 +92,6 @@ const loadMore = () => {
 
         <!-- Основной контент -->
         <main class="flex-1">
-          <h1 class="text-55 font-bebas uppercase text-dark leading-[85px] mb-10 tracking-[0.55px]">
-            ТОПЛИВНАЯ АППАРАТУРА
-          </h1>
 
           <!-- Сетка товаров -->
           <div class="grid lg:grid-cols-3 gap-6 mb-10">
