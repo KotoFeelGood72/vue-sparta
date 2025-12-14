@@ -2,7 +2,8 @@
 import { ref } from 'vue';
 import ProductCard, { type ProductCardModel } from '@/components/cards/ProductCard.vue';
 import CategorySidebar, { type Category } from '@/components/shared/CategorySidebar.vue';
-import ChevronIcon from '@/components/icons/ChevronIcon.vue';
+import ChevronButtonIcon from '@/components/icons/ChevronButtonIcon.vue';
+import ButtonComponent from '@/components/ui/ButtonComponent.vue';
 
 const categories: Category[] = [
   { id: '1', title: 'Запчасти по ДВС', slug: 'dvs', isActive: true },
@@ -87,7 +88,7 @@ const loadMore = () => {
       <div class="flex gap-8 pt-10">
         <!-- Боковая панель с категориями -->
         <aside class="flex-shrink-0">
-          <CategorySidebar :categories="categories" title="Запчасти ДВС" />
+          <CategorySidebar :categories="categories" />
         </aside>
 
         <!-- Основной контент -->
@@ -108,16 +109,17 @@ const loadMore = () => {
             />
           </div>
 
-          <!-- Кнопка "Загрузить еще" -->
-          <div class="flex justify-center">
-            <button
+          <div class="flex items-center justify-center">
+            <ButtonComponent
+              text="Загрузить еще"
+              size="small"
+              variant="primary"
+              class="uppercase text-16 font-semibold"
+              :icon="ChevronButtonIcon"
               @click="loadMore"
-              class="bg-yellow text-dark py-7 px-11 rounded-full flex items-center gap-3 text-18 font-semibold uppercase hover:opacity-90 transition-opacity"
-            >
-              <span>Загрузить еще</span>
-              <ChevronIcon class="rotate-[-90deg]"/>
-            </button>
+            />
           </div>
+
         </main>
       </div>
     </div>

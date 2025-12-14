@@ -20,53 +20,53 @@ export interface ProductCardModel {
   price: string
 }
 
-const props = defineProps<ProductCardModel>();
+const { image, title, manufacturers, instock, price } = defineProps<ProductCardModel>();
 </script>
 
 <template>
-  <div class="product-card bg-white rounded-[10px] p-5 relative h-full flex flex-col shadow-custom-deep">
-    <CardDecoratorIcon class="absolute bottom-0 right-0 opacity-10"/>
+  <div class="product-card bg-white rounded-[10px] p-4 relative h-full flex flex-col">
+    <CardDecoratorIcon class="absolute bottom-0 right-0"/>
 
     <!-- Статус наличия -->
 
     <!-- Изображение -->
     <div class="mb-4 flex-shrink-0">
-      <img :src="image" :alt="title" class="w-full h-auto object-cover rounded-[5px]">
+      <img :src="image" :alt="title" class="w-full h-auto object-cover rounded-[10px]">
     </div>
-    <div class="flex items-center gap-2 mb-4">
+    <div class="flex items-center gap-2 mb-2">
       <div class="flex items-center justify-center">
         <CheckFillIcon class="w-4 h-4"/>
       </div>
-      <span class="text-14 font-normal text-gray">{{ instock }}</span>
+      <span class="text-16 font-normal text-lightGrayText">{{ instock }}</span>
     </div>
 
     <!-- Название -->
-    <h3 class="text-18 font-normal text-gray mb-3 flex-1 line-clamp-2">{{ title }}</h3>
+    <h3 class="text-18 font-normal text-gray mb-1.5 flex-1 line-clamp-3">{{ title }}</h3>
 
     <!-- Производитель -->
-    <div class="mb-4">
-      <span class="text-14 font-normal text-gray">Производитель: </span>
+    <div class="mb-2">
+      <span class="text-16 font-normal text-lightGrayText">Производитель: </span>
       <RouterLink
         v-for="(manufacturer, index) in manufacturers"
         :key="manufacturer.id"
         :to="`/manufacturer/${manufacturer.slug}`"
-        class="text-14 font-normal text-gray hover:text-yellow transition-colors"
+        class="text-16 font-semibold text-yellow hover:text-gray transition-colors"
       >
         {{ manufacturer.name }}<span v-if="index < manufacturers.length - 1">, </span>
       </RouterLink>
     </div>
 
     <!-- Цена -->
-    <div class="mb-4">
-      <p class="text-30 font-bold text-gray">{{ price }}</p>
+    <div class="mb-3">
+      <p class="text-25 font-bold text-gray">{{ price }}</p>
     </div>
 
     <!-- Кнопка заказа -->
     <ButtonComponent
       text="Заказать"
       size="small"
-      variant="secondary"
-      class="w-full uppercase text-18 font-semibold"
+      variant="light"
+      class="uppercase text-14 font-semibold max-w-[130px]"
     />
   </div>
 </template>

@@ -32,6 +32,7 @@ module.exports = {
         dark: '#383837',
         gray: '#323232',
         lightGray: '#EAEAEA',
+        lightGrayText: '#A7A7A7',
 
       },
       fontSize: {

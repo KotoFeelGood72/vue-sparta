@@ -5,15 +5,25 @@ import { computed, type Component } from 'vue';
 export interface ButtonComponentModel {
   text: string
   size: 'small' | 'medium' | 'large'
-  variant: 'primary' | 'secondary'
+  variant: 'primary' | 'secondary' | 'light'
   loading?: boolean
   icon?: Component
+  customClass?: string
 }
 
-const { text, size, variant, loading, icon } = defineProps<ButtonComponentModel>();
+const { text, size, variant, loading, icon, customClass } = defineProps<ButtonComponentModel>();
 
 const themeClass = computed(() => {
-  return variant === 'primary' ? 'bg-yellow text-dark' : 'bg-dark text-white';
+  switch (variant) {
+    case 'primary':
+      return 'bg-yellow text-dark';
+    case 'secondary':
+      return 'bg-dark text-white';
+    case 'light':
+      return 'bg-[#EAEAEA] text-dark';
+    default:
+      return 'bg-yellow text-dark';
+  }
 });
 
 const sizeClass = computed(() => {
@@ -32,11 +42,11 @@ const sizeClass = computed(() => {
 </script>
 
 <template>
-  <div :class="[themeClass, sizeClass, 'flex items-center justify-center rounded-full']">
+  <div :class="[themeClass, sizeClass, 'flex items-center justify-center rounded-full gap-2', customClass]">
     <div class="loading" v-if="loading">
       <LoadingIcon/>
     </div>
     <span>{{ text }}</span>
-    <component :is="icon" />
+    <component :is="icon" class="flex items-center justify-center"/>
   </div>
 </template>
