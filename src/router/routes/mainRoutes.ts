@@ -96,4 +96,12 @@ export const mainRoutes = [
       ],
     },
   },
+  {
+    path: '/catalog',
+    name: 'catalog',
+    component: () => import('@/pages/catalog-page/CatalogPage.vue'),
+    meta: {
+      layout: 'default',
+    },
+  },
 ]

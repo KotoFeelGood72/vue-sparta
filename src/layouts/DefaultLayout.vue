@@ -11,7 +11,7 @@ const route = useRoute();
   <div class="layout bg-[#EFEFEF]">
     <TheHeader/>
     <main >
-      <BreadcrumbsComponent v-if="route.name !== 'main'"/>
+      <BreadcrumbsComponent v-if="route.name !== 'main' && route.name !== 'catalog'"/>
       <slot/>
     </main>
     <TheFooter/>
