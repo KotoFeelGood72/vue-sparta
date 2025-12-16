@@ -1,10 +1,11 @@
 import axios from 'axios'
 
 // Создаем экземпляр axios
-// В dev режиме используем прокси, в production - переменную окружения
+// В dev режиме используем прокси из vite.config.ts (/api -> http://95.154.83.43/api)
+// В production на Vercel используем rewrites из vercel.json (/api -> http://95.154.83.43/api)
+// Если указана переменная окружения, используем её, иначе используем относительный путь /api
 const api = axios.create({
-  // baseURL: 'http://95.154.83.43/api',
-  baseURL: import.meta.env.VITE_CATALOG_API_URL,
+  baseURL: import.meta.env.VITE_CATALOG_API_URL || '/api',
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
