@@ -139,7 +139,7 @@ const repairs = [
         </div>
       </template>
     </BrandSlider>
-    <section class="categories-section">
+    <section class="categories-section mb-24">
       <div class="container">
         <ul class="grid lg:grid-cols-3 lg:gap-10">
           <li v-for="category in categories" :key="category.id">

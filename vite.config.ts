@@ -18,6 +18,7 @@ export default defineConfig({
 
   server: {
     port: 3000,
+    open: true,
     proxy: {
       '/api': {
         target: 'http://95.154.83.43/api',

@@ -11,7 +11,7 @@ export const useCatalogStore = defineStore('catalog', () => {
   // GET /api/parts/root
   const fetchRoot = async () => {
     const response = await api.get('/parts/root')
-    rootItems.value = response.data
+    rootItems.value = (response.data || []).filter((item: any) => !item.empty)
   }
 
   // GET /api/parts/childs/{parent_id}

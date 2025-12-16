@@ -22,10 +22,10 @@ const props = defineProps<{
     <table class="min-w-[720px] border-collapse text-xs">
       <thead>
         <tr class="bg-slate-50 text-left font-semibold text-slate-700">
-          <th class="border-b border-slate-200 px-2 py-1.5 w-28">
+          <th class="border-b border-slate-200 px-2 py-1.5 w-14">
             Поз.
           </th>
-          <th class="border-b border-slate-200 px-2 py-1.5 w-32">
+          <th class="border-b border-slate-200 px-2 py-1.5 w-28">
             Номер
           </th>
           <th class="border-b border-slate-200 px-2 py-1.5">
@@ -50,7 +50,7 @@ const props = defineProps<{
               <input
                 type="checkbox"
                 class="h-3.5 w-3.5 rounded border-slate-300 text-teal-700 focus:ring-teal-600"
-                :checked="props.isSelectedItem(row.item)"
+                :checked="props.isSelectedItem(row.item) ?? false"
                 @change="props.toggleSelectedItem(row.item)"
               >
               <span>{{ row.item }}</span>

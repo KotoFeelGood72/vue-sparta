@@ -17,6 +17,7 @@ const tree = inject<{
   loadingChildsId: { value: number | null }
   toggleNode: (node: any) => void | Promise<void>
   isExpanded: (id: number) => boolean
+  isSelected: (id: number) => boolean
 }>('catalogTree')
 
 if (!tree) {
@@ -32,6 +33,9 @@ const bucket = computed<TreeBucket>(() => {
   <li class="my-0.5">
     <div
       class="flex cursor-pointer items-center gap-1 rounded px-1 py-0.5 text-sm hover:bg-slate-100"
+      :class="{
+        'bg-teal-50 text-teal-700 font-semibold': tree.isSelected(node.id),
+      }"
       :style="{ marginLeft: `${(level ?? 0) * 8}px` }"
       @click="tree.toggleNode(node)"
     >
@@ -74,6 +78,9 @@ const bucket = computed<TreeBucket>(() => {
       >
         <div
           class="ml-6 flex items-center gap-1 rounded px-1 py-0.5 text-sm hover:bg-slate-50"
+          :class="{
+            'bg-teal-50 text-teal-700 font-semibold': tree.isSelected(obj.id),
+          }"
           @click.stop="tree.toggleNode(obj)"
         >
           <span class="inline-block w-4" />

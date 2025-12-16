@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import type { Ref } from 'vue'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import CategoriesThree from './sections/categories-three/CategoriesThree.vue'
 import ObjectBreadcrumbs from './sections/ObjectBreadcrumbs.vue'
-import ObjectMeta from './sections/ObjectMeta.vue'
 import ObjectImages from './sections/ObjectImages.vue'
 import ObjectPartsTable from './sections/ObjectPartsTable.vue'
 
@@ -56,10 +55,23 @@ const loadingObject = ref(false)
 const error = ref<string | null>(null)
 
 const selectedItems = ref<string[]>([])
+const isCatalogOpen = ref(false)
 
 const isSelectedItem = (item: string | number | undefined) => {
   if (item === undefined || item === null) return false
   return selectedItems.value.includes(String(item))
+}
+
+const toggleCatalog = () => {
+  isCatalogOpen.value = !isCatalogOpen.value
+}
+
+const handleSelectObjectWithClose = async (node: CatalogObjectDetails) => {
+  await handleSelectObject(node)
+  // Закрываем каталог на мобильных после выбора
+  if (window.innerWidth < 1024) {
+    isCatalogOpen.value = false
+  }
 }
 
 const toggleSelectedItem = (item: string | number | undefined) => {
@@ -103,6 +115,26 @@ const handleSelectObject = async (node: CatalogObjectDetails) => {
   }
 }
 
+const clearSelectedObject = () => {
+  selectedLeaf.value = null
+  objectDetails.value = null
+  selectedItems.value = []
+  error.value = null
+  loadingObject.value = false
+  syncSelectedObjectToRoute(undefined)
+}
+
+watch(
+  () => route.query.object,
+  async (objectId) => {
+    if (typeof objectId === 'string' && objectId) {
+      await handleSelectObject({ id: objectId } as CatalogObjectDetails)
+    } else {
+      clearSelectedObject()
+    }
+  },
+)
+
 onMounted(async () => {
   const objectId = route.query.object
   if (typeof objectId === 'string' && objectId) {
@@ -112,16 +144,55 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="min-h-[100dvh] bg-slate-50">
-    <div class="container py-8">
+  <div class="">
+    <div class="container py-4 md:py-8">
+      <!-- Кнопка для открытия каталога на мобильных -->
+      <button
+        class="mb-4 flex w-full items-center justify-between rounded-md bg-white px-4 py-3 shadow-sm lg:hidden"
+        @click="toggleCatalog"
+      >
+        <span class="text-sm font-semibold text-slate-700">Каталог</span>
+        <span class="text-lg">{{ isCatalogOpen ? '−' : '+' }}</span>
+      </button>
 
-      <div class="grid gap-6 lg:grid-cols-[320px_minmax(0,1fr)]">
-        <div class="min-w-0">
-          <CategoriesThree @select-object="handleSelectObject" />
+      <div class="flex flex-col gap-2 bg-white rounded-md p-2 lg:flex-row lg:h-[90dvh]">
+        <!-- Overlay для мобильных -->
+        <div
+          v-if="isCatalogOpen"
+          class="fixed inset-0 z-40 bg-black/50 lg:hidden"
+          @click="isCatalogOpen = false"
+        />
+
+        <!-- Боковая панель каталога -->
+        <div
+          class="fixed left-0 top-0 z-50 h-full w-80 transform bg-white shadow-xl transition-transform duration-300 lg:relative lg:z-auto lg:w-1/4 lg:transform-none"
+          :class="{
+            'translate-x-0': isCatalogOpen,
+            '-translate-x-full': !isCatalogOpen,
+          }"
+        >
+          <div class="flex h-full flex-col">
+            <div class="flex items-center justify-between border-b p-4 lg:hidden">
+              <h3 class="text-lg font-semibold">Каталог</h3>
+              <button
+                class="text-2xl"
+                @click="isCatalogOpen = false"
+              >
+                ×
+              </button>
+            </div>
+            <div class="flex-1 overflow-hidden">
+              <CategoriesThree
+                :selected-object-id="selectedLeaf?.id"
+                @select-object="handleSelectObjectWithClose"
+              />
+            </div>
+          </div>
         </div>
 
-        <div class="flex flex-col gap-4">
-          <div class="min-h-[260px] max-h-[100dvh] overflow-auto rounded-2xl border border-slate-100 bg-white p-4 shadow-[0_18px_40px_rgba(15,23,42,0.04)] md:p-5">
+        <!-- Основной контент -->
+        <div class="flex flex-1 flex-col gap-4 min-h-0">
+          <div class="min-h-[260px] flex-1 overflow-auto rounded-md lg:max-h-[100dvh]">
           <div
             v-if="!selectedLeaf"
             class="text-sm text-slate-500"
@@ -153,17 +224,18 @@ onMounted(async () => {
 
             <template v-else-if="objectDetails">
               <ObjectBreadcrumbs :path="objectDetails.path" />
-              <ObjectMeta :data="objectDetails.data" />
 
               <div
                 v-if="objectDetails.part && objectDetails.part.length"
-                class="mt-2 grid gap-4 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]"
+                class="mt-2 flex flex-col gap-4 lg:grid lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]"
               >
-                <ObjectImages
-                  :images="objectDetails.image"
-                  :is-selected-item="isSelectedItem"
-                  :toggle-selected-item="toggleSelectedItem"
-                />
+                <div class="lg:sticky lg:top-4 lg:self-start">
+                  <ObjectImages
+                    :images="objectDetails.image"
+                    :is-selected-item="isSelectedItem"
+                    :toggle-selected-item="toggleSelectedItem"
+                  />
+                </div>
 
                 <ObjectPartsTable
                   :rows="objectDetails.part"
