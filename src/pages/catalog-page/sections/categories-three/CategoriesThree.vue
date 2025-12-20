@@ -1,10 +1,13 @@
 <script setup lang="ts">
-import { onMounted, ref, provide } from 'vue'
+import { onMounted, ref, provide, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { useCatalogStore, useCatalogStoreRefs } from '@/stores/useCatalogStore'
 import TreeNode from './TreeNode.vue'
 
 const catalogStore = useCatalogStore()
 const { rootItems } = useCatalogStoreRefs()
+const route = useRoute()
+const router = useRouter()
 
 interface CatalogNode {
   id: number
@@ -37,19 +40,27 @@ const expandedIds = ref<number[]>([])
 
 const isExpanded = (id: number) => expandedIds.value.includes(id)
 
-const saveExpandedToStorage = () => {
-  localStorage.setItem('catalog_expanded_ids', JSON.stringify(expandedIds.value))
+const syncExpandedToQuery = () => {
+  const expandedParam = expandedIds.value.length > 0
+    ? expandedIds.value.join(',')
+    : undefined
+
+  router.replace({
+    query: {
+      ...route.query,
+      expanded: expandedParam,
+    },
+  })
 }
 
-const loadExpandedFromStorage = (): number[] => {
-  try {
-    const stored = localStorage.getItem('catalog_expanded_ids')
-    if (stored) {
-      const ids = JSON.parse(stored)
-      return Array.isArray(ids) ? ids.filter((id) => Number.isFinite(id)) : []
-    }
-  } catch (e) {
-    console.error('Failed to load expanded ids from storage', e)
+const loadExpandedFromQuery = (): number[] => {
+  const expandedParam = route.query.expanded
+  if (typeof expandedParam === 'string' && expandedParam) {
+    const ids = expandedParam
+      .split(',')
+      .map((id) => Number.parseInt(id.trim(), 10))
+      .filter((id) => Number.isFinite(id) && id > 0)
+    return Array.from(new Set(ids))
   }
   return []
 }
@@ -66,7 +77,7 @@ const toggleNode = async (node: CatalogNode) => {
   // уже раскрыт — свернуть
   if (isExpanded(id)) {
     expandedIds.value = expandedIds.value.filter((x) => x !== id)
-    saveExpandedToStorage()
+    syncExpandedToQuery()
     return
   }
 
@@ -88,7 +99,7 @@ const toggleNode = async (node: CatalogNode) => {
     }
 
     expandedIds.value.push(id)
-    saveExpandedToStorage()
+    syncExpandedToQuery()
   } catch (e) {
     error.value = 'Не удалось загрузить подкатегории'
     console.error(e)
@@ -110,8 +121,8 @@ const loadRoot = async () => {
   }
 }
 
-const restoreExpandedFromStorage = async () => {
-  const ids = loadExpandedFromStorage()
+const restoreExpandedFromQuery = async () => {
+  const ids = loadExpandedFromQuery()
   const uniqueIds = Array.from(new Set(ids))
 
   // Сначала добавляем все id в expandedIds, чтобы они отображались как раскрытые
@@ -137,15 +148,59 @@ const restoreExpandedFromStorage = async () => {
       console.error(`Failed to load children for id ${id}`, e)
       // Удаляем id из expandedIds, если не удалось загрузить
       expandedIds.value = expandedIds.value.filter((x) => x !== id)
+      syncExpandedToQuery()
     } finally {
       loadingChildsId.value = null
     }
   }
 }
 
+// Синхронизация при изменении query параметров
+watch(
+  () => route.query.expanded,
+  async (newExpanded) => {
+    if (typeof newExpanded === 'string' && newExpanded) {
+      const ids = newExpanded
+        .split(',')
+        .map((id) => Number.parseInt(id.trim(), 10))
+        .filter((id) => Number.isFinite(id) && id > 0)
+      const uniqueIds = Array.from(new Set(ids))
+
+      // Обновляем expandedIds только если они отличаются
+      const currentIds = expandedIds.value.sort((a, b) => a - b)
+      const newIds = uniqueIds.sort((a, b) => a - b)
+      if (JSON.stringify(currentIds) !== JSON.stringify(newIds)) {
+        expandedIds.value = uniqueIds
+
+        // Загружаем дочерние элементы для новых id
+        for (const id of uniqueIds) {
+          if (!childsByParent.value[id]) {
+            try {
+              loadingChildsId.value = id
+              const children = (await catalogStore.getChilds(String(id))) as CatalogNode[] | null
+              const filteredChildren = (children || []).filter((c: CatalogNode) => !c.empty)
+              childsByParent.value[id] = {
+                folders: filteredChildren.filter((c) => !c.leaf),
+                objects: filteredChildren.filter((c) => c.leaf),
+              }
+            } catch (e) {
+              console.error(`Failed to load children for id ${id}`, e)
+            } finally {
+              loadingChildsId.value = null
+            }
+          }
+        }
+      }
+    } else if (!newExpanded && expandedIds.value.length > 0) {
+      // Если параметр удален, очищаем expandedIds
+      expandedIds.value = []
+    }
+  },
+)
+
 onMounted(async () => {
   await loadRoot()
-  await restoreExpandedFromStorage()
+  await restoreExpandedFromQuery()
 })
 
 const isSelected = (id: number) => {
@@ -164,7 +219,7 @@ provide('catalogTree', {
 </script>
 
 <template>
-  <section class="h-full overflow-y-auto p-2 lg:p-2">
+  <section class="h-full overflow-y-auto">
     <h3 class="mb-3 hidden text-sm font-semibold uppercase tracking-wide text-slate-500 lg:block">
       Каталог
     </h3>

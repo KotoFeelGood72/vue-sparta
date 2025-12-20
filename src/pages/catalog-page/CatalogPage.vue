@@ -165,7 +165,7 @@ onMounted(async () => {
 
         <!-- Боковая панель каталога -->
         <div
-          class="fixed left-0 top-0 z-50 h-full w-80 transform bg-white shadow-xl transition-transform duration-300 lg:relative lg:z-auto lg:w-1/4 lg:transform-none"
+          class="fixed left-0 top-0 z-50 h-full w-80 transform bg-white transition-transform duration-300 lg:relative lg:z-auto lg:w-1/4 lg:transform-none"
           :class="{
             'translate-x-0': isCatalogOpen,
             '-translate-x-full': !isCatalogOpen,

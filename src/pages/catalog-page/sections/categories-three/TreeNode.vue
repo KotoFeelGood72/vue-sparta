@@ -30,41 +30,63 @@ const bucket = computed<TreeBucket>(() => {
 </script>
 
 <template>
-  <li class="my-0.5">
+  <li class="my-0 relative">
     <div
-      class="flex cursor-pointer items-center gap-1 rounded px-1 py-0.5 text-sm hover:bg-slate-100"
+      class="flex cursor-pointer items-center gap-0.5 rounded px-1 py-0 text-[11px] hover:bg-slate-100 relative"
       :class="{
         'bg-teal-50 text-teal-700 font-semibold': tree.isSelected(node.id),
       }"
-      :style="{ marginLeft: `${(level ?? 0) * 8}px` }"
+      :style="{
+        paddingLeft: level && level > 0 ? `${level * 16 + 4}px` : '0',
+        borderLeft: level && level > 0 ? '1px solid #cbd5e1' : 'none',
+      }"
       @click="tree.toggleNode(node)"
     >
-      <span class="inline-block w-4 text-center text-xs font-semibold">
+      <!-- Горизонтальная соединительная линия -->
+      <template v-if="level && level > 0">
+        <div
+          class="absolute left-0 top-1/2 h-px w-3 bg-slate-300"
+          :style="{ left: `${(level - 1) * 16}px` }"
+        />
+      </template>
+
+      <span class="inline-block w-3 text-center text-[10px] font-semibold relative z-10">
         <template v-if="!node.leaf">
           {{ tree.isExpanded(node.id) ? '−' : '+' }}
         </template>
       </span>
-      <span v-if="!node.leaf" class="w-4">📁</span>
-      <span v-else class="w-4">⚙️</span>
-      <span class="truncate text-xs">
+      <span v-if="!node.leaf" class="w-3 text-[12px] relative z-10">📁</span>
+      <span v-else class="w-3 text-[12px] relative z-10">⚙️</span>
+      <span class="truncate text-[11px] relative z-10">
         {{ node.text ?? node.name ?? 'Категория' }}
       </span>
     </div>
 
     <div
       v-if="tree.loadingChildsId.value === node.id"
-      class="ml-6 mt-1 text-xs text-slate-400"
+      class="mt-0.5 text-[10px] text-slate-400 relative"
+      :style="{
+        paddingLeft: `${((level ?? 0) + 1) * 16 + 8}px`,
+        borderLeft: '1px solid #cbd5e1',
+      }"
     >
       Загрузка...
     </div>
 
     <ul
       v-if="!node.leaf && tree.isExpanded(node.id)"
-      class="my-0.5 list-none p-0"
+      class="my-0 list-none p-0 relative"
     >
+      <!-- Вертикальная линия для дочерних элементов -->
+      <div
+        v-if="(bucket.folders.length > 0 || bucket.objects.length > 0) && level !== undefined"
+        class="absolute left-0 top-0 bottom-0 w-px bg-slate-300"
+        :style="{ left: `${(level ?? 0) * 16 + 8}px` }"
+      />
+
       <!-- папки -->
       <TreeNode
-        v-for="folder in bucket.folders"
+        v-for="(folder, index) in bucket.folders"
         :key="`f-${folder.id ?? folder.code ?? JSON.stringify(folder)}`"
         :node="folder"
         :level="(level ?? 0) + 1"
@@ -74,18 +96,28 @@ const bucket = computed<TreeBucket>(() => {
       <li
         v-for="obj in bucket.objects"
         :key="`o-${obj.id ?? obj.code ?? JSON.stringify(obj)}`"
-      class="my-0.5"
+        class="my-0 relative"
       >
         <div
-          class="ml-6 flex items-center gap-1 rounded px-1 py-0.5 text-sm hover:bg-slate-50"
+          class="flex items-center gap-0.5 rounded px-1 py-0 text-[11px] hover:bg-slate-50 relative"
           :class="{
             'bg-teal-50 text-teal-700 font-semibold': tree.isSelected(obj.id),
           }"
+          :style="{
+            paddingLeft: `${((level ?? 0) + 1) * 16 + 4}px`,
+            borderLeft: '1px solid #cbd5e1',
+          }"
           @click.stop="tree.toggleNode(obj)"
         >
-          <span class="inline-block w-4" />
-          <span class="w-4">⚙️</span>
-          <span class="truncate text-xs">
+          <!-- Горизонтальная соединительная линия -->
+          <div
+            class="absolute left-0 top-1/2 h-px w-3 bg-slate-300"
+            :style="{ left: `${(level ?? 0) * 16}px` }"
+          />
+
+          <span class="inline-block w-3 relative z-10" />
+          <span class="w-3 text-[12px] relative z-10">⚙️</span>
+          <span class="truncate text-[11px] relative z-10">
             {{ obj.text ?? obj.name ?? 'Объект' }}
           </span>
         </div>
