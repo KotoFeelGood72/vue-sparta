@@ -51,11 +51,11 @@ const bucket = computed<TreeBucket>(() => {
       </template>
 
       <span class="inline-block w-3 text-center text-[10px] font-semibold relative z-10">
-        <template v-if="!node.leaf">
+        <template v-if="!node.top">
           {{ tree.isExpanded(node.id) ? '−' : '+' }}
         </template>
       </span>
-      <span v-if="!node.leaf" class="w-3 text-[12px] relative z-10">📁</span>
+      <span v-if="!node.top" class="w-3 text-[12px] relative z-10">📁</span>
       <span v-else class="w-3 text-[12px] relative z-10">⚙️</span>
       <span class="truncate text-[11px] relative z-10">
         {{ node.text ?? node.name ?? 'Категория' }}
@@ -74,7 +74,7 @@ const bucket = computed<TreeBucket>(() => {
     </div>
 
     <ul
-      v-if="!node.leaf && tree.isExpanded(node.id)"
+      v-if="!node.top && tree.isExpanded(node.id)"
       class="my-0 list-none p-0 relative"
     >
       <!-- Вертикальная линия для дочерних элементов -->

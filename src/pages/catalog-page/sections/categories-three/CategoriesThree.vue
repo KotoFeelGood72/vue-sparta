@@ -12,6 +12,7 @@ const router = useRouter()
 interface CatalogNode {
   id: number
   leaf?: boolean
+  top?: boolean
   text?: string
   name?: string
   empty?: boolean
@@ -68,11 +69,15 @@ const loadExpandedFromQuery = (): number[] => {
 const toggleNode = async (node: CatalogNode) => {
   const id = node.id as number
 
-  // если это лист (leaf === true) — это уже объект, просто выбираем его
-  if (node.leaf) {
+  // если это конечная деталь (top === true) — это уже объект, просто выбираем его
+  if (node.top) {
     emit('select-object', node)
     return
   }
+
+  // если это leaf без top, то это папка которая может содержать список категорий/деталей
+  // если это не leaf, то это обычная папка
+  // в обоих случаях можем загружать детей
 
   // уже раскрыт — свернуть
   if (isExpanded(id)) {
@@ -93,8 +98,8 @@ const toggleNode = async (node: CatalogNode) => {
       const filteredChildren = (children || []).filter((c: CatalogNode) => !c.empty)
 
       childsByParent.value[id] = {
-        folders: filteredChildren.filter((c) => !c.leaf),
-        objects: filteredChildren.filter((c) => c.leaf),
+        folders: filteredChildren.filter((c) => !c.top), // папки и leaf без top
+        objects: filteredChildren.filter((c) => c.top), // конечные детали (top === true)
       }
     }
 
@@ -140,8 +145,8 @@ const restoreExpandedFromQuery = async () => {
         const filteredChildren = (children || []).filter((c: CatalogNode) => !c.empty)
 
         childsByParent.value[id] = {
-          folders: filteredChildren.filter((c) => !c.leaf),
-          objects: filteredChildren.filter((c) => c.leaf),
+          folders: filteredChildren.filter((c) => !c.top), // папки и leaf без top
+          objects: filteredChildren.filter((c) => c.top), // конечные детали (top === true)
         }
       }
     } catch (e) {
@@ -178,11 +183,11 @@ watch(
             try {
               loadingChildsId.value = id
               const children = (await catalogStore.getChilds(String(id))) as CatalogNode[] | null
-              const filteredChildren = (children || []).filter((c: CatalogNode) => !c.empty)
-              childsByParent.value[id] = {
-                folders: filteredChildren.filter((c) => !c.leaf),
-                objects: filteredChildren.filter((c) => c.leaf),
-              }
+        const filteredChildren = (children || []).filter((c: CatalogNode) => !c.empty)
+        childsByParent.value[id] = {
+          folders: filteredChildren.filter((c) => !c.top), // папки и leaf без top
+          objects: filteredChildren.filter((c) => c.top), // конечные детали (top === true)
+        }
             } catch (e) {
               console.error(`Failed to load children for id ${id}`, e)
             } finally {

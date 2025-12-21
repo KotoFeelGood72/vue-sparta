@@ -29,3 +29,4 @@ const { rating = 5, maxRating = 5 } = defineProps<{
 
 
 
+
