@@ -9,10 +9,12 @@ const { agregates } = defineProps<{ agregates: DefaultCardModel[] }>();
 
 <template>
   <div class="agregates-section">
-    <div class="container">
-      <SectionHead title="Агрегаты" buttonText="смотреть все" class="mb-3"/>
-      <ul class="grid lg:grid-cols-3 lg:gap-10">
-        <li v-for="agregate in agregates" :key="agregate.id">
+    <div class="agregates-section__container">
+      <div class="agregates-section__header">
+        <SectionHead title="Агрегаты" buttonText="смотреть все"/>
+      </div>
+      <ul class="agregates-section__list">
+        <li v-for="agregate in agregates" :key="agregate.id" class="agregates-section__item">
           <DefaultCard v-bind="agregate"/>
         </li>
       </ul>
@@ -20,3 +22,35 @@ const { agregates } = defineProps<{ agregates: DefaultCardModel[] }>();
   </div>
 </template>
 
+<style scoped lang="scss">
+@import '@/styles/variables';
+
+.agregates-section {
+  &__container {
+    max-width: 1187px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+
+  &__header {
+    margin-bottom: 12px;
+  }
+
+  &__list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  &__item {
+    margin: 0;
+  }
+}
+</style>

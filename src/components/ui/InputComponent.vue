@@ -14,22 +14,56 @@ export interface InputComponentModel {
 const model = defineModel<string>('modelValue', { required: true });
 const { placeholder, type, id, name, required, size } = defineProps<InputComponentModel>();
 
-const sizeClass = computed(() => {
-  switch (size) {
-    case 'small':
-      return 'py-4 px-6';
-    case 'medium':
-      return 'py-7 px-11';
-    case 'large':
-      return 'h-[89px] text-18 leading-none';
-    default:
-      return 'py-7 px-11';
-  }
+const inputClasses = computed(() => {
+  const classes = ['input'];
+  classes.push(`input--${size}`);
+  return classes;
 });
 </script>
 
 <template>
   <div class="input-component">
-    <input :type="type" :placeholder="placeholder" v-model="model" :id="id" :name="name" :required="required" :class="[sizeClass, 'w-full h-full bg-[#EFEFEF] py-7 px-11 rounded-full']">
+    <input
+      :type="type"
+      :placeholder="placeholder"
+      v-model="model"
+      :id="id"
+      :name="name"
+      :required="required"
+      :class="inputClasses"
+    >
   </div>
 </template>
+
+<style scoped lang="scss">
+@import '@/styles/variables';
+
+.input-component {
+  width: 100%;
+  height: 100%;
+}
+
+.input {
+  width: 100%;
+  height: 100%;
+  background-color: $color-page-bg;
+  border-radius: 9999px;
+  border: none;
+  outline: none;
+
+  &--small {
+    padding: 16px 24px;
+  }
+
+  &--medium {
+    padding: 28px 44px;
+  }
+
+  &--large {
+    height: 89px;
+    padding: 0 44px;
+    font-size: $font-size-18;
+    line-height: 1;
+  }
+}
+</style>

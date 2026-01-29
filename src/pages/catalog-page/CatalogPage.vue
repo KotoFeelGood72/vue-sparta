@@ -144,44 +144,43 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="">
-    <div class="container py-4 md:py-8">
+  <div class="catalog-page">
+    <div class="catalog-page__container">
       <!-- Кнопка для открытия каталога на мобильных -->
       <button
-        class="mb-4 flex w-full items-center justify-between rounded-md bg-white px-4 py-3 shadow-sm lg:hidden"
+        class="catalog-page__toggle-button"
         @click="toggleCatalog"
       >
-        <span class="text-sm font-semibold text-slate-700">Каталог</span>
-        <span class="text-lg">{{ isCatalogOpen ? '−' : '+' }}</span>
+        <span class="catalog-page__toggle-text">Каталог</span>
+        <span class="catalog-page__toggle-icon">{{ isCatalogOpen ? '−' : '+' }}</span>
       </button>
 
-      <div class="flex flex-col gap-2 bg-white rounded-md p-2 lg:flex-row lg:h-[90dvh]">
+      <div class="catalog-page__content">
         <!-- Overlay для мобильных -->
         <div
           v-if="isCatalogOpen"
-          class="fixed inset-0 z-40 bg-black/50 lg:hidden"
+          class="catalog-page__overlay"
           @click="isCatalogOpen = false"
         />
 
         <!-- Боковая панель каталога -->
         <div
-          class="fixed left-0 top-0 z-50 h-full w-80 transform bg-white transition-transform duration-300 lg:relative lg:z-auto lg:w-1/4 lg:transform-none"
+          class="catalog-page__sidebar"
           :class="{
-            'translate-x-0': isCatalogOpen,
-            '-translate-x-full': !isCatalogOpen,
+            'catalog-page__sidebar--open': isCatalogOpen,
           }"
         >
-          <div class="flex h-full flex-col">
-            <div class="flex items-center justify-between border-b p-4 lg:hidden">
-              <h3 class="text-lg font-semibold">Каталог</h3>
+          <div class="catalog-page__sidebar-inner">
+            <div class="catalog-page__sidebar-header">
+              <h3 class="catalog-page__sidebar-title">Каталог</h3>
               <button
-                class="text-2xl"
+                class="catalog-page__sidebar-close"
                 @click="isCatalogOpen = false"
               >
                 ×
               </button>
             </div>
-            <div class="flex-1 overflow-hidden">
+            <div class="catalog-page__sidebar-content">
               <CategoriesThree
                 :selected-object-id="selectedLeaf?.id"
                 @select-object="handleSelectObjectWithClose"
@@ -191,77 +190,274 @@ onMounted(async () => {
         </div>
 
         <!-- Основной контент -->
-        <div class="flex flex-1 flex-col gap-4 min-h-0">
-          <div class="min-h-[260px] flex-1 overflow-auto rounded-md lg:max-h-[100dvh]">
-          <div
-            v-if="!selectedLeaf"
-            class="text-sm text-slate-500"
-          >
-            Выберите объект (шестерёнку) слева или воспользуйтесь поиском сверху.
-          </div>
-
-          <div
-            v-else
-            class="flex flex-col gap-3"
-          >
-            <h3 class="text-base font-semibold text-slate-900">
-              {{ selectedLeaf.text ?? selectedLeaf.name }}
-            </h3>
-
+        <div class="catalog-page__main">
+          <div class="catalog-page__main-content">
             <div
-              v-if="loadingObject"
-              class="text-sm text-slate-500"
+              v-if="!selectedLeaf"
+              class="catalog-page__empty"
             >
-              Загрузка содержимого...
+              Выберите объект (шестерёнку) слева или воспользуйтесь поиском сверху.
             </div>
 
             <div
-              v-else-if="error"
-              class="text-sm text-red-500"
+              v-else
+              class="catalog-page__object-content"
             >
-              {{ error }}
-            </div>
-
-            <template v-else-if="objectDetails">
-              <ObjectBreadcrumbs :path="objectDetails.path" />
+              <h3 class="catalog-page__object-title">
+                {{ selectedLeaf.text ?? selectedLeaf.name }}
+              </h3>
 
               <div
-                v-if="objectDetails.part && objectDetails.part.length"
-                class="mt-2 flex flex-col gap-4 lg:grid lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]"
+                v-if="loadingObject"
+                class="catalog-page__loading"
               >
-                <div class="lg:sticky lg:top-4 lg:self-start">
-                  <ObjectImages
-                    :images="objectDetails.image"
+                Загрузка содержимого...
+              </div>
+
+              <div
+                v-else-if="error"
+                class="catalog-page__error"
+              >
+                {{ error }}
+              </div>
+
+              <template v-else-if="objectDetails">
+                <ObjectBreadcrumbs :path="objectDetails.path" />
+
+                <div
+                  v-if="objectDetails.part && objectDetails.part.length"
+                  class="catalog-page__object-details"
+                >
+                  <div class="catalog-page__images-wrapper">
+                    <ObjectImages
+                      :images="objectDetails.image"
+                      :is-selected-item="isSelectedItem"
+                      :toggle-selected-item="toggleSelectedItem"
+                    />
+                  </div>
+
+                  <ObjectPartsTable
+                    :rows="objectDetails.part"
                     :is-selected-item="isSelectedItem"
                     :toggle-selected-item="toggleSelectedItem"
                   />
                 </div>
 
-                <ObjectPartsTable
-                  :rows="objectDetails.part"
-                  :is-selected-item="isSelectedItem"
-                  :toggle-selected-item="toggleSelectedItem"
-                />
-              </div>
+                <div
+                  v-else
+                  class="catalog-page__empty"
+                >
+                  Нет деталей для этого объекта
+                </div>
+              </template>
 
               <div
                 v-else
-                class="text-sm text-slate-500"
+                class="catalog-page__empty"
               >
-                Нет деталей для этого объекта
+                Нет данных по этому объекту
               </div>
-            </template>
-
-            <div
-              v-else
-              class="text-sm text-slate-500"
-            >
-              Нет данных по этому объекту
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 </template>
+
+<style scoped lang="scss">
+@import '@/styles/variables';
+
+.catalog-page {
+  &__container {
+    max-width: 1187px;
+    margin: 0 auto;
+    padding: 0 16px;
+    padding-top: 16px;
+    padding-bottom: 32px;
+
+    @media (min-width: 768px) {
+      padding-top: 32px;
+    }
+  }
+
+  &__toggle-button {
+    margin-bottom: 16px;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 6px;
+    background-color: $color-white;
+    padding: 12px 16px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    border: none;
+    cursor: pointer;
+
+    @media (min-width: 1024px) {
+      display: none;
+    }
+  }
+
+  &__toggle-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: #334155;
+  }
+
+  &__toggle-icon {
+    font-size: 18px;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background-color: $color-white;
+    border-radius: 6px;
+    padding: 8px;
+
+    @media (min-width: 1024px) {
+      flex-direction: row;
+      height: 90dvh;
+    }
+  }
+
+  &__overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    background-color: rgba(0, 0, 0, 0.5);
+
+    @media (min-width: 1024px) {
+      display: none;
+    }
+  }
+
+  &__sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 50;
+    height: 100%;
+    width: 320px;
+    transform: translateX(-100%);
+    background-color: $color-white;
+    transition: transform 0.3s;
+
+    @media (min-width: 1024px) {
+      position: relative;
+      z-index: auto;
+      width: 25%;
+      transform: none;
+    }
+
+    &--open {
+      transform: translateX(0);
+    }
+  }
+
+  &__sidebar-inner {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+  }
+
+  &__sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 16px;
+
+    @media (min-width: 1024px) {
+      display: none;
+    }
+  }
+
+  &__sidebar-title {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  &__sidebar-close {
+    font-size: 24px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+  }
+
+  &__sidebar-content {
+    flex: 1;
+    overflow: hidden;
+  }
+
+  &__main {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 16px;
+    min-height: 0;
+  }
+
+  &__main-content {
+    min-height: 260px;
+    flex: 1;
+    overflow: auto;
+    border-radius: 6px;
+
+    @media (min-width: 1024px) {
+      max-height: 100dvh;
+    }
+  }
+
+  &__empty {
+    font-size: 14px;
+    color: #64748b;
+  }
+
+  &__object-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__object-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #0f172a;
+  }
+
+  &__loading {
+    font-size: 14px;
+    color: #64748b;
+  }
+
+  &__error {
+    font-size: 14px;
+    color: #ef4444;
+  }
+
+  &__object-details {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    @media (min-width: 1024px) {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    }
+  }
+
+  &__images-wrapper {
+    @media (min-width: 1024px) {
+      position: sticky;
+      top: 16px;
+      align-self: flex-start;
+    }
+  }
+}
+</style>

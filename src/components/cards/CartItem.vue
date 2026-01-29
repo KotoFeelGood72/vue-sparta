@@ -32,28 +32,29 @@ const total = computed(() => props.price * props.quantity);
 </script>
 
 <template>
-  <div class="cart-item bg-white h-[136px] flex items-center px-8 relative flex-grow">
-    <div class="flex items-center gap-6 flex-grow min-w-[230px]">
-      <div class="w-[82px] h-[82px] rounded-[10px] overflow-hidden flex-shrink-0">
-        <img :src="image" :alt="title" class="w-full h-full object-cover">
+  <div class="cart-item">
+    <div class="cart-item__content">
+      <div class="cart-item__image-wrapper">
+        <img :src="image" :alt="title" class="cart-item__image">
       </div>
-      <p class="text-18 font-normal text-[#131211] leading-[26px] line-clamp-3">{{ title }}</p>
+      <p class="cart-item__title">{{ title }}</p>
     </div>
 
-    <div class="flex items-center gap-8 flex-shrink-0">
-      <div class="w-[104px] text-right">
-        <p class="text-20 font-bold text-[#20191d] leading-[30px]">{{ price.toLocaleString('ru-RU') }} р</p>
+    <div class="cart-item__actions">
+      <div class="cart-item__price-block">
+        <p class="cart-item__price">{{ price.toLocaleString('ru-RU') }} р</p>
       </div>
 
       <QtyInput v-model="quantityModel" />
 
-      <div class="w-[104px] text-right">
-        <p class="text-20 font-bold text-[#20191d] leading-[30px]">{{ total.toLocaleString('ru-RU') }}р</p>
+      <div class="cart-item__total-block">
+        <p class="cart-item__total">{{ total.toLocaleString('ru-RU') }}р</p>
       </div>
 
       <button
         @click="removeItem"
-        class="w-[15px] h-[15px] flex items-center justify-center hover:opacity-70 transition-opacity flex-shrink-0"
+        class="cart-item__remove-button"
+        aria-label="Удалить товар"
       >
         <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M1 1L14 14M14 1L1 14" stroke="black" stroke-width="2" stroke-linecap="round"/>
@@ -62,7 +63,102 @@ const total = computed(() => props.price * props.quantity);
     </div>
 
     <!-- Разделитель -->
-    <div v-if="!isLast" class="absolute bottom-0 left-0 right-0 h-px bg-gray-200"></div>
+    <div v-if="!isLast" class="cart-item__divider"></div>
   </div>
 </template>
 
+<style scoped lang="scss">
+@import '@/styles/variables';
+
+.cart-item {
+  background-color: $color-white;
+  height: 136px;
+  display: flex;
+  align-items: center;
+  padding: 0 32px;
+  position: relative;
+  flex-grow: 1;
+
+  &__content {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-grow: 1;
+    min-width: 230px;
+  }
+
+  &__image-wrapper {
+    width: 82px;
+    height: 82px;
+    border-radius: 10px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__title {
+    font-size: $font-size-18;
+    line-height: $line-height-18;
+    font-weight: 400;
+    color: $color-dark;
+    line-height: 26px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    flex-shrink: 0;
+  }
+
+  &__price-block,
+  &__total-block {
+    width: 104px;
+    text-align: right;
+  }
+
+  &__price,
+  &__total {
+    font-size: $font-size-20;
+    line-height: $line-height-20;
+    font-weight: 700;
+    color: $color-dark;
+    line-height: 30px;
+  }
+
+  &__remove-button {
+    width: 15px;
+    height: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: opacity 0.2s;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  &__divider {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: #e5e7eb;
+  }
+}
+</style>

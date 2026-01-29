@@ -15,13 +15,13 @@ defineProps<{
 
 <template>
   <div class="category-sidebar">
-    <ul class="space-y-3">
-      <li v-for="category in categories" :key="category.id">
+    <ul class="category-sidebar__list">
+      <li v-for="category in categories" :key="category.id" class="category-sidebar__item">
         <RouterLink
           :to="`/shop/${category.slug}`"
           :class="[
-            'category-item block px-5 py-3.5 rounded-[10px] text-14 text-gray transition-colors font-medium bg-white',
-            category.isActive ? 'border-yellow border' : 'hover:text-yellow'
+            'category-sidebar__link',
+            category.isActive ? 'category-sidebar__link--active' : ''
           ]"
         >
           {{ category.title }}
@@ -31,9 +31,46 @@ defineProps<{
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+@import '@/styles/variables';
+
 .category-sidebar {
   min-width: 282px;
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__item {
+    margin: 0;
+  }
+
+  &__link {
+    display: block;
+    padding: 14px 20px;
+    border-radius: 10px;
+    font-size: $font-size-14;
+    line-height: $line-height-14;
+    color: $color-gray;
+    transition: color 0.2s;
+    font-weight: 500;
+    background-color: $color-white;
+    text-decoration: none;
+    border: 1px solid transparent;
+
+    &:hover {
+      color: $color-yellow;
+    }
+
+    &--active {
+      border-color: $color-yellow;
+    }
+  }
 }
 </style>
 

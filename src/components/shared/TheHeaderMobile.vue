@@ -67,53 +67,52 @@ const handleTelegram = () => {
 </script>
 
 <template>
-  <header>
+  <header class="header-mobile">
     <!-- Верхняя секция (темно-серая) -->
-    <div class="top bg-dark py-3">
-      <div class="container flex justify-between items-center">
+    <div class="header-mobile__top">
+      <div class="header-mobile__top-inner">
         <!-- Логотип слева -->
-        <RouterLink to="/" class="flex-shrink-0 w-[70px]">
-          <LogoIcon />
+        <RouterLink to="/" class="header-mobile__logo-link">
+          <LogoIcon class="header-mobile__logo"/>
         </RouterLink>
 
         <!-- Центр: телефон и ссылка -->
-        <div class="flex flex-col items-center flex-1">
-          <div class="flex items-center gap-2">
-            <FooterPhoneIcon class="flex items-center justify-center w-3.5 h-3.5"/>
-            <a :href="`tel:${props.phone.replace(/\s/g, '')}`" class="text-white text-14 font-semibold hover:text-yellow transition-colors">
+        <div class="header-mobile__center">
+          <div class="header-mobile__phone-block">
+            <FooterPhoneIcon class="header-mobile__phone-icon"/>
+            <a :href="`tel:${props.phone.replace(/\s/g, '')}`" class="header-mobile__phone-link">
               {{ props.phone }}
             </a>
-
-          <div class="flex items-center gap-2">
-            <button
-            @click="handleWhatsApp"
-            class="flex items-center justify-center hover:opacity-80 transition-opacity w-4 h-4"
-            aria-label="WhatsApp"
-          >
-            <WhatsappIcon />
-          </button>
-          <button
-            @click="handleTelegram"
-            class="flex items-center justify-center hover:opacity-80 transition-opacity w-4 h-4"
-            aria-label="Telegram"
-          >
-            <TelegramIcon />
-          </button>
-          </div>
+            <div class="header-mobile__socials">
+              <button
+                @click="handleWhatsApp"
+                class="header-mobile__social-button"
+                aria-label="WhatsApp"
+              >
+                <WhatsappIcon />
+              </button>
+              <button
+                @click="handleTelegram"
+                class="header-mobile__social-button"
+                aria-label="Telegram"
+              >
+                <TelegramIcon />
+              </button>
+            </div>
           </div>
           <button
             @click="emit('callBackClick')"
-            class="text-yellow text-12 underline hover:no-underline transition-all"
+            class="header-mobile__callback-button"
           >
             Заказать звонок
           </button>
         </div>
 
-        <!-- Справа: соцсети и поиск -->
-        <div class="flex items-center gap-2.5 flex-shrink-0">
+        <!-- Справа: поиск -->
+        <div class="header-mobile__right">
           <button
             @click="emit('searchClick')"
-            class="flex items-center justify-center hover:opacity-80 transition-opacity"
+            class="header-mobile__search-button"
             aria-label="Поиск"
           >
             <MobileSearch />
@@ -123,37 +122,37 @@ const handleTelegram = () => {
     </div>
 
     <!-- Нижняя секция (белая) -->
-    <div class="bottom bg-white py-3">
-      <div class="container flex justify-between items-center">
+    <div class="header-mobile__bottom">
+      <div class="header-mobile__bottom-inner">
         <!-- Слева: местоположение -->
-        <div class="flex items-center gap-2">
-          <AddressIcon />
-          <span class="text-gray text-14 font-light">{{ props.address }}</span>
+        <div class="header-mobile__location">
+          <AddressIcon class="header-mobile__location-icon"/>
+          <span class="header-mobile__location-text">{{ props.address }}</span>
         </div>
 
         <!-- Центр: корзина -->
         <RouterLink
           :to="props.cartLink"
           @click="emit('cartClick')"
-          class="flex items-center gap-2 hover:opacity-80 transition-opacity"
+          class="header-mobile__cart-link"
         >
-          <CartIcon />
-          <span v-if="displayCartCount" class="text-gray text-14 font-bold">{{ displayCartCount }}</span>
+          <CartIcon class="header-mobile__cart-icon"/>
+          <span v-if="displayCartCount" class="header-mobile__cart-count">{{ displayCartCount }}</span>
         </RouterLink>
 
         <!-- Справа: профиль и меню -->
-        <div class="flex items-center gap-2.5">
+        <div class="header-mobile__actions">
           <RouterLink
             :to="props.profileLink"
             @click="emit('profileClick')"
-            class="flex items-center gap-2 hover:opacity-80 transition-opacity"
+            class="header-mobile__profile-link"
           >
-            <ProfileIcon />
-            <span class="text-gray text-14 font-light">{{ profileText }}</span>
+            <ProfileIcon class="header-mobile__profile-icon"/>
+            <span class="header-mobile__profile-text">{{ profileText }}</span>
           </RouterLink>
           <button
             @click="emit('menuClick')"
-            class="flex items-center justify-center hover:opacity-80 transition-opacity"
+            class="header-mobile__menu-button"
             aria-label="Меню"
           >
             <MenuIcon />
@@ -164,12 +163,224 @@ const handleTelegram = () => {
   </header>
 </template>
 
-<style scoped>
-.top {
-  min-height: 60px;
-}
+<style scoped lang="scss">
+@import '@/styles/variables';
 
-.bottom {
-  min-height: 50px;
+.header-mobile {
+  &__top {
+    background-color: $color-dark;
+    padding: 12px 0;
+    min-height: 60px;
+  }
+
+  &__bottom {
+    background-color: $color-white;
+    padding: 12px 0;
+    min-height: 50px;
+  }
+
+  &__top-inner,
+  &__bottom-inner {
+    max-width: 1187px;
+    margin: 0 auto;
+    padding: 0 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__logo-link {
+    flex-shrink: 0;
+    width: 70px;
+    display: inline-block;
+  }
+
+  &__logo {
+    display: block;
+    width: 100%;
+  }
+
+  &__center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+  }
+
+  &__phone-block {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+
+  &__phone-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+  }
+
+  &__phone-link {
+    color: $color-white;
+    font-size: $font-size-14;
+    line-height: $line-height-14;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s;
+
+    &:hover {
+      color: $color-yellow;
+    }
+  }
+
+  &__socials {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 8px;
+  }
+
+  &__social-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &__callback-button {
+    color: $color-yellow;
+    font-size: $font-size-12;
+    line-height: $line-height-12;
+    text-decoration: underline;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  &__search-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &__location {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__location-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__location-text {
+    color: $color-gray;
+    font-size: $font-size-14;
+    line-height: $line-height-14;
+    font-weight: 300;
+  }
+
+  &__cart-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: opacity 0.2s;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &__cart-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__cart-count {
+    color: $color-gray;
+    font-size: $font-size-14;
+    line-height: $line-height-14;
+    font-weight: 700;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__profile-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: opacity 0.2s;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &__profile-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__profile-text {
+    color: $color-gray;
+    font-size: $font-size-14;
+    line-height: $line-height-14;
+    font-weight: 300;
+  }
+
+  &__menu-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
 }
 </style>

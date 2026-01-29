@@ -18,21 +18,89 @@ const icons = computed(() => {
 
 <template>
   <div class="icons-page">
-    <div class="container py-8">
-      <h1 class="text-3xl font-bold mb-8">Все иконки</h1>
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+    <div class="icons-page__container">
+      <h1 class="icons-page__title">Все иконки</h1>
+      <div class="icons-page__grid">
         <div
           v-for="icon in icons"
           :key="icon.name"
-          class="flex flex-col items-center justify-center p-6 border border-gray-200 rounded-lg hover:shadow-lg transition-shadow"
+          class="icons-page__item"
         >
-          <div class="mb-4 flex items-center justify-center min-h-[80px]">
+          <div class="icons-page__icon-wrapper">
             <component :is="icon.component" />
           </div>
-          <p class="text-sm text-gray-600 text-center font-mono">{{ icon.name }}</p>
+          <p class="icons-page__icon-name">{{ icon.name }}</p>
         </div>
       </div>
     </div>
   </div>
 </template>
+
+<style scoped lang="scss">
+@import '@/styles/variables';
+
+.icons-page {
+  &__container {
+    max-width: 1187px;
+    margin: 0 auto;
+    padding: 0 16px;
+    padding-top: 32px;
+    padding-bottom: 32px;
+  }
+
+  &__title {
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 32px;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    @media (min-width: 1200px) {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    transition: box-shadow 0.2s;
+
+    &:hover {
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+  }
+
+  &__icon-wrapper {
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80px;
+  }
+
+  &__icon-name {
+    font-size: 14px;
+    color: #4b5563;
+    text-align: center;
+    font-family: monospace;
+  }
+}
+</style>
 

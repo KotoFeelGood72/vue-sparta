@@ -8,63 +8,233 @@ import EnvelopeIcon from '../icons/EnvelopeIcon.vue';
 </script>
 
 <template>
-  <footer class="footer text-white pt-32 pb-20" >
-    <div class="container flex justify-between gap-36 mb-16">
-      <div class="flex items-start flex-col gap-2.5">
-        <RouterLink to="/" ><LogoIcon/></RouterLink>
-        <span class="text-18 font-light">ООО “Спарт”</span>
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__logo-block">
+        <RouterLink to="/" class="footer__logo-link">
+          <LogoIcon/>
+        </RouterLink>
+        <span class="footer__company-name">ООО "Спарт"</span>
       </div>
-      <div class="flex gap-36 text-16 font-light">
-        <ul class="flex flex-col gap-2.5">
-          <li><RouterLink to="/">Каталоги</RouterLink></li>
-          <li><RouterLink to="/">Запчасти</RouterLink></li>
-          <li><RouterLink to="/">Агрегаты</RouterLink></li>
-          <li><RouterLink to="/">Ремонт</RouterLink></li>
-          <li><RouterLink to="/">Спецтехника</RouterLink></li>
+      <div class="footer__nav">
+        <ul class="footer__nav-list">
+          <li class="footer__nav-item"><RouterLink to="/" class="footer__nav-link">Каталоги</RouterLink></li>
+          <li class="footer__nav-item"><RouterLink to="/" class="footer__nav-link">Запчасти</RouterLink></li>
+          <li class="footer__nav-item"><RouterLink to="/" class="footer__nav-link">Агрегаты</RouterLink></li>
+          <li class="footer__nav-item"><RouterLink to="/" class="footer__nav-link">Ремонт</RouterLink></li>
+          <li class="footer__nav-item"><RouterLink to="/" class="footer__nav-link">Спецтехника</RouterLink></li>
         </ul>
-        <ul class="flex flex-col gap-2.5">
-          <li><RouterLink to="/">Марки машин</RouterLink></li>
-          <li><RouterLink to="/">Экспресс-доставка</RouterLink></li>
-          <li><RouterLink to="/">О компании</RouterLink></li>
-          <li><RouterLink to="/">Контакты</RouterLink></li>
+        <ul class="footer__nav-list">
+          <li class="footer__nav-item"><RouterLink to="/" class="footer__nav-link">Марки машин</RouterLink></li>
+          <li class="footer__nav-item"><RouterLink to="/" class="footer__nav-link">Экспресс-доставка</RouterLink></li>
+          <li class="footer__nav-item"><RouterLink to="/" class="footer__nav-link">О компании</RouterLink></li>
+          <li class="footer__nav-item"><RouterLink to="/" class="footer__nav-link">Контакты</RouterLink></li>
         </ul>
       </div>
-      <div class="max-w-[292px] text-right">
-        <div class="flex flex-col items-end gap-2.5">
-          <div class="flex items-center gap-4">
-            <a href="#" class="flex items-center gap-2.5 text-20 font-bold leading-none">
-              <FooterPhoneIcon/>
+      <div class="footer__contacts">
+        <div class="footer__contacts-block">
+          <div class="footer__phone-block">
+            <a href="#" class="footer__phone-link">
+              <FooterPhoneIcon class="footer__phone-icon"/>
               <span>+7 966 032 02 30</span>
             </a>
-            <a href="#">
+            <a href="#" class="footer__social-link">
               <WhatsappIcon/>
             </a>
-            <a href="#">
+            <a href="#" class="footer__social-link">
               <TelegramIcon/>
             </a>
           </div>
-          <p class="text-14 font-bold text-yellow underline cursor-pointer">Заказать звонок</p>
+          <p class="footer__callback-link">Заказать звонок</p>
         </div>
-        <a href="#" class="flex items-center justify-end gap-2.5 my-8">
-          <EnvelopeIcon/>
+        <a href="#" class="footer__email-link">
+          <EnvelopeIcon class="footer__email-icon"/>
           <span>info@spart.pro</span>
         </a>
-        <div class="flex gap-2.5 justify-end">
-          <MarkerIcon class="mt-1"/>
-          <span class="max-w-[259px] flex">Приморский край, г.  Владивосток,  ул. Снеговая, д. 64</span>
+        <div class="footer__address-block">
+          <MarkerIcon class="footer__address-icon"/>
+          <span class="footer__address-text">Приморский край, г.  Владивосток,  ул. Снеговая, д. 64</span>
         </div>
       </div>
     </div>
-    <div class="text-center text-16 font-light">© ООО Спарт.  Все права защищены. 2025</div>
+    <div class="footer__copyright">© ООО Спарт.  Все права защищены. 2025</div>
   </footer>
 </template>
 
+<style scoped lang="scss">
+@import '@/styles/variables';
 
-<style scoped>
 .footer {
   background-image: url('/images/footer.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  color: $color-white;
+  padding-top: 128px;
+  padding-bottom: 80px;
+
+  &__inner {
+    max-width: 1187px;
+    margin: 0 auto;
+    padding: 0 16px;
+    display: flex;
+    justify-content: space-between;
+    gap: 144px;
+    margin-bottom: 64px;
+  }
+
+  &__logo-block {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__logo-link {
+    display: inline-block;
+  }
+
+  &__company-name {
+    font-size: $font-size-18;
+    line-height: $line-height-18;
+    font-weight: 300;
+  }
+
+  &__nav {
+    display: flex;
+    gap: 144px;
+    font-size: $font-size-16;
+    line-height: $line-height-16;
+    font-weight: 300;
+  }
+
+  &__nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__nav-item {
+    margin: 0;
+  }
+
+  &__nav-link {
+    color: $color-white;
+    text-decoration: none;
+    transition: opacity 0.2s;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &__contacts {
+    max-width: 292px;
+    text-align: right;
+  }
+
+  &__contacts-block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+
+  &__phone-block {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  &__phone-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: $font-size-20;
+    line-height: $line-height-20;
+    font-weight: 700;
+    line-height: 1;
+    color: $color-white;
+    text-decoration: none;
+  }
+
+  &__phone-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &__callback-link {
+    font-size: $font-size-14;
+    line-height: $line-height-14;
+    font-weight: 700;
+    color: $color-yellow;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: opacity 0.2s;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &__email-link {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 32px;
+    color: $color-white;
+    text-decoration: none;
+    transition: opacity 0.2s;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &__email-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__address-block {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+  }
+
+  &__address-icon {
+    margin-top: 4px;
+    flex-shrink: 0;
+  }
+
+  &__address-text {
+    max-width: 259px;
+    display: flex;
+  }
+
+  &__copyright {
+    text-align: center;
+    font-size: $font-size-16;
+    line-height: $line-height-16;
+    font-weight: 300;
+  }
 }
 </style>

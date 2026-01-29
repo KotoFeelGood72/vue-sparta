@@ -224,20 +224,20 @@ provide('catalogTree', {
 </script>
 
 <template>
-  <section class="h-full overflow-y-auto">
-    <h3 class="mb-3 hidden text-sm font-semibold uppercase tracking-wide text-slate-500 lg:block">
+  <section class="categories-three">
+    <h3 class="categories-three__title">
       Каталог
     </h3>
 
-    <div v-if="loadingRoot" class="text-sm text-slate-500">
+    <div v-if="loadingRoot" class="categories-three__loading">
       Загрузка категорий...
     </div>
 
-    <div v-else-if="error" class="text-sm text-red-500">
+    <div v-else-if="error" class="categories-three__error">
       {{ error }}
     </div>
 
-    <ul v-else class="list-none p-0 m-0">
+    <ul v-else class="categories-three__list">
       <TreeNode
         v-for="root in rootItems"
         :key="root.id"
@@ -248,3 +248,41 @@ provide('catalogTree', {
   </section>
 </template>
 
+<style scoped lang="scss">
+@import '@/styles/variables';
+
+.categories-three {
+  height: 100%;
+  overflow-y: auto;
+
+  &__title {
+    margin-bottom: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #64748b;
+    display: none;
+
+    @media (min-width: 1024px) {
+      display: block;
+    }
+  }
+
+  &__loading {
+    font-size: 14px;
+    color: #64748b;
+  }
+
+  &__error {
+    font-size: 14px;
+    color: #ef4444;
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+}
+</style>

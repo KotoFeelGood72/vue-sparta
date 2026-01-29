@@ -12,23 +12,48 @@ const props = defineProps<{
 <template>
   <nav
     v-if="props.path && props.path.length"
-    class="flex flex-wrap gap-1 text-xs text-slate-500"
+    class="object-breadcrumbs"
   >
     <span
       v-for="(crumb, index) in props.path"
       :key="crumb.id ?? index"
-      class="flex items-center"
+      class="object-breadcrumbs__item"
     >
-      <span>{{ crumb.text }}</span>
+      <span class="object-breadcrumbs__text">{{ crumb.text }}</span>
       <span
         v-if="index < props.path.length - 1"
-        class="mx-0.5"
+        class="object-breadcrumbs__separator"
       >
         /
       </span>
     </span>
   </nav>
 </template>
+
+<style scoped lang="scss">
+@import '@/styles/variables';
+
+.object-breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  font-size: 12px;
+  color: #64748b;
+
+  &__item {
+    display: flex;
+    align-items: center;
+  }
+
+  &__text {
+    display: inline-block;
+  }
+
+  &__separator {
+    margin: 0 2px;
+  }
+}
+</style>
 
 
 

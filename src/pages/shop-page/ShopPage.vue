@@ -83,19 +83,18 @@ const loadMore = () => {
 </script>
 
 <template>
-  <div class="shop-page bg-[#EFEFEF] pb-24">
-    <div class="container">
-      <div class="flex gap-8 pt-10">
+  <div class="shop-page">
+    <div class="shop-page__container">
+      <div class="shop-page__content">
         <!-- Боковая панель с категориями -->
-        <aside class="flex-shrink-0">
+        <aside class="shop-page__sidebar">
           <CategorySidebar :categories="categories" />
         </aside>
 
         <!-- Основной контент -->
-        <main class="flex-1">
-
+        <main class="shop-page__main">
           <!-- Сетка товаров -->
-          <div class="grid lg:grid-cols-3 gap-6 mb-10">
+          <div class="shop-page__grid">
             <ProductCard
               v-for="product in products"
               :key="product.id"
@@ -109,26 +108,73 @@ const loadMore = () => {
             />
           </div>
 
-          <div class="flex items-center justify-center">
+          <div class="shop-page__load-more">
             <ButtonComponent
               text="Загрузить еще"
               size="small"
               variant="primary"
-              class="uppercase text-16 font-semibold"
+              custom-class="shop-page__load-button"
               :icon="ChevronButtonIcon"
               @click="loadMore"
             />
           </div>
-
         </main>
       </div>
     </div>
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+@import '@/styles/variables';
+
 .shop-page {
+  background-color: $color-page-bg;
+  padding-bottom: 96px;
   min-height: calc(100vh - 200px);
+
+  &__container {
+    max-width: 1187px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+
+  &__content {
+    display: flex;
+    gap: 32px;
+    padding-top: 40px;
+  }
+
+  &__sidebar {
+    flex-shrink: 0;
+  }
+
+  &__main {
+    flex: 1;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 24px;
+    margin-bottom: 40px;
+
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  &__load-more {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__load-button {
+    text-transform: uppercase;
+    font-size: $font-size-16;
+    line-height: $line-height-16;
+    font-weight: 600;
+  }
 }
 </style>
 

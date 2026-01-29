@@ -129,34 +129,93 @@ const repairs = [
 <template>
   <div class="main-page">
     <IntroSlider/>
-    <BrandSlider class="mb-24"/>
-    <AgregatesSection :agregates="agregates" class="mb-24"/>
-    <AboutBlock class="mb-24"/>
-    <BrandSlider class="mb-10">
-      <template #head>
-        <div class="container">
-          <SectionHead title="категории запчастей" buttonText="смотреть все" class="mb-6"/>
-        </div>
-      </template>
-    </BrandSlider>
-    <section class="categories-section mb-24">
-      <div class="container">
-        <ul class="grid lg:grid-cols-3 lg:gap-10">
-          <li v-for="category in categories" :key="category.id">
+    <div class="main-page__section">
+      <BrandSlider/>
+    </div>
+    <div class="main-page__section">
+      <AgregatesSection :agregates="agregates"/>
+    </div>
+    <div class="main-page__section">
+      <AboutBlock/>
+    </div>
+    <div class="main-page__section main-page__section--small">
+      <BrandSlider>
+        <template #head>
+          <div class="main-page__container">
+            <SectionHead title="категории запчастей" buttonText="смотреть все" class="main-page__section-head"/>
+          </div>
+        </template>
+      </BrandSlider>
+    </div>
+    <section class="main-page__section main-page__categories">
+      <div class="main-page__container">
+        <ul class="main-page__categories-list">
+          <li v-for="category in categories" :key="category.id" class="main-page__category-item">
             <DefaultCard v-bind="category"/>
           </li>
         </ul>
       </div>
     </section>
-    <BlockForm
-      image="/images/form-one.png"
-      title="закажите экспресс-доставку"
-      subtitle="Если у Вас есть сложности с выбором товара или другие вопросы, то Вы можете получить консультацию у наших менеджеров
+    <div class="main-page__section main-page__section--form">
+      <BlockForm
+        image="/images/form-one.png"
+        title="закажите экспресс-доставку"
+        subtitle="Если у Вас есть сложности с выбором товара или другие вопросы, то Вы можете получить консультацию у наших менеджеров
 в рабочие часы компании."
-      theme="dark"
-      class="mb-20"
-    />
-    <RepairSection :repairs="repairs" class="mb-24"/>
+        theme="dark"
+      />
+    </div>
+    <div class="main-page__section">
+      <RepairSection :repairs="repairs"/>
+    </div>
   </div>
 </template>
 
+<style scoped lang="scss">
+@import '@/styles/variables';
+
+.main-page {
+  &__section {
+    margin-bottom: 96px;
+
+    &--small {
+      margin-bottom: 40px;
+    }
+
+    &--form {
+      margin-bottom: 80px;
+    }
+  }
+
+  &__container {
+    max-width: 1187px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+
+  &__section-head {
+    margin-bottom: 24px;
+  }
+
+  &__categories {
+    // categories section
+  }
+
+  &__categories-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  &__category-item {
+    margin: 0;
+  }
+}
+</style>

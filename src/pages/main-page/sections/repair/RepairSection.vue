@@ -9,10 +9,12 @@ const { repairs } = defineProps<{ repairs: DefaultCardModel[], headerHidden?: bo
 
 <template>
   <div class="repair-section">
-    <div class="container">
-      <SectionHead v-if="!headerHidden" title="ремонт" buttonText="смотреть все" class="mb-3"/>
-      <ul class="grid lg:grid-cols-3 lg:gap-10">
-        <li v-for="repair in repairs" :key="repair.id" class="h-full">
+    <div class="repair-section__container">
+      <div v-if="!headerHidden" class="repair-section__header">
+        <SectionHead title="ремонт" buttonText="смотреть все"/>
+      </div>
+      <ul class="repair-section__list">
+        <li v-for="repair in repairs" :key="repair.id" class="repair-section__item">
           <DefaultCard v-bind="repair"/>
         </li>
       </ul>
@@ -21,3 +23,36 @@ const { repairs } = defineProps<{ repairs: DefaultCardModel[], headerHidden?: bo
   </div>
 </template>
 
+<style scoped lang="scss">
+@import '@/styles/variables';
+
+.repair-section {
+  &__container {
+    max-width: 1187px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+
+  &__header {
+    margin-bottom: 12px;
+  }
+
+  &__list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  &__item {
+    height: 100%;
+    margin: 0;
+  }
+}
+</style>

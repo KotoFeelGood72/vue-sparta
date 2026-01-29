@@ -40,28 +40,28 @@ const removeItem = (id: string) => {
 </script>
 
 <template>
-  <div class="cart-page bg-[#EFEFEF]">
-    <div class="container pb-24">
-      <div class="flex pt-5 items-end">
+  <div class="cart-page">
+    <div class="cart-page__container">
+      <div class="cart-page__content">
         <!-- Основной контент -->
-        <div class="flex-1">
+        <div class="cart-page__main">
           <!-- Заголовки колонок -->
-          <div class="flex items-end gap-10 mb-4 px-8">
-            <div class="flex-1"></div>
-            <div class="w-[104px] text-right">
-              <p class="text-20 font-normal text-gray">Цена</p>
+          <div class="cart-page__headers">
+            <div class="cart-page__header-spacer"></div>
+            <div class="cart-page__header-cell cart-page__header-cell--price">
+              <p class="cart-page__header-text">Цена</p>
             </div>
-            <div class="w-[142px] text-center">
-              <p class="text-20 font-normal text-gray">Количество</p>
+            <div class="cart-page__header-cell cart-page__header-cell--qty">
+              <p class="cart-page__header-text">Количество</p>
             </div>
-            <div class="w-[104px] text-right">
-              <p class="text-20 font-normal text-gray">Итого</p>
+            <div class="cart-page__header-cell cart-page__header-cell--total">
+              <p class="cart-page__header-text">Итого</p>
             </div>
-            <div class="w-[15px]"></div>
+            <div class="cart-page__header-spacer cart-page__header-spacer--small"></div>
           </div>
 
           <!-- Список товаров -->
-          <div class="bg-white rounded-tl-[10px] rounded-bl-[10px] overflow-hidden">
+          <div class="cart-page__items-wrapper">
             <CartItem
               v-for="(item, index) in cartItems"
               :key="item.id"
@@ -78,17 +78,17 @@ const removeItem = (id: string) => {
         </div>
 
         <!-- Боковая панель -->
-        <div class="w-[327px] flex-shrink-0">
-          <div class="bg-dark rounded-tr-[10px] rounded-br-[10px] p-8 h-[273px] flex flex-col justify-center gap-4">
-            <div class="flex gap-2 items-center justify-center">
-              <p class="text-30 font-light text-white">Итого:</p>
-              <p class="text-30 font-semibold text-white">{{ totalPrice.toLocaleString('ru-RU') }}р</p>
+        <div class="cart-page__sidebar">
+          <div class="cart-page__sidebar-inner">
+            <div class="cart-page__total-block">
+              <p class="cart-page__total-label">Итого:</p>
+              <p class="cart-page__total-value">{{ totalPrice.toLocaleString('ru-RU') }}р</p>
             </div>
             <ButtonComponent
               text="Отправить заявку"
               size="large"
               variant="primary"
-              class="w-full normal-case h-[63px]"
+              custom-class="cart-page__submit-button"
             />
           </div>
         </div>
@@ -105,8 +105,114 @@ const removeItem = (id: string) => {
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+@import '@/styles/variables';
+
 .cart-page {
+  background-color: $color-page-bg;
   min-height: calc(100vh - 200px);
+
+  &__container {
+    max-width: 1187px;
+    margin: 0 auto;
+    padding: 0 16px;
+    padding-bottom: 96px;
+  }
+
+  &__content {
+    display: flex;
+    padding-top: 20px;
+    align-items: flex-end;
+  }
+
+  &__main {
+    flex: 1;
+  }
+
+  &__headers {
+    display: flex;
+    align-items: flex-end;
+    gap: 40px;
+    margin-bottom: 16px;
+    padding: 0 32px;
+  }
+
+  &__header-spacer {
+    flex: 1;
+
+    &--small {
+      flex: 0;
+      width: 15px;
+    }
+  }
+
+  &__header-cell {
+    &--price,
+    &--total {
+      width: 104px;
+      text-align: right;
+    }
+
+    &--qty {
+      width: 142px;
+      text-align: center;
+    }
+  }
+
+  &__header-text {
+    font-size: $font-size-20;
+    line-height: $line-height-20;
+    font-weight: 400;
+    color: $color-gray;
+  }
+
+  &__items-wrapper {
+    background-color: $color-white;
+    border-radius: 10px 0 0 10px;
+    overflow: hidden;
+  }
+
+  &__sidebar {
+    width: 327px;
+    flex-shrink: 0;
+  }
+
+  &__sidebar-inner {
+    background-color: $color-dark;
+    border-radius: 0 10px 10px 0;
+    padding: 32px;
+    height: 273px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  &__total-block {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__total-label {
+    font-size: $font-size-30;
+    line-height: $line-height-30;
+    font-weight: 300;
+    color: $color-white;
+  }
+
+  &__total-value {
+    font-size: $font-size-30;
+    line-height: $line-height-30;
+    font-weight: 600;
+    color: $color-white;
+  }
+
+  &__submit-button {
+    width: 100%;
+    text-transform: none;
+    height: 63px;
+  }
 }
 </style>

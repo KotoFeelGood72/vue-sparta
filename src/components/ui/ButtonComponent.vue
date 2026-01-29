@@ -13,40 +13,96 @@ export interface ButtonComponentModel {
 
 const { text, size, variant, loading, icon, customClass } = defineProps<ButtonComponentModel>();
 
-const themeClass = computed(() => {
-  switch (variant) {
-    case 'primary':
-      return 'bg-yellow text-dark';
-    case 'secondary':
-      return 'bg-dark text-white';
-    case 'light':
-      return 'bg-[#EAEAEA] text-dark';
-    default:
-      return 'bg-yellow text-dark';
+const buttonClasses = computed(() => {
+  const classes = ['button'];
+  classes.push(`button--${variant}`);
+  classes.push(`button--${size}`);
+  if (customClass) {
+    classes.push(customClass);
   }
-});
-
-const sizeClass = computed(() => {
-  switch (size) {
-    case 'small':
-      return 'py-4 px-6';
-    case 'medium':
-      return 'py-7 px-11';
-    case 'large':
-      return 'h-[89px] px-8 uppercase text-20 font-semibold leading-none tracking-[-0.01em] text-[#323232]';
-    default:
-      return '';
-  }
+  return classes;
 });
 
 </script>
 
 <template>
-  <div :class="[themeClass, sizeClass, 'flex items-center justify-center rounded-full gap-2', customClass]">
-    <div class="loading" v-if="loading">
+  <div :class="buttonClasses">
+    <div class="button__loading" v-if="loading">
       <LoadingIcon/>
     </div>
-    <span>{{ text }}</span>
-    <component :is="icon" class="flex items-center justify-center"/>
+    <span class="button__text">{{ text }}</span>
+    <component :is="icon" class="button__icon" v-if="icon"/>
   </div>
 </template>
+
+<style scoped lang="scss">
+@import '@/styles/variables';
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  gap: 8px;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  // Варианты
+  &--primary {
+    background-color: $color-yellow;
+    color: $color-dark;
+  }
+
+  &--secondary {
+    background-color: $color-dark;
+    color: $color-white;
+  }
+
+  &--light {
+    background-color: $color-light-gray;
+    color: $color-dark;
+  }
+
+  // Размеры
+  &--small {
+    padding: 16px 24px;
+  }
+
+  &--medium {
+    padding: 28px 44px;
+  }
+
+  &--large {
+    height: 89px;
+    padding: 0 32px;
+    text-transform: uppercase;
+    font-size: $font-size-20;
+    line-height: $line-height-20;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    color: $color-gray;
+  }
+
+  &__loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__text {
+    display: inline-block;
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+</style>

@@ -6,43 +6,95 @@ import GarantIcon from '@/components/icons/GarantIcon.vue';
 </script>
 
 <template>
-  <div class="p-14 services-section-container rounded-[10px] overflow-hidden text-white">
-    <ul class="grid lg:grid-cols-3 gap-8 lg:gap-10 text-center">
-      <li>
-        <div class="flex items-center flex-col gap-5 mb-2">
-          <div class="flex items-center">
+  <div class="services-section">
+    <ul class="services-section__list">
+      <li class="services-section__item">
+        <div class="services-section__header">
+          <div class="services-section__icon-wrapper">
             <SpeedIcon />
           </div>
-          <h3 class="text-25 font-semibold">Скорость</h3>
+          <h3 class="services-section__title">Скорость</h3>
         </div>
-        <p class="text-20 font-light">Мы быстро расцениваем заявки и оперативно доставляем запчасти, чтобы сократить время простоя техники.</p>
+        <p class="services-section__text">Мы быстро расцениваем заявки и оперативно доставляем запчасти, чтобы сократить время простоя техники.</p>
       </li>
-      <li>
-        <div class="flex items-center flex-col gap-5 mb-2">
-          <div class="flex items-center">
+      <li class="services-section__item">
+        <div class="services-section__header">
+          <div class="services-section__icon-wrapper">
             <ShieldIcon />
           </div>
-          <h3 class="text-25 font-semibold">Надежность</h3>
+          <h3 class="services-section__title">Надежность</h3>
         </div>
-        <p class="text-20 font-light">Мы не работаем с подделками и сомнительными производителями.</p>
+        <p class="services-section__text">Мы не работаем с подделками и сомнительными производителями.</p>
       </li>
-      <li>
-        <div class="flex items-center flex-col gap-5 mb-2">
-          <div class="flex items-center">
+      <li class="services-section__item">
+        <div class="services-section__header">
+          <div class="services-section__icon-wrapper">
             <GarantIcon />
           </div>
-          <h3 class="text-25 font-semibold">Гарантия</h3>
+          <h3 class="services-section__title">Гарантия</h3>
         </div>
-        <p class="text-20 font-light">Мы всегда честно сообщаем о сроках, стоимости. На все запчасти есть гарантия.</p>
+        <p class="services-section__text">Мы всегда честно сообщаем о сроках, стоимости. На все запчасти есть гарантия.</p>
       </li>
     </ul>
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+@import '@/styles/variables';
 
-  .services-section-container {
-    background-image: url('/images/services-bg.png');
+.services-section {
+  padding: 56px;
+  border-radius: 10px;
+  overflow: hidden;
+  color: $color-white;
+  background-image: url('/images/services-bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  &__list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+    }
   }
 
+  &__item {
+    margin: 0;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 8px;
+  }
+
+  &__icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__title {
+    font-size: $font-size-25;
+    line-height: $line-height-25;
+    font-weight: 600;
+  }
+
+  &__text {
+    font-size: $font-size-20;
+    line-height: $line-height-20;
+    font-weight: 300;
+  }
+}
 </style>

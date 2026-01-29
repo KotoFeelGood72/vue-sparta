@@ -81,7 +81,9 @@ const isActive = (item: MenuItem) => {
   </ul>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+@import '@/styles/variables';
+
 .menu-accordion {
   list-style: none;
   padding: 0;
@@ -109,8 +111,8 @@ const isActive = (item: MenuItem) => {
 }
 
 .menu-accordion__header--active {
-  background-color: #fef3c7;
-  border: 1px solid #fbbf24;
+  background-color: $color-accordion-active-bg;
+  border: 1px solid $color-accordion-active-border;
 }
 
 .menu-accordion__icon {
@@ -120,8 +122,8 @@ const isActive = (item: MenuItem) => {
   width: 14px;
   height: 14px;
   flex-shrink: 0;
-  background-color: #FDC043;
-  color: white;
+  background-color: $color-yellow;
+  color: $color-white;
   font-size: 12px;
   font-weight: bold;
   border-radius: 2px;

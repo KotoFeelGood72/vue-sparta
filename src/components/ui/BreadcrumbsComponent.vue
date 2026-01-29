@@ -17,24 +17,73 @@ const breadcrumbs = computed<BreadcrumbItem[] | null>(() => {
 </script>
 
 <template>
-  <div>
-    <div class="container">
-      <ul class="flex items-center gap-2 mt-10 mb-7">
-        <li v-for="(item, index) in breadcrumbs" :key="index" class="text-18">
-          <component :is="item.to ? RouterLink : 'span'" :to="item.to" class="hover:text-gray-800 transition-colors">{{ item.label }}</component>
-          <span class="text-yellow" v-if="index < (breadcrumbs?.length ?? 0) - 1"> > </span>
+  <div class="breadcrumbs">
+    <div class="breadcrumbs__container">
+      <ul class="breadcrumbs__list">
+        <li v-for="(item, index) in breadcrumbs" :key="index" class="breadcrumbs__item">
+          <component
+            :is="item.to ? RouterLink : 'span'"
+            :to="item.to"
+            class="breadcrumbs__link"
+          >
+            {{ item.label }}
+          </component>
+          <span class="breadcrumbs__separator" v-if="index < (breadcrumbs?.length ?? 0) - 1"> > </span>
         </li>
       </ul>
-      <h1 class="text-55 font-bebas uppercase text-dark leading-none">{{ route.meta.title }}</h1>
+      <h1 class="breadcrumbs__title">{{ route.meta.title }}</h1>
     </div>
   </div>
 </template>
 
 
-<style scoped>
+<style scoped lang="scss">
+@import '@/styles/variables';
 
-a {
-  color: #FFB723;
-  font-weight: 600;
+.breadcrumbs {
+  &__container {
+    max-width: 1187px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+
+  &__list {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 40px;
+    margin-bottom: 28px;
+    list-style: none;
+  }
+
+  &__item {
+    font-size: $font-size-18;
+    line-height: $line-height-18;
+  }
+
+  &__link {
+    color: $color-yellow-light;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s;
+
+    &:hover {
+      color: darken($color-yellow-light, 10%);
+    }
+  }
+
+  &__separator {
+    color: $color-yellow;
+    margin: 0 4px;
+  }
+
+  &__title {
+    font-size: $font-size-55;
+    line-height: $line-height-55;
+    font-family: $font-family-bebas;
+    text-transform: uppercase;
+    color: $color-dark;
+    line-height: 1;
+  }
 }
 </style>

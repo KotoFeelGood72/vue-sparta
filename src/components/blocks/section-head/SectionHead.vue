@@ -17,9 +17,37 @@ const handleClick = () => {
 </script>
 
 <template>
-  <div class="section-head flex items-center justify-between">
-    <h2 class="lg:text-55 font-bebas text-gray uppercase">{{ title }}</h2>
-    <ButtonComponent :text="buttonText" size="small" variant="primary" @click="handleClick" class="uppercase font-bold gap-2" :icon="ChevronButtonIcon"/>
+  <div class="section-head">
+    <h2 class="section-head__title">{{ title }}</h2>
+    <ButtonComponent :text="buttonText" size="small" variant="primary" @click="handleClick" custom-class="section-head__button" :icon="ChevronButtonIcon"/>
   </div>
 </template>
 
+<style scoped lang="scss">
+@import '@/styles/variables';
+
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &__title {
+    font-size: $font-size-35;
+    line-height: $line-height-35;
+    font-family: $font-family-bebas;
+    color: $color-gray;
+    text-transform: uppercase;
+
+    @media (min-width: 1024px) {
+      font-size: $font-size-55;
+      line-height: $line-height-55;
+    }
+  }
+
+  &__button {
+    text-transform: uppercase;
+    font-weight: 700;
+    gap: 8px;
+  }
+}
+</style>

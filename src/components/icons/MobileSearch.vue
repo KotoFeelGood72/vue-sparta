@@ -8,6 +8,7 @@
 </svg>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+@import '@/styles/variables';
 
 </style>

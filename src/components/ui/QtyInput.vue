@@ -15,25 +15,74 @@ const increment = () => {
 </script>
 
 <template>
- <div class="flex items-center bg-white rounded-[5px] h-[47px] w-[142px]">
-        <button
-          @click="decrement()"
-          class="flex items-center justify-center w-[43px] h-[47px] bg-yellow rounded-[5px] text-20 font-bold text-black hover:opacity-90 transition-opacity"
-        >
-          <span class="leading-none">−</span>
-        </button>
-        <div class="flex-1 flex items-center justify-center bg-white">
-          <span class="text-20 font-bold text-[#3d3137]">{{ model }}</span>
-        </div>
-        <button
-          @click="increment()"
-          class="flex items-center justify-center w-[43px] h-[47px] bg-yellow rounded-[5px] text-20 font-bold text-black hover:opacity-90 transition-opacity"
-        >
-          <span class="leading-none">+</span>
-        </button>
-      </div>
+  <div class="qty-input">
+    <button
+      @click="decrement()"
+      class="qty-input__button qty-input__button--decrement"
+    >
+      <span class="qty-input__button-text">−</span>
+    </button>
+    <div class="qty-input__value">
+      <span class="qty-input__value-text">{{ model }}</span>
+    </div>
+    <button
+      @click="increment()"
+      class="qty-input__button qty-input__button--increment"
+    >
+      <span class="qty-input__button-text">+</span>
+    </button>
+  </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+@import '@/styles/variables';
 
+.qty-input {
+  display: flex;
+  align-items: center;
+  background-color: $color-white;
+  border-radius: 5px;
+  height: 47px;
+  width: 142px;
+
+  &__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 43px;
+    height: 47px;
+    background-color: $color-yellow;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+
+  &__button-text {
+    font-size: $font-size-20;
+    line-height: $line-height-20;
+    font-weight: 700;
+    color: $color-black;
+    line-height: 1;
+  }
+
+  &__value {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $color-white;
+  }
+
+  &__value-text {
+    font-size: $font-size-20;
+    line-height: $line-height-20;
+    font-weight: 700;
+    color: $color-dark;
+  }
+}
 </style>

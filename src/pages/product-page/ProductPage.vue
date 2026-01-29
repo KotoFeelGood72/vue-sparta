@@ -23,32 +23,44 @@ const product = {
 
 <template>
   <div class="product-page">
-    <div class="container pb-16">
-      <div class="grid lg:grid-cols-2 gap-8 lg:gap-10">
+    <div class="product-page__container">
+      <div class="product-page__content">
         <!-- Левая часть: Изображение -->
-        <div class="flex-shrink-0">
-          <img :src="product.image" :alt="product.title" class="w-full h-auto object-contain max-h-[500px]">
+        <div class="product-page__image-wrapper">
+          <img :src="product.image" :alt="product.title" class="product-page__image">
         </div>
 
         <!-- Правая часть: Информация -->
-        <div class="flex flex-col bg-white p-8 rounded-[10px]">
-          <h2 class="text-35 font-bebas uppercase text-[#9A9A9A] mb-2 leading-none">{{ product.title }}</h2>
-          <h2 class="text-30 font-roboto font-bold text-gray mb-2 leading-none">{{ product.price }}</h2>
+        <div class="product-page__info">
+          <h2 class="product-page__title">{{ product.title }}</h2>
+          <h2 class="product-page__price">{{ product.price }}</h2>
 
           <!-- Статус наличия -->
-          <div class="flex items-center gap-2 mb-6">
-            <div class="flex items-center justify-center w-5 h-5 rounded-full ">
-              <CheckFillIcon class="flex items-center justify-center" />
+          <div class="product-page__instock">
+            <div class="product-page__instock-icon">
+              <CheckFillIcon/>
             </div>
-            <span class="text-18 font-light text-gray">{{ product.instock }}</span>
+            <span class="product-page__instock-text">{{ product.instock }}</span>
           </div>
-          <ul class="space-y-2 mb-3">
-            <li v-for="characteristic in product.characteristics" :key="characteristic.label" class="flex gap-2 text-18">
-              <span class="font-light text-[#A7A7A7]">{{ characteristic.label }}:</span>
-              <component :class="[characteristic.link ? 'text-yellow' : 'text-gray', 'font-semibold']" :is="characteristic.link ? 'a' : 'span'" :href="characteristic.link" :target="characteristic.target">{{ characteristic.value }}</component>
+
+          <ul class="product-page__characteristics">
+            <li v-for="characteristic in product.characteristics" :key="characteristic.label" class="product-page__characteristic">
+              <span class="product-page__characteristic-label">{{ characteristic.label }}:</span>
+              <component
+                :class="[
+                  'product-page__characteristic-value',
+                  characteristic.link ? 'product-page__characteristic-value--link' : ''
+                ]"
+                :is="characteristic.link ? 'a' : 'span'"
+                :href="characteristic.link"
+                :target="characteristic.target"
+              >
+                {{ characteristic.value }}
+              </component>
             </li>
           </ul>
-          <div class="text-18 text-gray">
+
+          <div class="product-page__description">
             Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
           </div>
         </div>
@@ -66,9 +78,133 @@ const product = {
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+@import '@/styles/variables';
+
 .product-page {
   min-height: calc(100vh - 200px);
+
+  &__container {
+    max-width: 1187px;
+    margin: 0 auto;
+    padding: 0 16px;
+    padding-bottom: 64px;
+  }
+
+  &__content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+    }
+  }
+
+  &__image-wrapper {
+    flex-shrink: 0;
+  }
+
+  &__image {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    max-height: 500px;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    background-color: $color-white;
+    padding: 32px;
+    border-radius: 10px;
+  }
+
+  &__title {
+    font-size: $font-size-35;
+    line-height: $line-height-35;
+    font-family: $font-family-bebas;
+    text-transform: uppercase;
+    color: $color-gray;
+    margin-bottom: 8px;
+    line-height: 1;
+  }
+
+  &__price {
+    font-size: $font-size-30;
+    line-height: $line-height-30;
+    font-family: $font-family-base;
+    font-weight: 700;
+    color: $color-gray;
+    margin-bottom: 8px;
+    line-height: 1;
+  }
+
+  &__instock {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+
+  &__instock-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+  }
+
+  &__instock-text {
+    font-size: $font-size-18;
+    line-height: $line-height-18;
+    font-weight: 300;
+    color: $color-gray;
+  }
+
+  &__characteristics {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 12px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__characteristic {
+    display: flex;
+    gap: 8px;
+    font-size: $font-size-18;
+    line-height: $line-height-18;
+  }
+
+  &__characteristic-label {
+    font-weight: 300;
+    color: $color-light-gray-text;
+  }
+
+  &__characteristic-value {
+    font-weight: 600;
+    color: $color-gray;
+
+    &--link {
+      color: $color-yellow;
+      text-decoration: none;
+      transition: color 0.2s;
+
+      &:hover {
+        color: darken($color-yellow, 10%);
+      }
+    }
+  }
+
+  &__description {
+    font-size: $font-size-18;
+    line-height: $line-height-18;
+    color: $color-gray;
+  }
 }
 </style>
 

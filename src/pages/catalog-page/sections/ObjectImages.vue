@@ -13,15 +13,15 @@ const props = defineProps<{
 <template>
   <div
     v-if="props.images && props.images.length"
-    class="relative overflow-auto rounded-lg bg-slate-50 p-2"
+    class="object-images"
   >
     <div
       v-for="img in props.images"
       :key="img.PicNum"
-      class="relative w-full overflow-hidden"
+      class="object-images__image-wrapper"
     >
       <img
-        class="block h-auto max-w-full"
+        class="object-images__image"
         :src="`https://klaxon-parts.ru/img/${img.BookDir}/${img.PicName}`"
         alt=""
       >
@@ -30,13 +30,13 @@ const props = defineProps<{
         v-for="(label, idx) in img.labels"
         :key="idx"
         type="button"
-        class="absolute flex h-5 w-5 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-teal-700 bg-white text-[10px] font-semibold text-teal-700 outline-none transition-colors hover:bg-teal-700 hover:text-white"
+        class="object-images__label-button"
+        :class="{
+          'object-images__label-button--active': props.isSelectedItem(label.sLabel),
+        }"
         :style="{
           left: (Number(label.LabelX1) / Number(img.SrcPicWidth)) * 100 + '%',
           top: (Number(label.LabelY1) / Number(img.SrcPicHeight)) * 100 + '%',
-        }"
-        :class="{
-          'bg-teal-700 text-white': props.isSelectedItem(label.sLabel),
         }"
         @click.stop="props.toggleSelectedItem(label.sLabel)"
       >
@@ -45,6 +45,59 @@ const props = defineProps<{
     </div>
   </div>
 </template>
+
+<style scoped lang="scss">
+@import '@/styles/variables';
+
+.object-images {
+  position: relative;
+  overflow: auto;
+  border-radius: 8px;
+  background-color: #f8fafc;
+  padding: 8px;
+
+  &__image-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  &__image {
+    display: block;
+    height: auto;
+    max-width: 100%;
+  }
+
+  &__label-button {
+    position: absolute;
+    display: flex;
+    height: 20px;
+    width: 20px;
+    transform: translate(-50%, -50%);
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid #0f766e;
+    background-color: $color-white;
+    font-size: 10px;
+    font-weight: 600;
+    color: #0f766e;
+    outline: none;
+    transition: background-color 0.2s, color 0.2s;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #0f766e;
+      color: $color-white;
+    }
+
+    &--active {
+      background-color: #0f766e;
+      color: $color-white;
+    }
+  }
+}
+</style>
 
 
 

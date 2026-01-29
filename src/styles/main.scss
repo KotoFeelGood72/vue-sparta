@@ -1,0 +1,55 @@
+@font-face {
+  font-family: 'Bebas Neue';
+  src: url('../fonts/Bebas Neue.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@import './variables';
+
+// Базовые стили
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: $font-family-base;
+  font-size: $font-size-16;
+  line-height: $line-height-16;
+  color: $color-dark;
+  background-color: $color-white;
+}
+
+// Глобальные утилиты на SCSS-переменных
+.bg-page {
+  background-color: $color-page-bg;
+}
+
+.text-muted {
+  color: $color-light-gray-text;
+}
+
+// Container класс (замена Tailwind container)
+.container {
+  max-width: 1187px;
+  margin: 0 auto;
+  padding: 0 16px;
+
+  @media (min-width: 375px) {
+    max-width: 640px;
+  }
+
+  @media (min-width: 768px) {
+    max-width: 768px;
+  }
+
+  @media (min-width: 1024px) {
+    max-width: 1024px;
+  }
+
+  @media (min-width: 1200px) {
+    max-width: 1187px;
+  }
+}

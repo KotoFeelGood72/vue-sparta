@@ -12,18 +12,39 @@ const props = defineProps<{
 <template>
   <div
     v-if="props.data"
-    class="mt-2 flex flex-wrap gap-3 text-xs text-slate-700"
+    class="object-meta"
   >
-    <div>
-      <span class="font-semibold">Книга:</span>
+    <div class="object-meta__item">
+      <span class="object-meta__label">Книга:</span>
       {{ props.data.BookName }}
     </div>
-    <div>
-      <span class="font-semibold">Страница:</span>
+    <div class="object-meta__item">
+      <span class="object-meta__label">Страница:</span>
       {{ props.data.PageTitle }}
     </div>
   </div>
 </template>
+
+<style scoped lang="scss">
+@import '@/styles/variables';
+
+.object-meta {
+  margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 12px;
+  color: #334155;
+
+  &__item {
+    display: inline-block;
+  }
+
+  &__label {
+    font-weight: 600;
+  }
+}
+</style>
 
 
 

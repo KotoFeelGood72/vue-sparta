@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import TheHeader from '@/components/shared/TheHeader.vue';
-import TheHeaderMobile from '@/components/shared/TheHeaderMobile.vue';
+import TheHeaderAdaptive from '@/components/shared/TheHeaderAdaptive.vue';
 import TheFooter from '@/components/shared/TheFooter.vue';
 import BreadcrumbsComponent from '@/components/ui/BreadcrumbsComponent.vue';
 
@@ -12,10 +12,10 @@ const { isTablet, isDesktop, isMobile } = useMediaStoreRefs()
 </script>
 
 <template>
-  <div class="layout bg-[#EFEFEF]">
+  <div class="layout">
     <TheHeader v-if="isDesktop"/>
-    <TheHeaderMobile v-if="isTablet || isMobile"/>
-    <main >
+    <TheHeaderAdaptive v-if="isTablet || isMobile"/>
+    <main class="layout__main">
       <BreadcrumbsComponent v-if="route.name !== 'main' && route.name !== 'catalog'"/>
       <slot/>
     </main>
@@ -23,3 +23,17 @@ const { isTablet, isDesktop, isMobile } = useMediaStoreRefs()
   </div>
 </template>
 
+<style scoped lang="scss">
+@import '@/styles/variables';
+
+.layout {
+  background-color: $color-page-bg;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  &__main {
+    flex: 1;
+  }
+}
+</style>

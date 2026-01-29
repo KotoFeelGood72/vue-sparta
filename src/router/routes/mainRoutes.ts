@@ -73,7 +73,20 @@ export const mainRoutes = [
     },
   },
   {
-    path: '/shop/:id',
+    path: '/shop/:slug',
+    component: () => import('@/pages/shop-page/ShopPage.vue'),
+    meta: {
+      layout: 'default',
+      title: 'Категория товаров',
+      breadcrumbs: [
+        { label: 'Главная', to: '/' },
+        { label: 'Запчасти', to: '/shop' },
+        { label: 'Категория товаров' },
+      ],
+    },
+  },
+  {
+    path: '/shop/:slug/:id',
     component: () => import('@/pages/product-page/ProductPage.vue'),
     meta: {
       layout: 'default',
@@ -102,6 +115,41 @@ export const mainRoutes = [
     component: () => import('@/pages/catalog-page/CatalogPage.vue'),
     meta: {
       layout: 'default',
+    },
+  },
+  {
+    path: '/category/:slug',
+    component: () => import('@/pages/category-page/CategoryPage.vue'),
+    meta: {
+      layout: 'default',
+      title: 'Категория',
+      breadcrumbs: [
+        { label: 'Главная', to: '/' },
+        { label: 'Категория' },
+      ],
+    },
+  },
+  {
+    path: '/:slug/:id',
+    component: () => import('@/pages/product-page/ProductPage.vue'),
+    meta: {
+      layout: 'default',
+      breadcrumbs: [
+        { label: 'Главная', to: '/' },
+        { label: 'Товар' },
+      ],
+    },
+  },
+  {
+    path: '/manufacturer/:slug',
+    component: () => import('@/pages/shop-page/ShopPage.vue'),
+    meta: {
+      layout: 'default',
+      title: 'Производитель',
+      breadcrumbs: [
+        { label: 'Главная', to: '/' },
+        { label: 'Производитель' },
+      ],
     },
   },
 ]

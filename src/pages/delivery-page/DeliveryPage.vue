@@ -4,13 +4,13 @@ import BlockForm from '@/components/shared/BlockForm.vue';
 </script>
 
 <template>
-  <div class="delivery-page pt-6">
-    <div class="container pb-28">
-      <div class="delivery-card flex items-center rounded-[10px] py-4 px-10 gap-8 mb-7">
-        <AirIcon/>
-        <p class="text-32 text-white">Мы можем отправить авиа до их областного центра за 1-3 дня</p>
+  <div class="delivery-page">
+    <div class="delivery-page__container">
+      <div class="delivery-page__card">
+        <AirIcon class="delivery-page__card-icon"/>
+        <p class="delivery-page__card-text">Мы можем отправить авиа до их областного центра за 1-3 дня</p>
       </div>
-      <p class="text-20 font-normal">st, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatu</p>
+      <p class="delivery-page__description">st, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatu</p>
     </div>
     <BlockForm
       image="/images/form-one.png"
@@ -22,9 +22,47 @@ import BlockForm from '@/components/shared/BlockForm.vue';
   </div>
 </template>
 
-<style scoped>
-.delivery-card {
-  background-image: url('/images/delivery-card.png');
+<style scoped lang="scss">
+@import '@/styles/variables';
+
+.delivery-page {
+  padding-top: 24px;
+
+  &__container {
+    max-width: 1187px;
+    margin: 0 auto;
+    padding: 0 16px;
+    padding-bottom: 112px;
+  }
+
+  &__card {
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    padding: 16px 40px;
+    gap: 32px;
+    margin-bottom: 28px;
+    background-image: url('/images/delivery-card.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  &__card-icon {
+    flex-shrink: 0;
+  }
+
+  &__card-text {
+    font-size: $font-size-32;
+    line-height: $line-height-32;
+    color: $color-white;
+  }
+
+  &__description {
+    font-size: $font-size-20;
+    line-height: $line-height-20;
+    font-weight: 400;
+  }
 }
 </style>
 

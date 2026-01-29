@@ -7,8 +7,8 @@ import ContactSection from './sections/contacts-section/ContactSection.vue';
 <template>
   <div class="about-page">
     <!-- Секция "О компании" (верхняя) -->
-    <section class="about-top-section pb-12">
-      <div class="container">
+    <section class="about-page__section">
+      <div class="about-page__container">
         <BlockImgSection
           image="/images/excavator.png"
           content="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem."
@@ -18,15 +18,15 @@ import ContactSection from './sections/contacts-section/ContactSection.vue';
     </section>
 
     <!-- Секция преимуществ -->
-    <section class="services-section pb-12">
-      <div class="container">
+    <section class="about-page__section">
+      <div class="about-page__container">
         <ServicesSection />
       </div>
     </section>
 
     <!-- Секция "О компании" (нижняя) -->
-    <section class="about-bottom-section pb-12">
-      <div class="container">
+    <section class="about-page__section">
+      <div class="about-page__container">
         <BlockImgSection
           image="/images/bulldozer.png"
           content="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem."
@@ -36,17 +36,33 @@ import ContactSection from './sections/contacts-section/ContactSection.vue';
     </section>
 
     <!-- Секция контактов -->
-    <section class="contacts-section pb-28">
-      <div class="container">
+    <section class="about-page__section about-page__section--contacts">
+      <div class="about-page__container">
         <ContactSection />
       </div>
     </section>
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+@import '@/styles/variables';
+
 .about-page {
   min-height: calc(100vh - 200px);
+
+  &__section {
+    padding-bottom: 48px;
+
+    &--contacts {
+      padding-bottom: 112px;
+    }
+  }
+
+  &__container {
+    max-width: 1187px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
 }
 </style>
 

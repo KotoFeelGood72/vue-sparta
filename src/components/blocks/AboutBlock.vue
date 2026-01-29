@@ -2,46 +2,28 @@
 </script>
 
 <template>
-  <section class="about-block py-20 lg:py-32 relative">
-    <div class="container">
-      <div class="about-block-content lg:flex lg:items-center lg:justify-end lg:gap-20 mb-16 lg:mb-24">
-        <img src="/images/about-elipse.png" alt="" class="absolute top-0 left-0 lg:w-[800px]">
-        <img src="/images/about.png" alt="О компании" class="lg:w-[768px] lg:absolute lg:left-10 lg:top-10 z-10">
-        <div class="about-block-text lg:flex-1 max-w-[590px]">
-          <h3 class="text-55 font-bebas  uppercase mb-6 lg:mb-8">О компании</h3>
-          <div class="flex flex-col gap-6 text-20  leading-[175%]">
+  <section class="about-block">
+    <img src="/images/about-elipse.png" alt="" class="about-block__elipse">
+    <img src="/images/about.png" alt="О компании" class="about-block__image">
+    <div class="about-block__container">
+      <div class="about-block__content">
+        <div class="about-block__text">
+          <h3 class="about-block__title">О компании</h3>
+          <div class="about-block__description">
             <p>Gd ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam</p>
             <p>Kst, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatu</p>
           </div>
         </div>
       </div>
-      <div class="about-block-features">
-        <ul class="grid lg:grid-cols-3 gap-8 lg:gap-10">
-          <li class="about-block-feature-item">
-            <div class="flex flex-col items-center lg:items-start text-center lg:text-left">
-              <div class="mb-6 flex items-center justify-center lg:justify-start">
-                <img src="/images/about-1.png" alt="" class="w-full h-full object-cover">
+      <div class="about-block__features">
+        <ul class="about-block__features-list">
+          <li v-for="i in 3" :key="i" class="about-block__feature-item">
+            <div class="about-block__feature-content">
+              <div class="about-block__feature-image-wrapper">
+                <img :src="`/images/about-${i}.png`" alt="" class="about-block__feature-image">
               </div>
-              <h5 class="text-25 font-bold  mb-4">Sed ut perspiciatis</h5>
-              <p class="text-20  leading-[175%]">ed ut perspiciatis unde omnis i natus error sit voluptatem accusantium doloremque laudantium, totam rem</p>
-            </div>
-          </li>
-          <li class="about-block-feature-item">
-            <div class="flex flex-col items-center lg:items-start text-center lg:text-left">
-              <div class="mb-6 flex items-center justify-center lg:justify-start">
-                <img src="/images/about-2.png" alt="" class="w-full h-full object-cover">
-              </div>
-              <h5 class="text-25 font-bold  mb-4">Sed ut perspiciatis</h5>
-              <p class="text-20  leading-[175%]">ed ut perspiciatis unde omnis i natus error sit voluptatem accusantium doloremque laudantium, totam rem</p>
-            </div>
-          </li>
-          <li class="about-block-feature-item">
-            <div class="flex flex-col items-center lg:items-start text-center lg:text-left">
-              <div class="mb-6 flex items-center justify-center lg:justify-start">
-                <img src="/images/about-3.png" alt="" class="w-full h-full object-cover">
-              </div>
-              <h5 class="text-25 font-bold  mb-4">Sed ut perspiciatis</h5>
-              <p class="text-20  leading-[175%]">ed ut perspiciatis unde omnis i natus error sit voluptatem accusantium doloremque laudantium, totam rem</p>
+              <h5 class="about-block__feature-title">Sed ut perspiciatis</h5>
+              <p class="about-block__feature-text">ed ut perspiciatis unde omnis i natus error sit voluptatem accusantium doloremque laudantium, totam rem</p>
             </div>
           </li>
         </ul>
@@ -50,25 +32,166 @@
   </section>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+@import '@/styles/variables';
+
 .about-block {
   background-image: url('/images/about-bg.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   position: relative;
-  color: #fff;
+  color: $color-white;
   border-radius: 0 0 300px 0;
+  padding: 80px 0;
+
+  @media (min-width: 1024px) {
+    padding: 128px 0;
   }
 
+  &__container {
+    max-width: 1187px;
+    margin: 0 auto;
+    padding: 0 16px;
+    position: relative;
 
-@media (min-width: 1024px) {
-  .about-block-content {
-    flex-direction: row;
+    @media (min-width: 1024px) {
+      padding-left: 0;
+      padding-right: 16px;
+    }
   }
 
-  .about-block-image {
-    flex: 0 0 auto;
+  &__content {
+    position: relative;
+    margin-bottom: 64px;
+    overflow: visible;
+
+    @media (min-width: 1024px) {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 80px;
+      margin-bottom: 96px;
+    }
+  }
+
+  &__elipse {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+
+    @media (min-width: 1024px) {
+      width: 800px;
+      left: 0;
+    }
+  }
+
+  &__image {
+    position: absolute;
+    left: 0;
+    top: 40px;
+    z-index: 10;
+
+    @media (min-width: 1024px) {
+      width: 768px;
+      left: 10px;
+    }
+  }
+
+  &__text {
+    max-width: 590px;
+    position: relative;
+    z-index: 10;
+
+    @media (min-width: 1024px) {
+      flex: 1;
+    }
+  }
+
+  &__title {
+    font-size: $font-size-55;
+    line-height: $line-height-55;
+    font-family: $font-family-bebas;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+
+    @media (min-width: 1024px) {
+      margin-bottom: 32px;
+    }
+  }
+
+  &__description {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    font-size: $font-size-20;
+    line-height: $line-height-20;
+    line-height: 175%;
+  }
+
+  &__features {
+    // features styles
+  }
+
+  &__features-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+    }
+  }
+
+  &__feature-item {
+    margin: 0;
+  }
+
+  &__feature-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    @media (min-width: 1024px) {
+      align-items: flex-start;
+      text-align: left;
+    }
+  }
+
+  &__feature-image-wrapper {
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @media (min-width: 1024px) {
+      justify-content: flex-start;
+    }
+  }
+
+  &__feature-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__feature-title {
+    font-size: $font-size-25;
+    line-height: $line-height-25;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+
+  &__feature-text {
+    font-size: $font-size-20;
+    line-height: $line-height-20;
+    line-height: 175%;
   }
 }
 </style>
