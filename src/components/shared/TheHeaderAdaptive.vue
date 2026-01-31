@@ -4,7 +4,6 @@ import AddressIcon from '../icons/AddressIcon.vue';
 import ProfileIcon from '../icons/ProfileIcon.vue';
 import CartIcon from '../icons/CartIcon.vue';
 import SearchIcon from '../icons/SearchIcon.vue';
-import MenuIcon from '../icons/MenuIcon.vue';
 </script>
 
 <template>
@@ -62,7 +61,11 @@ import MenuIcon from '../icons/MenuIcon.vue';
           </RouterLink>
         </div>
         <button type="button" class="header-adaptive__menu-button">
-          <MenuIcon/>
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="16" viewBox="0 0 18 16" fill="none">
+            <rect width="17.8467" height="2.87183" rx="1.43591" fill="#FDC043"/>
+            <rect x="4.18213" y="6.12451" width="13.6647" height="2.87183" rx="1.43591" fill="#FDC043"/>
+            <rect y="12.2485" width="17.8467" height="2.87183" rx="1.43591" fill="#FDC043"/>
+          </svg>
         </button>
       </div>
     </div>
@@ -90,7 +93,8 @@ import MenuIcon from '../icons/MenuIcon.vue';
   &__top-inner,
   &__bottom-inner {
     max-width: 1187px;
-    margin: 0 auto;
+    // margin: 0 auto;
+    width: 100%;
     padding: 0 40px;
     display: flex;
     align-items: center;
