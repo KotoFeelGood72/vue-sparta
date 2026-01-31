@@ -82,7 +82,7 @@ const isActive = (item: MenuItem) => {
 </template>
 
 <style scoped lang="scss">
-@import '@/styles/variables';
+// @use '@/styles/variables' as *;
 
 .menu-accordion {
   list-style: none;

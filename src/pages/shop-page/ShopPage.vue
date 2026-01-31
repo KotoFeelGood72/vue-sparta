@@ -125,7 +125,7 @@ const loadMore = () => {
 </template>
 
 <style scoped lang="scss">
-@import '@/styles/variables';
+// @use '@/styles/variables' as *;
 
 .shop-page {
   background-color: $color-page-bg;

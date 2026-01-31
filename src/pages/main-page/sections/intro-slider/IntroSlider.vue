@@ -83,7 +83,7 @@ import ChevronIcon from '@/components/icons/ChevronIcon.vue';
 </template>
 
 <style scoped lang="scss">
-@import '@/styles/variables';
+// @use '@/styles/variables' as *;
 
 .intro-slider {
   position: relative;

@@ -172,7 +172,7 @@ const repairs = [
 </template>
 
 <style scoped lang="scss">
-@import '@/styles/variables';
+// @use '@/styles/variables' as *;
 
 .main-page {
   &__section {
@@ -180,9 +180,7 @@ const repairs = [
 
     &--small {
       margin-bottom: 40px;
-    }
-
-    &--form {
+    }    &--form {
       margin-bottom: 80px;
     }
   }

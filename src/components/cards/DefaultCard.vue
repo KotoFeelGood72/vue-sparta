@@ -29,7 +29,7 @@ const { image, title, id, slug } = defineProps<DefaultCardModel>();
 </template>
 
 <style scoped lang="scss">
-@import '@/styles/variables';
+// @use '@/styles/variables' as *;
 
 .default-card {
   background-color: $color-white;

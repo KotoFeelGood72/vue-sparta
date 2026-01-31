@@ -26,7 +26,7 @@ const model = defineModel<boolean>('modelValue', { required: false });
 </template>
 
 <style scoped lang="scss">
-@import '@/styles/variables';
+// @use '@/styles/variables' as *;
 
 .checkboxes-component {
   display: flex;

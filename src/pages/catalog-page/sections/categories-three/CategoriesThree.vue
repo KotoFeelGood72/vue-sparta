@@ -249,7 +249,7 @@ provide('catalogTree', {
 </template>
 
 <style scoped lang="scss">
-@import '@/styles/variables';
+// @use '@/styles/variables' as *;
 
 .categories-three {
   height: 100%;
@@ -277,9 +277,7 @@ provide('catalogTree', {
   &__error {
     font-size: 14px;
     color: #ef4444;
-  }
-
-  &__list {
+  }  &__list {
     list-style: none;
     padding: 0;
     margin: 0;

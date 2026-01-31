@@ -37,7 +37,7 @@ import ChevronIcon from '@/components/icons/ChevronIcon.vue';
 
 
 <style scoped lang="scss">
-@import '@/styles/variables';
+// @use '@/styles/variables' as *;
 
 .brand-slider {
   &__wrapper {

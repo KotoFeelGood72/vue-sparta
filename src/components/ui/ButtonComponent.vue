@@ -36,7 +36,7 @@ const buttonClasses = computed(() => {
 </template>
 
 <style scoped lang="scss">
-@import '@/styles/variables';
+// @use '@/styles/variables' as *;
 
 .button {
   display: flex;

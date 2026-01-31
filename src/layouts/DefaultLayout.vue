@@ -24,7 +24,7 @@ const { isTablet, isDesktop, isMobile } = useMediaStoreRefs()
 </template>
 
 <style scoped lang="scss">
-@import '@/styles/variables';
+// @use '@/styles/variables' as *;
 
 .layout {
   background-color: $color-page-bg;

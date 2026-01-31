@@ -36,7 +36,7 @@ const inputClasses = computed(() => {
 </template>
 
 <style scoped lang="scss">
-@import '@/styles/variables';
+// @use '@/styles/variables' as *;
 
 .input-component {
   width: 100%;

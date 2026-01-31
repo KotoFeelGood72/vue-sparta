@@ -24,7 +24,7 @@ const { repairs } = defineProps<{ repairs: DefaultCardModel[], headerHidden?: bo
 </template>
 
 <style scoped lang="scss">
-@import '@/styles/variables';
+// @use '@/styles/variables' as *;
 
 .repair-section {
   &__container {
@@ -43,9 +43,7 @@ const { repairs } = defineProps<{ repairs: DefaultCardModel[], headerHidden?: bo
     gap: 40px;
     list-style: none;
     padding: 0;
-    margin: 0;
-
-    @media (min-width: 1024px) {
+    margin: 0;    @media (min-width: 1024px) {
       grid-template-columns: repeat(3, 1fr);
     }
   }

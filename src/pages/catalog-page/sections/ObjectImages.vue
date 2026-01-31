@@ -47,7 +47,7 @@ const props = defineProps<{
 </template>
 
 <style scoped lang="scss">
-@import '@/styles/variables';
+// @use '@/styles/variables' as *;
 
 .object-images {
   position: relative;

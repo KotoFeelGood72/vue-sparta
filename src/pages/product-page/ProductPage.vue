@@ -79,7 +79,7 @@ const product = {
 </template>
 
 <style scoped lang="scss">
-@import '@/styles/variables';
+// @use '@/styles/variables' as *;
 
 .product-page {
   min-height: calc(100vh - 200px);

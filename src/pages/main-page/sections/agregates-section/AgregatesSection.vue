@@ -23,16 +23,14 @@ const { agregates } = defineProps<{ agregates: DefaultCardModel[] }>();
 </template>
 
 <style scoped lang="scss">
-@import '@/styles/variables';
+// @use '@/styles/variables' as *;
 
 .agregates-section {
   &__container {
     max-width: 1187px;
     margin: 0 auto;
     padding: 0 16px;
-  }
-
-  &__header {
+  }  &__header {
     margin-bottom: 12px;
   }
 

@@ -38,7 +38,7 @@ const breadcrumbs = computed<BreadcrumbItem[] | null>(() => {
 
 
 <style scoped lang="scss">
-@import '@/styles/variables';
+// @use '@/styles/variables' as *;
 
 .breadcrumbs {
   &__container {

@@ -32,7 +32,7 @@ defineProps<{
 </template>
 
 <style scoped lang="scss">
-@import '@/styles/variables';
+// @use '@/styles/variables' as *;
 
 .category-sidebar {
   min-width: 282px;

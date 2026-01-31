@@ -24,7 +24,7 @@ const props = defineProps<{
 </template>
 
 <style scoped lang="scss">
-@import '@/styles/variables';
+// @use '@/styles/variables' as *;
 
 .form-component {
   display: grid;

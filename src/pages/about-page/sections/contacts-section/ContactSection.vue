@@ -83,7 +83,7 @@ import TelegramIcon from '@/components/icons/TelegramIcon.vue';
 </template>
 
 <style scoped lang="scss">
-@import '@/styles/variables';
+// @use '@/styles/variables' as *;
 
 .contact-section {
   &__title {

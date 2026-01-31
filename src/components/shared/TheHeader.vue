@@ -71,7 +71,7 @@ import SearchIcon from '../icons/SearchIcon.vue';
 </template>
 
 <style scoped lang="scss">
-@import '@/styles/variables';
+// @use '@/styles/variables' as *;
 
 .header {
   &__top {

@@ -24,7 +24,7 @@ const handleClick = () => {
 </template>
 
 <style scoped lang="scss">
-@import '@/styles/variables';
+// @use '@/styles/variables' as *;
 
 .section-head {
   display: flex;

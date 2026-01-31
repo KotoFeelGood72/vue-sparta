@@ -45,7 +45,7 @@ import ContactSection from './sections/contacts-section/ContactSection.vue';
 </template>
 
 <style scoped lang="scss">
-@import '@/styles/variables';
+// @use '@/styles/variables' as *;
 
 .about-page {
   min-height: calc(100vh - 200px);

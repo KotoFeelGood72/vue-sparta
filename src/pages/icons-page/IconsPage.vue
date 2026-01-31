@@ -37,7 +37,7 @@ const icons = computed(() => {
 </template>
 
 <style scoped lang="scss">
-@import '@/styles/variables';
+// @use '@/styles/variables' as *;
 
 .icons-page {
   &__container {

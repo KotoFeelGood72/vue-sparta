@@ -26,7 +26,7 @@ const props = defineProps<{
 </template>
 
 <style scoped lang="scss">
-@import '@/styles/variables';
+// @use '@/styles/variables' as *;
 
 .object-meta {
   margin-top: 8px;

@@ -106,7 +106,7 @@ const removeItem = (id: string) => {
 </template>
 
 <style scoped lang="scss">
-@import '@/styles/variables';
+// @use '@/styles/variables' as *;
 
 .cart-page {
   background-color: $color-page-bg;

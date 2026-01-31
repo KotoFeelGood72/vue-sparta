@@ -62,7 +62,7 @@ import EnvelopeIcon from '../icons/EnvelopeIcon.vue';
 </template>
 
 <style scoped lang="scss">
-@import '@/styles/variables';
+// @use '@/styles/variables' as *;
 
 .footer {
   background-image: url('/images/footer.jpg');

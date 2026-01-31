@@ -127,7 +127,7 @@ const bucket = computed<TreeBucket>(() => {
 </template>
 
 <style scoped lang="scss">
-@import '@/styles/variables';
+// @use '@/styles/variables' as *;
 
 .tree-node {
   margin: 0;

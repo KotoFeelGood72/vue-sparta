@@ -46,7 +46,7 @@ const repairs = [
 </template>
 
 <style scoped lang="scss">
-@import '@/styles/variables';
+// @use '@/styles/variables' as *;
 
 .repair-page {
   padding-top: 24px;
