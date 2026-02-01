@@ -49,6 +49,11 @@
     padding: 128px 0;
   }
 
+  @include bp($point_2) {
+    padding: 0 0 50px 0;
+    border-radius: 0 0 160px 0;
+  }
+
   &__container {
     max-width: 1187px;
     margin: 0 auto;
@@ -58,6 +63,10 @@
     @media (min-width: 1024px) {
       padding-left: 0;
       padding-right: 16px;
+    }
+
+    @include bp($point_2) {
+      padding-top: 40px;
     }
   }
 
@@ -85,6 +94,10 @@
       width: 800px;
       left: 0;
     }
+
+    @include bp($point_2) {
+      width: 100%;
+    }
   }
 
   &__image {
@@ -97,6 +110,12 @@
       width: 768px;
       left: 10px;
     }
+
+    @include bp($point_2) {
+      width: 100%;
+      position: relative;
+      top: 10px;
+    }
   }
 
   &__text {
@@ -106,6 +125,11 @@
 
     @media (min-width: 1024px) {
       flex: 1;
+    }
+
+    @include bp($point_2) {
+
+      font-size: 18px;
     }
   }
 
@@ -119,6 +143,12 @@
     @media (min-width: 1024px) {
       margin-bottom: 32px;
     }
+
+    @include bp($point_2) {
+      font-size: 35px;
+      font-weight: 400;
+      margin-bottom: 12px;
+    }
   }
 
   &__description {
@@ -128,6 +158,11 @@
     font-size: $font-size-20;
     line-height: $line-height-20;
     line-height: 175%;
+
+    @include bp($point_2) {
+      font-size: 18px;
+      font-weight: 400;
+    }
   }
 
   &__features {
@@ -146,6 +181,7 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 40px;
     }
+
   }
 
   &__feature-item {
@@ -161,6 +197,13 @@
     @media (min-width: 1024px) {
       align-items: flex-start;
       text-align: left;
+    }
+
+    @include bp($point_2) {
+      text-align: left;
+      justify-content: flex-start;
+      align-items: flex-start;
+      max-width: 321px;
     }
   }
 
@@ -186,12 +229,24 @@
     line-height: $line-height-25;
     font-weight: 700;
     margin-bottom: 16px;
+
+    @include bp($point_2) {
+      font-size: 20px;
+      font-weight: 400;
+      margin-bottom: 5px;
+      text-align: left;
+    }
   }
 
   &__feature-text {
     font-size: $font-size-20;
     line-height: $line-height-20;
     line-height: 175%;
+
+    @include bp($point_2) {
+      font-size: 18px;
+      font-weight: 300;
+    }
   }
 }
 </style>

@@ -1,4 +1,9 @@
 <script setup lang="ts">
+import 'swiper/css/pagination';
+
+import { toRaw } from 'vue';
+import { Navigation, Pagination } from 'swiper/modules';
+
 import IntroSlider from './sections/intro-slider/IntroSlider.vue';
 import BrandSlider from './sections/brand-slider/BrandSlider.vue';
 import AgregatesSection from './sections/agregates-section/AgregatesSection.vue';
@@ -7,6 +12,18 @@ import AboutBlock from '@/components/blocks/AboutBlock.vue';
 import DefaultCard from '@/components/cards/DefaultCard.vue';
 import BlockForm from '@/components/shared/BlockForm.vue';
 import RepairSection from './sections/repair/RepairSection.vue';
+import SliderPaginationNav from '@/components/ui/SliderPaginationNav.vue';
+
+const categoriesBreakpoints = {
+  0: {
+    slidesPerView: 1,
+    spaceBetween: 20,
+  },
+  1024: {
+    slidesPerView: 3,
+    spaceBetween: 40,
+  },
+};
 
 const agregates = [
   {
@@ -129,7 +146,7 @@ const repairs = [
 <template>
   <div class="main-page">
     <IntroSlider/>
-    <div class="main-page__section">
+    <div class="">
       <BrandSlider/>
     </div>
     <div class="main-page__section">
@@ -142,18 +159,42 @@ const repairs = [
       <BrandSlider>
         <template #head>
           <div class="main-page__container">
-            <SectionHead title="категории запчастей" buttonText="смотреть все" class="main-page__section-head"/>
+            <SectionHead title="категории запчастей" buttonText="смотреть все" class="main-page__section-head" buttonAbsolute/>
           </div>
         </template>
       </BrandSlider>
     </div>
     <section class="main-page__section main-page__categories">
       <div class="main-page__container">
-        <ul class="main-page__categories-list">
-          <li v-for="category in categories" :key="category.id" class="main-page__category-item">
-            <DefaultCard v-bind="category"/>
-          </li>
-        </ul>
+        <div class="main-page__categories-slider-wrapper">
+          <Swiper
+            :modules="[Navigation, Pagination]"
+            :breakpoints="toRaw(categoriesBreakpoints)"
+            :speed="700"
+            :navigation="{
+              nextEl: '.categories-slider-navigation-next',
+              prevEl: '.categories-slider-navigation-prev',
+            }"
+            :pagination="{
+              el: '.categories-slider-pagination',
+              clickable: true,
+              dynamicBullets: true,
+              dynamicMainBullets: 1,
+            }"
+            class="main-page__categories-swiper"
+          >
+            <SwiperSlide v-for="category in categories" :key="category.id" class="main-page__category-slide">
+              <DefaultCard v-bind="category"/>
+            </SwiperSlide>
+          </Swiper>
+          <div class="main-page__categories-navigation">
+            <SliderPaginationNav
+              prev-el-class="categories-slider-navigation-prev"
+              next-el-class="categories-slider-navigation-next"
+              pagination-class="categories-slider-pagination"
+            />
+          </div>
+        </div>
       </div>
     </section>
     <div class="main-page__section main-page__section--form">
@@ -172,11 +213,14 @@ const repairs = [
 </template>
 
 <style scoped lang="scss">
-// @use '@/styles/variables' as *;
 
 .main-page {
   &__section {
     margin-bottom: 96px;
+
+    @include bp($point_2) {
+      margin-bottom: 55px;
+    }
 
     &--small {
       margin-bottom: 40px;
@@ -195,25 +239,30 @@ const repairs = [
     margin-bottom: 24px;
   }
 
-  &__categories {
-    // categories section
+  &__categories-slider-wrapper {
+    overflow: hidden;
   }
 
-  &__categories-list {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 40px;
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  &__categories-swiper {
+    overflow: visible;
 
     @media (min-width: 1024px) {
-      grid-template-columns: repeat(3, 1fr);
+      overflow: hidden;
     }
   }
 
-  &__category-item {
-    margin: 0;
+  &__category-slide {
+    height: auto;
+  }
+
+  &__categories-navigation {
+    display: none;
+    justify-content: center;
+    margin: 40px auto 30px auto;
+
+    @include bp($point_2) {
+      display: flex;
+    }
   }
 }
 </style>

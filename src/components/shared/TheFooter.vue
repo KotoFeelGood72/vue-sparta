@@ -81,6 +81,11 @@ import EnvelopeIcon from '../icons/EnvelopeIcon.vue';
     justify-content: space-between;
     gap: 144px;
     margin-bottom: 64px;
+
+    @include bp($point_2) {
+
+      flex-direction: column;
+    }
   }
 
   &__logo-block {

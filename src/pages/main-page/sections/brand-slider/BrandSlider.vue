@@ -1,7 +1,26 @@
 <script setup lang="ts">
-import { Navigation, Pagination } from 'swiper/modules';
+import { toRaw } from 'vue';
+import { Navigation } from 'swiper/modules';
 import ChevronIcon from '@/components/icons/ChevronIcon.vue';
 
+const breakpoints = {
+  0: {
+    slidesPerView: 2,
+    spaceBetween: 20,
+  },
+  480: {
+    slidesPerView: 2,
+    spaceBetween: 20,
+  },
+  768: {
+    slidesPerView: 3,
+    spaceBetween: 40,
+  },
+  1024: {
+    slidesPerView: 4,
+    spaceBetween: 40,
+  },
+};
 </script>
 
 <template>
@@ -9,17 +28,19 @@ import ChevronIcon from '@/components/icons/ChevronIcon.vue';
     <slot name="head"/>
     <div class="brand-slider__wrapper">
       <div class="brand-slider__container">
-        <div class="intro-slider-navigation-prev brand-slider__nav-button brand-slider__nav-button--prev">
+        <div class="brand-slider-navigation-prev brand-slider__nav-button brand-slider__nav-button--prev">
           <ChevronIcon />
         </div>
         <Swiper
-          :modules="[Navigation, Pagination]"
+          :slides-per-view="1"
+          :space-between="20"
+          :breakpoints="toRaw(breakpoints)"
+          breakpoints-base="container"
+          :modules="[Navigation]"
           :navigation="{
-            nextEl: '.intro-slider-navigation-next',
-            prevEl: '.intro-slider-navigation-prev',
+            nextEl: '.brand-slider-navigation-next',
+            prevEl: '.brand-slider-navigation-prev',
           }"
-          :slidesPerView="'auto'"
-          :spaceBetween="40"
         >
           <SwiperSlide v-for="brand in 6" :key="brand">
             <div class="brand-slider__item">
@@ -27,7 +48,7 @@ import ChevronIcon from '@/components/icons/ChevronIcon.vue';
             </div>
           </SwiperSlide>
         </Swiper>
-        <div class="intro-slider-navigation-next brand-slider__nav-button brand-slider__nav-button--next">
+        <div class="brand-slider-navigation-next brand-slider__nav-button brand-slider__nav-button--next">
           <ChevronIcon />
         </div>
       </div>
@@ -46,6 +67,10 @@ import ChevronIcon from '@/components/icons/ChevronIcon.vue';
 
     @media (min-width: 1024px) {
       padding: 28px 0;
+    }
+
+    @include bp($point_2) {
+      padding: 12px 0;
     }
   }
 
@@ -71,6 +96,18 @@ import ChevronIcon from '@/components/icons/ChevronIcon.vue';
     border: none;
     transition: opacity 0.2s;
 
+    @include bp($point_2) {
+      width: 32px;
+      height: 32px;
+    }
+
+    svg {
+      @include bp($point_2) {
+        width: 12px;
+        height: 12px;
+      }
+    }
+
     &:hover {
       opacity: 0.9;
     }
@@ -85,17 +122,22 @@ import ChevronIcon from '@/components/icons/ChevronIcon.vue';
     align-items: center;
     justify-content: center;
     height: 100px;
+
+    @include bp($point_2) {
+      height: 70px;
+
+    }
   }
 
   &__image {
     display: block;
     height: 100%;
     object-fit: contain;
-  }
-}
 
-:deep(.swiper-slide) {
-  width: auto !important;
+    @include bp($point_2) {
+      width: 100px;
+    }
+  }
 }
 
 :deep(.swiper-button-lock) {
