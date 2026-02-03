@@ -9,6 +9,4 @@
 </template>
 
 <style scoped lang="scss">
-// @use '@/styles/variables' as *;
-
 </style>

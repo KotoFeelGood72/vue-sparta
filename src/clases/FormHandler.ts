@@ -1,3 +1,9 @@
+export interface FormHandlerValidationResult {
+  valid: boolean
+  message: string
+  errors: { name: boolean; phone: boolean }
+}
+
 export class FormHandler {
   name: string
   phone: string
@@ -7,13 +13,18 @@ export class FormHandler {
     this.phone = phone
   }
 
-  validate() {
-    if (!this.name) {
-      return false
+  validate(): FormHandlerValidationResult {
+    const errors = {
+      name: !this.name?.trim(),
+      phone: !this.phone?.trim() || this.phone.replace(/\D/g, '').length < 10,
     }
-    if (!this.phone) {
-      return false
-    }
+    const valid = !errors.name && !errors.phone
+    let message = ''
+    if (errors.name && errors.phone) message = 'Заполните имя и телефон'
+    else if (errors.name) message = 'Введите имя'
+    else if (!this.phone?.trim()) message = 'Введите номер телефона'
+    else message = 'Введите корректный номер телефона'
+    return { valid, message, errors }
   }
 
   submit() {

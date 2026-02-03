@@ -68,8 +68,6 @@ const total = computed(() => props.price * props.quantity);
 </template>
 
 <style scoped lang="scss">
-// @use '@/styles/variables' as *;
-
 .cart-item {
   background-color: $color-white;
   height: 136px;

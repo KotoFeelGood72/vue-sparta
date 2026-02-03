@@ -79,22 +79,48 @@ const product = {
 </template>
 
 <style scoped lang="scss">
-// @use '@/styles/variables' as *;
 
 .product-page {
   min-height: calc(100vh - 200px);
+  padding-top: 16px;
+
+  @media (min-width: 768px) {
+    padding-top: 20px;
+  }
+
+  @media (min-width: 1024px) {
+    padding-top: 24px;
+    min-height: calc(100vh - 200px);
+  }
 
   &__container {
     max-width: 1187px;
     margin: 0 auto;
-    padding: 0 16px;
-    padding-bottom: 64px;
+    padding: 0 12px;
+    padding-bottom: 48px;
+
+    @media (min-width: 480px) {
+      padding: 0 16px;
+      padding-bottom: 56px;
+    }
+
+    @media (min-width: 768px) {
+      padding-bottom: 64px;
+    }
+
+    @media (min-width: 1024px) {
+      padding-bottom: 96px;
+    }
   }
 
   &__content {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 20px;
+
+    @media (min-width: 768px) {
+      gap: 24px;
+    }
 
     @media (min-width: 1024px) {
       grid-template-columns: repeat(2, 1fr);
@@ -104,90 +130,178 @@ const product = {
 
   &__image-wrapper {
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    background-color: $color-light-gray;
+    border-radius: 10px;
+    padding: 16px;
+
+    @media (min-width: 768px) {
+      min-height: 280px;
+      padding: 24px;
+    }
+
+    @media (min-width: 1024px) {
+      min-height: auto;
+      padding: 0;
+      background-color: transparent;
+    }
+
+    @include bp($point_2) {
+      padding: 0;
+    }
   }
 
   &__image {
     width: 100%;
     height: auto;
     object-fit: contain;
-    max-height: 500px;
+    max-height: 280px;
+
+    @include bp($point_2) {
+      max-height: 100%;
+    }
+
+    @media (min-width: 768px) {
+      max-height: 360px;
+    }
+
+    @media (min-width: 1024px) {
+      max-height: 500px;
+    }
   }
 
   &__info {
     display: flex;
     flex-direction: column;
     background-color: $color-white;
-    padding: 32px;
+    padding: 16px;
     border-radius: 10px;
+
+    @media (min-width: 768px) {
+      padding: 24px;
+    }
+
+    @media (min-width: 1024px) {
+      padding: 32px;
+    }
   }
 
   &__title {
-    font-size: $font-size-35;
-    line-height: $line-height-35;
+    font-size: $font-size-25;
+    line-height: 1.2;
     font-family: $font-family-bebas;
     text-transform: uppercase;
     color: $color-gray;
-    margin-bottom: 8px;
-    line-height: 1;
+    margin-bottom: 6px;
+    word-break: break-word;
+
+    @media (min-width: 768px) {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    @media (min-width: 1024px) {
+      font-size: $font-size-35;
+      line-height: $line-height-35;
+    }
   }
 
   &__price {
-    font-size: $font-size-30;
-    line-height: $line-height-30;
+    font-size: 24px;
+    line-height: 1;
     font-family: $font-family-base;
     font-weight: 700;
     color: $color-gray;
     margin-bottom: 8px;
-    line-height: 1;
+
+    @media (min-width: 768px) {
+      font-size: 28px;
+    }
+
+    @media (min-width: 1024px) {
+      font-size: $font-size-30;
+      line-height: $line-height-30;
+    }
   }
 
   &__instock {
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
+
+    @media (min-width: 1024px) {
+      margin-bottom: 24px;
+    }
   }
 
   &__instock-icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+
+    @media (min-width: 768px) {
+      width: 20px;
+      height: 20px;
+    }
   }
 
   &__instock-text {
-    font-size: $font-size-18;
-    line-height: $line-height-18;
+    font-size: $font-size-14;
+    line-height: $line-height-14;
     font-weight: 300;
     color: $color-gray;
+
+    @media (min-width: 768px) {
+      font-size: $font-size-18;
+      line-height: $line-height-18;
+    }
   }
 
   &__characteristics {
     list-style: none;
     padding: 0;
-    margin: 0 0 12px 0;
+    margin: 0 0 8px 0;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
+
+    @media (min-width: 768px) {
+      gap: 8px;
+      margin-bottom: 12px;
+    }
   }
 
   &__characteristic {
     display: flex;
-    gap: 8px;
-    font-size: $font-size-18;
-    line-height: $line-height-18;
+    flex-wrap: wrap;
+    gap: 4px 8px;
+    font-size: $font-size-14;
+    line-height: $line-height-14;
+
+    @media (min-width: 768px) {
+      font-size: $font-size-18;
+      line-height: $line-height-18;
+      gap: 8px;
+    }
   }
 
   &__characteristic-label {
     font-weight: 300;
     color: $color-light-gray-text;
+    flex-shrink: 0;
   }
 
   &__characteristic-value {
     font-weight: 600;
     color: $color-gray;
+    word-break: break-word;
 
     &--link {
       color: $color-yellow;
@@ -201,9 +315,14 @@ const product = {
   }
 
   &__description {
-    font-size: $font-size-18;
-    line-height: $line-height-18;
+    font-size: $font-size-14;
+    line-height: $line-height-14;
     color: $color-gray;
+
+    @media (min-width: 768px) {
+      font-size: $font-size-18;
+      line-height: $line-height-18;
+    }
   }
 }
 </style>

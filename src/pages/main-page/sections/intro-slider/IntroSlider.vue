@@ -27,8 +27,6 @@ const { isMobile } = useMediaStoreRefs();
       :pagination="{
         el: '.intro-slider-pagination',
         clickable: true,
-        dynamicBullets: true,
-        dynamicMainBullets: 1,
       }"
     >
       <SwiperSlide v-for="slide in 3" :key="slide">
@@ -120,13 +118,13 @@ const { isMobile } = useMediaStoreRefs();
 
   &__item {
     padding: 80px 0;
-    position: relative;
 
     @media (min-width: 1024px) {
       display: flex;
     }
 
     @include bp($point_2) {
+      position: relative;
       padding: 50px 0 490px 0;
     }
   }
@@ -225,9 +223,7 @@ const { isMobile } = useMediaStoreRefs();
     top: 0;
     right: 0;
 
-    @media (min-width: 1024px) {
-      position: relative;
-    }
+
 
     @include bp($point_2) {
       bottom: 0;
@@ -258,7 +254,7 @@ const { isMobile } = useMediaStoreRefs();
 
   &__navigation {
     position: absolute;
-    bottom: 40px;
+    bottom: 74px;
     right: 0;
     display: flex;
     align-items: center;
@@ -335,9 +331,9 @@ const { isMobile } = useMediaStoreRefs();
   }
 }
 
-:deep(.intro-slider-pagination .swiper-pagination-bullet-active),
-:deep(.intro-slider-pagination .swiper-pagination-bullet-active-main) {
-  background-color: $color-yellow !important;
-  transform: scale(1) !important;
-}
+// :deep(.intro-slider-pagination .swiper-pagination-bullet-active),
+// :deep(.intro-slider-pagination .swiper-pagination-bullet-active-main) {
+//   background-color: $color-yellow !important;
+//   transform: scale(1) !important;
+// }
 </style>

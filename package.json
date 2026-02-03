@@ -16,6 +16,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@kyvg/vue3-notification": "^3.4.2",
     "@tailwindcss/line-clamp": "^0.4.4",
     "@vueuse/core": "^14.1.0",
     "axios": "^1.13.2",

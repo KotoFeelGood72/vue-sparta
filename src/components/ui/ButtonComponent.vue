@@ -36,8 +36,6 @@ const buttonClasses = computed(() => {
 </template>
 
 <style scoped lang="scss">
-// @use '@/styles/variables' as *;
-
 .button {
   display: flex;
   align-items: center;

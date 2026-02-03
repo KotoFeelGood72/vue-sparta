@@ -18,7 +18,8 @@ const isLayout = computed(() => {
 </script>
 
 <template>
-  <component :is="isLayout" >
+  <component :is="isLayout">
     <RouterView/>
   </component>
+  <Notifications position="top right" />
 </template>

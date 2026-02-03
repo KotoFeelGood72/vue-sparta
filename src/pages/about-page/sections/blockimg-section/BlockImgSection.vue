@@ -23,8 +23,6 @@
 </template>
 
 <style scoped lang="scss">
-// @use '@/styles/variables' as *;
-
 .block-img-section {
   display: grid;
   grid-template-columns: 1fr;

@@ -41,8 +41,6 @@ const breakpoints = {
           :pagination="{
             el: '.agregates-slider-pagination',
             clickable: true,
-            dynamicBullets: true,
-            dynamicMainBullets: 1,
           }"
           class="agregates-section__swiper"
         >

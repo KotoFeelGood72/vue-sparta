@@ -71,8 +71,6 @@ const { image, title, manufacturers, instock, price } = defineProps<ProductCardM
 </template>
 
 <style scoped lang="scss">
-// @use '@/styles/variables' as *;
-
 .product-card {
   background-color: $color-white;
   border-radius: 10px;

@@ -78,8 +78,6 @@ const props = defineProps<{
 </template>
 
 <style scoped lang="scss">
-// @use '@/styles/variables' as *;
-
 .object-parts-table {
   overflow-x: auto;
   overflow-y: auto;

@@ -47,8 +47,6 @@ const props = defineProps<{
 </template>
 
 <style scoped lang="scss">
-// @use '@/styles/variables' as *;
-
 .object-images {
   position: relative;
   overflow: auto;

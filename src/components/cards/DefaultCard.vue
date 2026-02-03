@@ -29,8 +29,6 @@ const { image, title, id, slug } = defineProps<DefaultCardModel>();
 </template>
 
 <style scoped lang="scss">
-// @use '@/styles/variables' as *;
-
 .default-card {
   background-color: $color-white;
   padding: 20px;

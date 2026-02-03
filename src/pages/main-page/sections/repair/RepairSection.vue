@@ -9,7 +9,12 @@ import DefaultCard from '@/components/cards/DefaultCard.vue';
 import type { DefaultCardModel } from '@/components/cards/DefaultCard.vue';
 import SliderPaginationNav from '@/components/ui/SliderPaginationNav.vue';
 
-const { repairs } = defineProps<{ repairs: DefaultCardModel[], headerHidden?: boolean }>();
+const { repairs, headerHidden, sliderEnabled = true } = defineProps<{
+  repairs: DefaultCardModel[];
+  headerHidden?: boolean;
+  /** Включить слайдер (true) или показывать карточки сеткой (false) */
+  sliderEnabled?: boolean;
+}>();
 
 const breakpoints = {
   0: {
@@ -31,6 +36,7 @@ const breakpoints = {
       </div>
       <div class="repair-section__slider-wrapper">
         <Swiper
+          v-if="sliderEnabled"
           :modules="[Navigation, Pagination]"
           :breakpoints="toRaw(breakpoints)"
           :speed="700"
@@ -41,8 +47,6 @@ const breakpoints = {
           :pagination="{
             el: '.repair-slider-pagination',
             clickable: true,
-            dynamicBullets: true,
-            dynamicMainBullets: 1,
           }"
           class="repair-section__swiper"
         >
@@ -50,7 +54,15 @@ const breakpoints = {
             <DefaultCard v-bind="repair"/>
           </SwiperSlide>
         </Swiper>
-        <div class="repair-section__navigation">
+        <div v-else class="repair-section__grid">
+          <DefaultCard
+            v-for="repair in repairs"
+            :key="repair.id"
+            class="repair-section__grid-item"
+            v-bind="repair"
+          />
+        </div>
+        <div v-if="sliderEnabled" class="repair-section__navigation">
           <SliderPaginationNav
             prev-el-class="repair-slider-navigation-prev"
             next-el-class="repair-slider-navigation-next"
@@ -83,6 +95,21 @@ const breakpoints = {
 
   &__slider-wrapper {
     overflow: hidden;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+    }
+  }
+
+  &__grid-item {
+    height: auto;
   }
 
   &__swiper {

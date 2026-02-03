@@ -33,8 +33,6 @@ const getStarFill = (starIndex: number) => {
 </template>
 
 <style scoped lang="scss">
-// @use '@/styles/variables' as *;
-
 .star-rating {
   display: flex;
   align-items: center;

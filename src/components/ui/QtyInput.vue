@@ -35,8 +35,6 @@ const increment = () => {
 </template>
 
 <style scoped lang="scss">
-// @use '@/styles/variables' as *;
-
 .qty-input {
   display: flex;
   align-items: center;

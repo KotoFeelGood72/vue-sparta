@@ -3,8 +3,11 @@ import 'swiper/css/pagination';
 
 import { toRaw } from 'vue';
 import { Navigation, Pagination } from 'swiper/modules';
+import { useMediaStoreRefs } from '@/stores/useMediaStore';
+import ChevronButtonIcon from '@/components/icons/ChevronButtonIcon.vue';
 
 import IntroSlider from './sections/intro-slider/IntroSlider.vue';
+import ButtonComponent from '@/components/ui/ButtonComponent.vue';
 import BrandSlider from './sections/brand-slider/BrandSlider.vue';
 import AgregatesSection from './sections/agregates-section/AgregatesSection.vue';
 import SectionHead from '@/components/blocks/section-head/SectionHead.vue';
@@ -13,6 +16,8 @@ import DefaultCard from '@/components/cards/DefaultCard.vue';
 import BlockForm from '@/components/shared/BlockForm.vue';
 import RepairSection from './sections/repair/RepairSection.vue';
 import SliderPaginationNav from '@/components/ui/SliderPaginationNav.vue';
+
+const { isMobile } = useMediaStoreRefs();
 
 const categoriesBreakpoints = {
   0: {
@@ -178,8 +183,6 @@ const repairs = [
             :pagination="{
               el: '.categories-slider-pagination',
               clickable: true,
-              dynamicBullets: true,
-              dynamicMainBullets: 1,
             }"
             class="main-page__categories-swiper"
           >
@@ -194,6 +197,7 @@ const repairs = [
               pagination-class="categories-slider-pagination"
             />
           </div>
+          <ButtonComponent :icon="ChevronButtonIcon" v-if="isMobile" text="СМОТРЕТЬ ВСЕ" size="small" variant="primary" custom-class="main-page__categories-button" />
         </div>
       </div>
     </section>
@@ -255,10 +259,20 @@ const repairs = [
     height: auto;
   }
 
+  &__categories-button {
+    @include bp($point_2) {
+      font-weight: 600;
+      max-width: 194px;
+      margin: 0 auto;
+    }
+  }
+
   &__categories-navigation {
-    display: flex;
-    justify-content: center;
-    margin: 40px auto 30px auto;
+
+    @include bp($point_2) {
+      margin-top: 40px;
+      margin-bottom: 30px;
+    }
 
     @media (min-width: 1024px) {
       display: none;

@@ -27,8 +27,6 @@ import BlockForm from '@/components/shared/BlockForm.vue';
 </template>
 
 <style scoped lang="scss">
-// @use '@/styles/variables' as *;
-
 .repair-detail-page {
   padding-top: 24px;
 

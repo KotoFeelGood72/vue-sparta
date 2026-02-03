@@ -83,8 +83,6 @@ import TelegramIcon from '@/components/icons/TelegramIcon.vue';
 </template>
 
 <style scoped lang="scss">
-// @use '@/styles/variables' as *;
-
 .contact-section {
   &__title {
     font-size: $font-size-55;

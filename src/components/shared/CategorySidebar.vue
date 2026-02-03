@@ -11,6 +11,14 @@ export interface Category {
 defineProps<{
   categories: Category[];
 }>();
+
+const emit = defineEmits<{
+  select: [];
+}>();
+
+const onLinkClick = () => {
+  emit('select');
+};
 </script>
 
 <template>
@@ -23,6 +31,7 @@ defineProps<{
             'category-sidebar__link',
             category.isActive ? 'category-sidebar__link--active' : ''
           ]"
+          @click="onLinkClick"
         >
           {{ category.title }}
         </RouterLink>
@@ -32,8 +41,6 @@ defineProps<{
 </template>
 
 <style scoped lang="scss">
-// @use '@/styles/variables' as *;
-
 .category-sidebar {
   min-width: 282px;
 

@@ -266,8 +266,6 @@ onMounted(async () => {
 </template>
 
 <style scoped lang="scss">
-// @use '@/styles/variables' as *;
-
 .catalog-page {
   &__container {
     max-width: 1187px;

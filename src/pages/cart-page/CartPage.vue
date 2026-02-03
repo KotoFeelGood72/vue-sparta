@@ -106,8 +106,6 @@ const removeItem = (id: string) => {
 </template>
 
 <style scoped lang="scss">
-// @use '@/styles/variables' as *;
-
 .cart-page {
   background-color: $color-page-bg;
   min-height: calc(100vh - 200px);

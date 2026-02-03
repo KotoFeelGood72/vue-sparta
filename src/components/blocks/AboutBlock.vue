@@ -33,8 +33,6 @@
 </template>
 
 <style scoped lang="scss">
-// @use '@/styles/variables' as *;
-
 .about-block {
   background-image: url('/images/about-bg.png');
   background-size: cover;

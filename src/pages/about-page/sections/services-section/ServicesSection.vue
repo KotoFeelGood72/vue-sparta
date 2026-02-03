@@ -40,8 +40,6 @@ import GarantIcon from '@/components/icons/GarantIcon.vue';
 </template>
 
 <style scoped lang="scss">
-// @use '@/styles/variables' as *;
-
 .services-section {
   padding: 56px;
   border-radius: 10px;

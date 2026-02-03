@@ -6,6 +6,10 @@ import WhatsappIcon from '../icons/WhatsappIcon.vue';
 import ProfileIcon from '../icons/ProfileIcon.vue';
 import CartIcon from '../icons/CartIcon.vue';
 import SearchIcon from '../icons/SearchIcon.vue';
+
+const emit = defineEmits<{
+  authClick: [];
+}>();
 </script>
 
 <template>
@@ -34,16 +38,16 @@ import SearchIcon from '../icons/SearchIcon.vue';
         </ul>
         <ul class="header__actions-list">
           <li class="header__actions-item">
-            <RouterLink to="/" class="header__cart-link">
+            <RouterLink to="/cart" class="header__cart-link">
               <CartIcon class="header__cart-icon"/>
               <span class="header__cart-text">Корзина (10)</span>
             </RouterLink>
           </li>
           <li class="header__actions-item">
-            <RouterLink to="/" class="header__profile-link">
+            <button type="button" class="header__profile-link" @click="emit('authClick')">
               <ProfileIcon class="header__profile-icon"/>
               <span class="header__profile-text">Личный кабинет</span>
-            </RouterLink>
+            </button>
           </li>
         </ul>
       </div>
@@ -51,16 +55,16 @@ import SearchIcon from '../icons/SearchIcon.vue';
     <div class="header__bottom">
       <div class="header__bottom-inner">
         <div class="header__catalog-button-wrapper">
-          <RouterLink to="/" class="header__catalog-button">Каталоги</RouterLink>
+          <RouterLink to="/catalog" class="header__catalog-button">Каталоги</RouterLink>
         </div>
         <ul class="header__nav-list">
-          <li class="header__nav-item"><RouterLink to="/" class="header__nav-link">Запчасти</RouterLink></li>
-          <li class="header__nav-item"><RouterLink to="/" class="header__nav-link">Агрегаты</RouterLink></li>
-          <li class="header__nav-item"><RouterLink to="/" class="header__nav-link">Ремонт</RouterLink></li>
-          <li class="header__nav-item"><RouterLink to="/" class="header__nav-link">Спецтехника</RouterLink></li>
-          <li class="header__nav-item"><RouterLink to="/" class="header__nav-link">Экспресс-доставка</RouterLink></li>
-          <li class="header__nav-item"><RouterLink to="/" class="header__nav-link">О компании</RouterLink></li>
-          <li class="header__nav-item"><RouterLink to="/" class="header__nav-link">Контакты</RouterLink></li>
+          <li class="header__nav-item"><RouterLink to="/shop" class="header__nav-link">Запчасти</RouterLink></li>
+          <li class="header__nav-item"><RouterLink to="/shop" class="header__nav-link">Агрегаты</RouterLink></li>
+          <li class="header__nav-item"><RouterLink to="/repair" class="header__nav-link">Ремонт</RouterLink></li>
+          <li class="header__nav-item"><RouterLink to="/catalog" class="header__nav-link">Спецтехника</RouterLink></li>
+          <li class="header__nav-item"><RouterLink to="/delivery" class="header__nav-link">Экспресс-доставка</RouterLink></li>
+          <li class="header__nav-item"><RouterLink to="/about" class="header__nav-link">О компании</RouterLink></li>
+          <li class="header__nav-item"><RouterLink to="/about" class="header__nav-link">Контакты</RouterLink></li>
         </ul>
         <div class="header__search-button">
           <SearchIcon/>
@@ -71,8 +75,6 @@ import SearchIcon from '../icons/SearchIcon.vue';
 </template>
 
 <style scoped lang="scss">
-// @use '@/styles/variables' as *;
-
 .header {
   &__top {
     background-color: $color-dark;
@@ -198,6 +200,12 @@ import SearchIcon from '../icons/SearchIcon.vue';
     gap: 8px;
     text-decoration: none;
     transition: opacity 0.2s;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    font: inherit;
+    color: inherit;
 
     &:hover {
       opacity: 0.8;

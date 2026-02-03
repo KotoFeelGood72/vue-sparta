@@ -58,14 +58,13 @@ const breakpoints = {
 
 
 <style scoped lang="scss">
-// @use '@/styles/variables' as *;
-
 .brand-slider {
   &__wrapper {
     background-color: $color-white;
     padding: 28px 0;
 
     @media (min-width: 1024px) {
+      margin-bottom: 109px;
       padding: 28px 0;
     }
 

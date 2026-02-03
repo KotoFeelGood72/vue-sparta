@@ -37,8 +37,6 @@ const icons = computed(() => {
 </template>
 
 <style scoped lang="scss">
-// @use '@/styles/variables' as *;
-
 .icons-page {
   &__container {
     max-width: 1187px;

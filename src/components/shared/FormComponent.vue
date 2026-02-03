@@ -1,22 +1,57 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import InputComponent from '../ui/InputComponent.vue';
 import ButtonComponent from '../ui/ButtonComponent.vue';
 import CheckboxesComponent from '../ui/CheckboxesComponent.vue';
 import { FormHandler } from '@/clases/FormHandler';
-import { ref } from 'vue';
+import { useNotify } from '@/composables/useNotify';
 
 const form = ref<FormHandler>(new FormHandler('', ''));
+const errors = ref({ name: false, phone: false });
+const { notify } = useNotify();
 
 const props = defineProps<{
   theme: 'white' | 'dark'
 }>();
+
+function handleSubmit() {
+  const result = form.value.validate();
+  errors.value = result.errors;
+  if (!result.valid) {
+    notify({ type: 'error', text: result.message });
+    return;
+  }
+  form.value.submit();
+}
 </script>
 
 <template>
   <div class="form-component">
-    <InputComponent v-model="form.name" placeholder="Имя" type="text" id="name" name="name" required size="large" class="form-component__input"/>
-    <InputComponent v-model="form.phone" placeholder="Телефон" type="tel" id="phone" name="phone" required size="large" class="form-component__input"/>
-    <ButtonComponent text="заказать экспресс-доставку" size="large" variant="primary" @click="form.submit()" class="form-component__button"/>
+    <InputComponent
+      v-model="form.name"
+      placeholder="Имя"
+      type="text"
+      id="name"
+      name="name"
+      required
+      size="large"
+      class="form-component__input"
+      :error="errors.name"
+      @update:model-value="errors.name = false"
+    />
+    <InputComponent
+      v-model="form.phone"
+      placeholder="Телефон"
+      type="tel"
+      id="phone"
+      name="phone"
+      required
+      size="large"
+      class="form-component__input"
+      :error="errors.phone"
+      @update:model-value="errors.phone = false"
+    />
+    <ButtonComponent text="заказать экспресс-доставку" size="large" variant="primary" @click="handleSubmit" class="form-component__button"/>
     <CheckboxesComponent value="1" id="1" name="1" required :class="['form-component__checkbox', props.theme === 'dark' ? 'form-component__checkbox--dark' : 'form-component__checkbox--light']">
       Нажимая на кнопку, вы даете согласие на <a href="#">обработку персональных данных</a>
     </CheckboxesComponent>

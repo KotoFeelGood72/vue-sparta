@@ -8,15 +8,16 @@ export interface InputComponentModel {
   name: string
   required: boolean
   size: 'small' | 'medium' | 'large'
+  error?: boolean
 }
 
-
 const model = defineModel<string>('modelValue', { required: true });
-const { placeholder, type, id, name, required, size } = defineProps<InputComponentModel>();
+const { placeholder, type, id, name, required, size, error = false } = defineProps<InputComponentModel>();
 
 const inputClasses = computed(() => {
   const classes = ['input'];
   classes.push(`input--${size}`);
+  if (error) classes.push('input--error');
   return classes;
 });
 </script>
@@ -36,8 +37,6 @@ const inputClasses = computed(() => {
 </template>
 
 <style scoped lang="scss">
-// @use '@/styles/variables' as *;
-
 .input-component {
   width: 100%;
   height: 100%;
@@ -50,6 +49,12 @@ const inputClasses = computed(() => {
   border-radius: 9999px;
   border: none;
   outline: none;
+  box-shadow: 0 0 0 2px transparent;
+  transition: box-shadow 0.2s;
+
+  &--error {
+    box-shadow: 0 0 0 2px #e53e3e;
+  }
 
   &--small {
     padding: 16px 24px;

@@ -29,8 +29,12 @@ defineProps<{
 }
 
 .slider-pagination-nav__button {
+  position: static !important;
+  left: auto !important;
+  right: auto !important;
   width: 47px;
   height: 47px;
+  min-width: 47px;
   min-width: 32px;
   min-height: 32px;
   flex-shrink: 0;
@@ -80,7 +84,7 @@ defineProps<{
   position: static !important;
   left: auto !important;
   transform: none !important;
-  gap: 20px !important;
+  gap: 10px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -105,8 +109,8 @@ defineProps<{
   margin: 0 !important;
 
   @include bp($point_2) {
-    width: 12px !important;
-    height: 12px !important;
+    width: 10px !important;
+    height: 10px !important;
   }
 }
 

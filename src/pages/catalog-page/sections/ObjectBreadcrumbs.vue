@@ -31,8 +31,6 @@ const props = defineProps<{
 </template>
 
 <style scoped lang="scss">
-// @use '@/styles/variables' as *;
-
 .object-breadcrumbs {
   display: flex;
   flex-wrap: wrap;

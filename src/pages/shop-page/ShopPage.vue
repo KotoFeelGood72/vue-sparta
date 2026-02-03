@@ -1,23 +1,46 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import ProductCard, { type ProductCardModel } from '@/components/cards/ProductCard.vue';
 import CategorySidebar, { type Category } from '@/components/shared/CategorySidebar.vue';
 import ChevronButtonIcon from '@/components/icons/ChevronButtonIcon.vue';
 import ButtonComponent from '@/components/ui/ButtonComponent.vue';
+import { useRoute } from 'vue-router';
+import { useMediaStoreRefs } from '@/stores/useMediaStore';
+import { SHOP_CATEGORIES } from '@/constants/shopCategories';
 
-const categories: Category[] = [
-  { id: '1', title: 'Запчасти по ДВС', slug: 'dvs', isActive: true },
-  { id: '2', title: 'Гидравлическая система', slug: 'hydraulic' },
-  { id: '3', title: 'Топливная система', slug: 'fuel' },
-  { id: '4', title: 'Турбины', slug: 'turbines' },
-  { id: '5', title: 'Система охлаждения', slug: 'cooling' },
-  { id: '6', title: 'Электрика', slug: 'electrics' },
-  { id: '7', title: 'Фильтры', slug: 'filters' },
-  { id: '8', title: 'Ремкомплекты', slug: 'repair-kits' },
-  { id: '9', title: 'Навесное оборудование', slug: 'attachments' },
-  { id: '10', title: 'Рамы', slug: 'frames' },
-  { id: '11', title: 'Другое', slug: 'other' },
-];
+const route = useRoute();
+const { isTablet, isMobile } = useMediaStoreRefs();
+const isCategoriesOpen = ref(false);
+
+const showCategoriesToggle = computed(() => isTablet.value || isMobile.value);
+
+const toggleCategories = () => {
+  isCategoriesOpen.value = !isCategoriesOpen.value;
+};
+
+const categoriesList: Category[] = SHOP_CATEGORIES.map((c) => ({
+  id: c.id,
+  title: c.title,
+  slug: c.slug,
+}));
+
+const currentSlug = computed(() => {
+  const slug = route.params.slug;
+  return typeof slug === 'string' ? slug : undefined;
+});
+
+const categories = computed(() =>
+  categoriesList.map((c) => ({
+    ...c,
+    isActive: c.slug === currentSlug.value,
+  }))
+);
+
+const selectedCategory = computed(() => {
+  const slug = currentSlug.value;
+  if (!slug) return undefined;
+  return categoriesList.find((c) => c.slug === slug);
+});
 
 const products = ref<ProductCardModel[]>([
   {
@@ -88,7 +111,30 @@ const loadMore = () => {
       <div class="shop-page__content">
         <!-- Боковая панель с категориями -->
         <aside class="shop-page__sidebar">
-          <CategorySidebar :categories="categories" />
+          <button
+            v-if="showCategoriesToggle"
+            type="button"
+            class="shop-page__categories-toggle"
+            :class="{ 'shop-page__categories-toggle--open': isCategoriesOpen }"
+            :aria-expanded="isCategoriesOpen"
+            @click="toggleCategories"
+          >
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="14" viewBox="0 0 20 14" fill="none">
+            <rect y="0.941406" width="19.4634" height="1.81056" rx="0.905279" fill="#FDC043"/>
+            <circle cx="12.413" cy="1.84657" r="1.84657" fill="#FDC043"/>
+            <rect y="11.1685" width="19.4634" height="1.81056" rx="0.905279" fill="#FDC043"/>
+            <circle cx="12.413" cy="12.0736" r="1.84657" fill="#FDC043"/>
+            <rect x="2.49609" y="6.05518" width="16.9675" height="1.81056" rx="0.905279" fill="#FDC043"/>
+            <circle cx="7.88563" cy="6.96034" r="1.84657" fill="#FDC043"/>
+          </svg>
+            <span class="shop-page__categories-toggle-text">{{ selectedCategory?.title || 'Выбрать категорию запчастей' }}</span>
+          </button>
+          <div
+            v-show="!showCategoriesToggle || isCategoriesOpen"
+            class="shop-page__sidebar-inner"
+          >
+            <CategorySidebar :categories="categories" @select="isCategoriesOpen = false" />
+          </div>
         </aside>
 
         <!-- Основной контент -->
@@ -125,41 +171,129 @@ const loadMore = () => {
 </template>
 
 <style scoped lang="scss">
-// @use '@/styles/variables' as *;
-
 .shop-page {
   background-color: $color-page-bg;
-  padding-bottom: 96px;
+  padding-bottom: 48px;
   min-height: calc(100vh - 200px);
+
+  @include bp($point_2, min) {
+    padding-bottom: 96px;
+  }
 
   &__container {
     max-width: 1187px;
     margin: 0 auto;
-    padding: 0 16px;
+    padding: 0 12px;
+
+    @include bp($point_5, min) {
+      padding: 0 16px;
+    }
   }
 
   &__content {
     display: flex;
-    gap: 32px;
-    padding-top: 40px;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 20px;
+
+    @include bp($point_4, min) {
+      gap: 24px;
+      padding-top: 24px;
+    }
+
+    @include bp($point_2, min) {
+      flex-direction: row;
+      gap: 32px;
+      padding-top: 40px;
+    }
   }
 
   &__sidebar {
     flex-shrink: 0;
+    width: 100%;
+
+    @include bp($point_2, min) {
+      width: auto;
+    }
+  }
+
+  &__categories-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 14px 20px;
+    background-color: $color-white;
+    border: 1px solid $color-light-gray;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    gap: 12px;
+    color: $color-gray;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+
+    &:hover {
+      border-color: $color-yellow;
+      color: $color-yellow;
+    }
+
+    &--open {
+      border-color: $color-yellow;
+    }
+  }
+
+  &__categories-toggle-text {
+    flex: 1;
+    text-align: left;
+  }
+
+  &__categories-toggle-icon {
+    flex-shrink: 0;
+    margin-left: 8px;
+    transition: transform 0.2s;
+  }
+
+  &__categories-toggle--open &__categories-toggle-icon {
+    transform: rotate(180deg);
+  }
+
+  &__sidebar-inner {
+    margin-top: 12px;
+    width: 100%;
+
+    @include bp($point_2, min) {
+      margin-top: 0;
+      display: block;
+    }
+
+    :deep(.category-sidebar) {
+      min-width: 0;
+      width: 100%;
+    }
   }
 
   &__main {
     flex: 1;
+    min-width: 0;
   }
 
   &__grid {
     display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    gap: 24px;
-    margin-bottom: 40px;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
 
-    @media (min-width: 1024px) {
+    @include bp($point_5, min) {
+      gap: 20px;
+      margin-bottom: 32px;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include bp($point_2, min) {
       grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 40px;
     }
   }
 
@@ -171,9 +305,14 @@ const loadMore = () => {
 
   &__load-button {
     text-transform: uppercase;
-    font-size: $font-size-16;
-    line-height: $line-height-16;
+    font-size: $font-size-14;
+    line-height: $line-height-14;
     font-weight: 600;
+
+    @include bp($point_5, min) {
+      font-size: $font-size-16;
+      line-height: $line-height-16;
+    }
   }
 }
 </style>

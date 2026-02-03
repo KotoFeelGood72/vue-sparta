@@ -26,7 +26,7 @@ const repairs = [
 
 <template>
   <div class="repair-page">
-    <RepairSection :repairs="repairs" header-hidden>
+    <RepairSection :repairs="repairs" header-hidden :slider-enabled="false">
       <template #bottom>
         <div class="repair-page__description">
           <p>Gd ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam</p>
@@ -46,8 +46,6 @@ const repairs = [
 </template>
 
 <style scoped lang="scss">
-// @use '@/styles/variables' as *;
-
 .repair-page {
   padding-top: 24px;
 
@@ -58,6 +56,12 @@ const repairs = [
     line-height: 175%;
     padding-top: 40px;
     padding-bottom: 96px;
+  }
+
+  :deep(.repair-section) {
+    @include bp($point_2) {
+      padding: 0;
+    }
   }
 }
 </style>

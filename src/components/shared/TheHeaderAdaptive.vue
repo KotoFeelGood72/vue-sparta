@@ -4,6 +4,12 @@ import AddressIcon from '../icons/AddressIcon.vue';
 import ProfileIcon from '../icons/ProfileIcon.vue';
 import CartIcon from '../icons/CartIcon.vue';
 import SearchIcon from '../icons/SearchIcon.vue';
+
+const emit = defineEmits<{
+  menuClick: [];
+  authClick: [];
+  callbackClick: [];
+}>();
 </script>
 
 <template>
@@ -20,7 +26,7 @@ import SearchIcon from '../icons/SearchIcon.vue';
             </svg>
             <div class="header-adaptive__phone-text">
               <span>+7 966 032 02 30</span>
-              <p class="header-adaptive__phone-text-link">Заказать звонок</p>
+              <p class="header-adaptive__phone-text-link"  @click="emit('callbackClick')">Заказать звонок</p>
             </div>
             <div class="header-adaptive__socials">
               <a href="#" class="header-adaptive__social-link">
@@ -51,16 +57,21 @@ import SearchIcon from '../icons/SearchIcon.vue';
           <span class="header-adaptive__location-text">Владивосток</span>
         </div>
         <div class="header-adaptive__actions">
-          <RouterLink to="/" class="header-adaptive__cart-link">
+          <RouterLink to="/cart" class="header-adaptive__cart-link">
             <CartIcon class="header-adaptive__cart-icon"/>
             <span class="header-adaptive__cart-count">(10)</span>
           </RouterLink>
-          <RouterLink to="/" class="header-adaptive__profile-link">
+          <button type="button" class="header-adaptive__profile-link" @click="emit('authClick')">
             <ProfileIcon class="header-adaptive__profile-icon"/>
             <span class="header-adaptive__profile-text">Войти</span>
-          </RouterLink>
+          </button>
         </div>
-        <button type="button" class="header-adaptive__menu-button">
+        <button
+          type="button"
+          class="header-adaptive__menu-button"
+          aria-label="Меню"
+          @click="emit('menuClick')"
+        >
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="16" viewBox="0 0 18 16" fill="none">
             <rect width="17.8467" height="2.87183" rx="1.43591" fill="#FDC043"/>
             <rect x="4.18213" y="6.12451" width="13.6647" height="2.87183" rx="1.43591" fill="#FDC043"/>
@@ -134,6 +145,11 @@ import SearchIcon from '../icons/SearchIcon.vue';
     text-decoration: underline;
     color: $color-yellow;
     margin-top: -4px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font: inherit;
   }
 
   &__socials {
@@ -185,6 +201,12 @@ import SearchIcon from '../icons/SearchIcon.vue';
     align-items: center;
     gap: 8px;
     text-decoration: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    font: inherit;
+    color: inherit;
   }
 
   &__cart-count,

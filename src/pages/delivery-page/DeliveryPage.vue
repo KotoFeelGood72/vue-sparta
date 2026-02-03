@@ -23,8 +23,6 @@ import BlockForm from '@/components/shared/BlockForm.vue';
 </template>
 
 <style scoped lang="scss">
-// @use '@/styles/variables' as *;
-
 .delivery-page {
   padding-top: 24px;
 

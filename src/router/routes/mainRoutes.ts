@@ -97,6 +97,18 @@ export const mainRoutes = [
       ],
     },
   },
+  {
+    path: '/agreement',
+    component: () => import('@/pages/agreement-page/AgreementPage.vue'),
+    meta: {
+      layout: 'default',
+      title: 'Пользовательское соглашение',
+      breadcrumbs: [
+        { label: 'Главная', to: '/' },
+        { label: 'Пользовательское соглашение' },
+      ],
+    },
+  },
   // Страница о компании
   {
     path: '/about',

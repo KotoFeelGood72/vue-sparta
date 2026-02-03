@@ -249,8 +249,6 @@ provide('catalogTree', {
 </template>
 
 <style scoped lang="scss">
-// @use '@/styles/variables' as *;
-
 .categories-three {
   height: 100%;
   overflow-y: auto;

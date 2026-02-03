@@ -24,8 +24,6 @@ const handleClick = () => {
 </template>
 
 <style scoped lang="scss">
-// @use '@/styles/variables' as *;
-
 .section-head {
   display: flex;
   align-items: center;
@@ -57,12 +55,15 @@ const handleClick = () => {
     font-weight: 700;
     gap: 8px;
 
-    &--absolute {
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
+    @include bp($point_2) {
+      &--absolute {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+      }
     }
+
   }
 }
 </style>

@@ -164,8 +164,6 @@ const handleTelegram = () => {
 </template>
 
 <style scoped lang="scss">
-// @use '@/styles/variables' as *;
-
 .header-mobile {
   &__top {
     background-color: $color-dark;
