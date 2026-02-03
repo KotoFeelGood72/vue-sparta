@@ -24,12 +24,15 @@ const props = defineProps<{
 </template>
 
 <style scoped lang="scss">
-// @use '@/styles/variables' as *;
 
 .form-component {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 32px;
+
+  @include bp($point_2) {
+    grid-template-columns: 1fr;
+  }
 
   &__input {
     // input styles
@@ -37,9 +40,18 @@ const props = defineProps<{
 
   &__button {
     // button styles
+
+    @include bp($point_2) {
+      order: 5;
+    }
   }
 
   &__checkbox {
+
+    @include bp($point_2) {
+      order: 4;
+    }
+
     &--dark {
       color: $color-white;
 

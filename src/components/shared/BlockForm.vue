@@ -31,7 +31,6 @@ defineProps<{
 </template>
 
 <style scoped lang="scss">
-// @use '@/styles/variables' as *;
 
 .block-form {
   position: relative;
@@ -42,10 +41,19 @@ defineProps<{
   background-position: center;
   background-repeat: no-repeat;
 
+  @include bp($point_2) {
+    height: auto;
+    padding-bottom: 78px;
+  }
+
   &--dark {
     background-image: url('/images/form-dark-bg.png');
     border-radius: 0 0 0 300px;
     background-color: $color-dark;
+
+    @include bp($point_2) {
+      border-radius: 0 0 0 100px;
+    }
   }
 
   &--white {
@@ -81,6 +89,11 @@ defineProps<{
     font-family: $font-family-bebas;
     text-transform: uppercase;
     margin-bottom: 8px;
+
+    @include bp($point_2) {
+      font-size: 35px;
+      margin-bottom: 0;
+    }
   }
 
   &--dark &__title {
@@ -96,6 +109,10 @@ defineProps<{
     line-height: $line-height-20;
     font-weight: 400;
     line-height: 175%;
+
+    @include bp($point_2) {
+      font-size: 18px;
+    }
   }
 
   &--dark &__subtitle {
@@ -142,6 +159,12 @@ defineProps<{
     align-items: center;
     justify-content: center;
     width: 100%;
+
+    @include bp($point_2) {
+      position: static;
+      transform: translateY(0);
+      margin-bottom: 48px;
+    }
   }
 
   &__image-content {

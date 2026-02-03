@@ -256,12 +256,12 @@ const repairs = [
   }
 
   &__categories-navigation {
-    display: none;
+    display: flex;
     justify-content: center;
     margin: 40px auto 30px auto;
 
-    @include bp($point_2) {
-      display: flex;
+    @media (min-width: 1024px) {
+      display: none;
     }
   }
 }

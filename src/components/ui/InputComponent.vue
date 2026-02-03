@@ -64,6 +64,10 @@ const inputClasses = computed(() => {
     padding: 0 44px;
     font-size: $font-size-18;
     line-height: 1;
+
+    @include bp($point_2) {
+      height: 77px;
+    }
   }
 }
 </style>

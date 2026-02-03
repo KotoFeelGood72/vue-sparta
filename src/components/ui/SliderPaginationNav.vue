@@ -31,8 +31,10 @@ defineProps<{
 .slider-pagination-nav__button {
   width: 47px;
   height: 47px;
+  min-width: 32px;
+  min-height: 32px;
   flex-shrink: 0;
-  display: flex;
+  display: flex !important;
   align-items: center;
   justify-content: center;
   background-color: $color-yellow;
@@ -60,6 +62,16 @@ defineProps<{
   &--next {
     transform: rotate(180deg);
   }
+
+  /* Swiper добавляет классы и скрывает кнопки — оставляем стрелки видимыми */
+  &.swiper-button-lock {
+    display: flex !important;
+  }
+
+  &.swiper-button-disabled {
+    display: flex !important;
+    opacity: 0.35;
+  }
 }
 </style>
 
@@ -73,6 +85,14 @@ defineProps<{
   align-items: center !important;
   justify-content: center !important;
   min-width: 100px;
+  width: auto !important;
+  height: auto !important;
+  overflow: visible !important;
+  padding: 0 !important;
+}
+
+.slider-pagination-nav :deep(.swiper-pagination-lock) {
+  display: flex !important;
 }
 
 .slider-pagination-nav :deep(.swiper-pagination-bullet) {
@@ -82,6 +102,7 @@ defineProps<{
   height: 17px !important;
   border-radius: 50% !important;
   transform: scale(1) !important;
+  margin: 0 !important;
 
   @include bp($point_2) {
     width: 12px !important;
