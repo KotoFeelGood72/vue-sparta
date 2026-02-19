@@ -42,11 +42,11 @@ export const mainRoutes = [
     component: () => import('@/pages/cart-page/CartPage.vue'),
     meta: {
       layout: 'default',
-      title: 'Личный кабинет (корзина)',
+      title: 'Корзина',
       breadcrumbs: [
         { label: 'Главная', to: '/' },
         {
-          label: 'Личный кабинет (корзина)',
+          label: 'Корзина',
         },
       ],
     },

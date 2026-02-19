@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import CheckIcon from '../icons/CheckIcon.vue';
+import CheckIcon from '../icons/CheckIcon.vue'
 
 export interface CheckboxesComponentModel {
   value: string
@@ -8,19 +8,31 @@ export interface CheckboxesComponentModel {
   required: boolean
 }
 
-const { value, id, name, required } = defineProps<CheckboxesComponentModel>();
+const { value, id, name, required } = defineProps<CheckboxesComponentModel>()
 
-const model = defineModel<boolean>('modelValue', { required: false });
+const model = defineModel<boolean>()
+
+function toggleCheckbox() {
+  model.value = !model.value
+}
 </script>
 
 <template>
-  <div class="checkboxes-component">
-    <input type="checkbox" v-model="model" :id="id" :value="value" :name="name" :required="required" style="display: none;">
+  <div class="checkboxes-component" @click="toggleCheckbox">
+    <input
+      type="checkbox"
+      v-model="model"
+      :id="id"
+      :value="value"
+      :name="name"
+      :required="required"
+      style="display: none"
+    />
     <div class="checkboxes-component__icon">
-      <CheckIcon />
+      <CheckIcon v-if="model" />
     </div>
     <div class="checkboxes-component__content">
-      <slot/>
+      <slot />
     </div>
   </div>
 </template>
@@ -30,10 +42,18 @@ const model = defineModel<boolean>('modelValue', { required: false });
   display: flex;
   align-items: flex-start;
   gap: 8px;
+  cursor: pointer;
 
   &__icon {
     flex-shrink: 0;
     margin-top: 2px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #efefef;
+    border-radius: 100%;
   }
 
   &__content {

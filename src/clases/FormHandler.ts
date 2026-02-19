@@ -5,12 +5,14 @@ export interface FormHandlerValidationResult {
 }
 
 export class FormHandler {
-  name: string
-  phone: string
+  name: string = ''
+  phone: string = ''
+  checkbox: boolean = false
 
-  constructor(name: string, phone: string) {
+  constructor(name: string, phone: string, checkbox: boolean) {
     this.name = name
     this.phone = phone
+    this.checkbox = checkbox
   }
 
   validate(): FormHandlerValidationResult {

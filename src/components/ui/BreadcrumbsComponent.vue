@@ -18,10 +18,7 @@ const breadcrumbs = computed<BreadcrumbItem[] | null>(() => {
   if (route.path.startsWith('/shop/') && typeof slug === 'string') {
     const categoryTitle = getShopCategoryTitleBySlug(slug)
     if (categoryTitle && list.length > 0) {
-      return [
-        ...list.slice(0, -1),
-        { ...list[list.length - 1], label: categoryTitle },
-      ]
+      return [...list.slice(0, -1), { ...list[list.length - 1], label: categoryTitle }]
     }
   }
   return list
@@ -42,21 +39,18 @@ const pageTitle = computed(() => {
     <div class="breadcrumbs__container">
       <ul class="breadcrumbs__list">
         <li v-for="(item, index) in breadcrumbs" :key="index" class="breadcrumbs__item">
-          <component
-            :is="item.to ? RouterLink : 'span'"
-            :to="item.to"
-            class="breadcrumbs__link"
-          >
+          <component :is="item.to ? RouterLink : 'span'" :to="item.to" class="breadcrumbs__link">
             {{ item.label }}
           </component>
-          <span class="breadcrumbs__separator" v-if="index < (breadcrumbs?.length ?? 0) - 1"> > </span>
+          <span class="breadcrumbs__separator" v-if="index < (breadcrumbs?.length ?? 0) - 1">
+            >
+          </span>
         </li>
       </ul>
       <h1 class="breadcrumbs__title">{{ pageTitle }}</h1>
     </div>
   </div>
 </template>
-
 
 <style scoped lang="scss">
 .breadcrumbs {
@@ -100,7 +94,6 @@ const pageTitle = computed(() => {
     font-weight: 500;
     text-decoration: none;
     transition: color 0.2s;
-
   }
 
   &__separator {
@@ -119,6 +112,7 @@ const pageTitle = computed(() => {
     @include bp($point_2) {
       font-size: 35px;
       margin-top: 16px;
+      font-weight: 500;
     }
   }
 }

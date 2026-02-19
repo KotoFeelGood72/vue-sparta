@@ -1,8 +1,14 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
-import CartItem, { type CartItemModel } from '@/components/cards/CartItem.vue';
-import ButtonComponent from '@/components/ui/ButtonComponent.vue';
-import BlockForm from '@/components/shared/BlockForm.vue';
+import { ref, computed } from 'vue'
+import CartItem, { type CartItemModel } from '@/components/cards/CartItem.vue'
+import ButtonComponent from '@/components/ui/ButtonComponent.vue'
+import BlockForm from '@/components/shared/BlockForm.vue'
+import CartItemMobile from '@/components/cards/CartItemMobile.vue'
+import ModalCartOrder from '@/components/modals/ModalCartOrder.vue'
+import { useMediaStoreRefs } from '@/stores/useMediaStore'
+
+const { isMobile } = useMediaStoreRefs()
+const isModalOpen = ref(false)
 
 const cartItems = ref<CartItemModel[]>([
   {
@@ -19,24 +25,22 @@ const cartItems = ref<CartItemModel[]>([
     price: 20500,
     quantity: 1,
   },
-]);
-
+])
 
 const totalPrice = computed(() => {
-  return cartItems.value.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-});
+  return cartItems.value.reduce((sum, item) => sum + item.price * item.quantity, 0)
+})
 
 const updateQuantity = (id: string, quantity: number) => {
-  const item = cartItems.value.find(i => i.id === id);
+  const item = cartItems.value.find((i) => i.id === id)
   if (item) {
-    item.quantity = quantity;
+    item.quantity = quantity
   }
-};
+}
 
 const removeItem = (id: string) => {
-  cartItems.value = cartItems.value.filter(item => item.id !== id);
-};
-
+  cartItems.value = cartItems.value.filter((item) => item.id !== id)
+}
 </script>
 
 <template>
@@ -62,18 +66,34 @@ const removeItem = (id: string) => {
 
           <!-- Список товаров -->
           <div class="cart-page__items-wrapper">
-            <CartItem
-              v-for="(item, index) in cartItems"
-              :key="item.id"
-              :id="item.id"
-              :image="item.image"
-              :title="item.title"
-              :price="item.price"
-              :quantity="item.quantity"
-              :is-last="index === cartItems.length - 1"
-              @update:quantity="updateQuantity"
-              @remove="removeItem"
-            />
+            <template v-if="!isMobile">
+              <CartItem
+                v-for="(item, index) in cartItems"
+                :key="item.id"
+                :id="item.id"
+                :image="item.image"
+                :title="item.title"
+                :price="item.price"
+                :quantity="item.quantity"
+                :is-last="index === cartItems.length - 1"
+                @update:quantity="updateQuantity"
+                @remove="removeItem"
+              />
+            </template>
+            <template v-else>
+              <CartItemMobile
+                v-for="(item, index) in cartItems"
+                :key="item.id"
+                :id="item.id"
+                :image="item.image"
+                :title="item.title"
+                :price="item.price"
+                :quantity="item.quantity"
+                :is-last="index === cartItems.length - 1"
+                @update:quantity="updateQuantity"
+                @remove="removeItem"
+              />
+            </template>
           </div>
         </div>
 
@@ -89,6 +109,7 @@ const removeItem = (id: string) => {
               size="large"
               variant="primary"
               custom-class="cart-page__submit-button"
+              @click="isModalOpen = true"
             />
           </div>
         </div>
@@ -102,6 +123,7 @@ const removeItem = (id: string) => {
 в рабочие часы компании."
       theme="white"
     />
+    <ModalCartOrder :open="isModalOpen" @close="isModalOpen = false" />
   </div>
 </template>
 
@@ -121,6 +143,10 @@ const removeItem = (id: string) => {
     display: flex;
     padding-top: 20px;
     align-items: flex-end;
+
+    @include bp($point_2) {
+      flex-direction: column;
+    }
   }
 
   &__main {
@@ -133,6 +159,10 @@ const removeItem = (id: string) => {
     gap: 40px;
     margin-bottom: 16px;
     padding: 0 32px;
+
+    @include bp($point_2) {
+      display: none;
+    }
   }
 
   &__header-spacer {
@@ -173,6 +203,10 @@ const removeItem = (id: string) => {
   &__sidebar {
     width: 327px;
     flex-shrink: 0;
+
+    @include bp($point_2) {
+      width: 100%;
+    }
   }
 
   &__sidebar-inner {
@@ -184,6 +218,11 @@ const removeItem = (id: string) => {
     flex-direction: column;
     justify-content: center;
     gap: 16px;
+
+    @include bp($point_2) {
+      border-radius: 0 0 10px 10px;
+      height: auto;
+    }
   }
 
   &__total-block {
@@ -198,6 +237,10 @@ const removeItem = (id: string) => {
     line-height: $line-height-30;
     font-weight: 300;
     color: $color-white;
+
+    @include bp($point_2) {
+      font-size: 20px;
+    }
   }
 
   &__total-value {
@@ -205,6 +248,10 @@ const removeItem = (id: string) => {
     line-height: $line-height-30;
     font-weight: 600;
     color: $color-white;
+
+    @include bp($point_2) {
+      font-size: 20px;
+    }
   }
 
   &__submit-button {
