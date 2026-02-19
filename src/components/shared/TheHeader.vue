@@ -9,6 +9,7 @@ import SearchIcon from '../icons/SearchIcon.vue';
 
 const emit = defineEmits<{
   authClick: [];
+  searchClick: [];
 }>();
 </script>
 
@@ -66,9 +67,14 @@ const emit = defineEmits<{
           <li class="header__nav-item"><RouterLink to="/about" class="header__nav-link">О компании</RouterLink></li>
           <li class="header__nav-item"><RouterLink to="/about" class="header__nav-link">Контакты</RouterLink></li>
         </ul>
-        <div class="header__search-button">
+        <button
+          type="button"
+          class="header__search-button"
+          @click="emit('searchClick')"
+          aria-label="Поиск"
+        >
           <SearchIcon/>
-        </div>
+        </button>
       </div>
     </div>
   </header>
@@ -281,6 +287,13 @@ const emit = defineEmits<{
     background-color: $color-yellow;
     height: 66px;
     width: 77px;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+
+    &:hover {
+      opacity: 0.9;
+    }
   }
 }
 </style>

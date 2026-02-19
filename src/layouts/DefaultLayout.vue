@@ -6,6 +6,7 @@ import TheFooter from '@/components/shared/TheFooter.vue';
 import BurgerMenu from '@/components/shared/BurgerMenu.vue';
 import ModalAuth from '@/components/modals/ModalAuth.vue';
 import ModalCallback from '@/components/modals/ModalCallback.vue';
+import ModalSearch from '@/components/modals/ModalSearch.vue';
 import BreadcrumbsComponent from '@/components/ui/BreadcrumbsComponent.vue';
 
 import { useMediaStoreRefs } from '@/stores/useMediaStore';
@@ -16,16 +17,22 @@ const { isTablet, isDesktop, isMobile } = useMediaStoreRefs();
 const isBurgerOpen = ref(false);
 const isAuthOpen = ref(false);
 const isCallbackOpen = ref(false);
+const isSearchOpen = ref(false);
 </script>
 
 <template>
   <div class="layout">
-    <TheHeader v-if="isDesktop" @auth-click="isAuthOpen = true"/>
+    <TheHeader
+      v-if="isDesktop"
+      @auth-click="isAuthOpen = true"
+      @search-click="isSearchOpen = true"
+    />
     <TheHeaderAdaptive
       v-if="isTablet || isMobile"
       @menu-click="isBurgerOpen = true"
       @auth-click="isAuthOpen = true"
       @callback-click="isCallbackOpen = true"
+      @search-click="isSearchOpen = true"
     />
     <BurgerMenu
       :open="isBurgerOpen"
@@ -38,6 +45,10 @@ const isCallbackOpen = ref(false);
     <ModalCallback
       :open="isCallbackOpen"
       @close="isCallbackOpen = false"
+    />
+    <ModalSearch
+      :open="isSearchOpen"
+      @close="isSearchOpen = false"
     />
     <main class="layout__main">
       <BreadcrumbsComponent v-if="route.name !== 'main' && route.name !== 'catalog'"/>

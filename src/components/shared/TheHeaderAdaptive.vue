@@ -9,6 +9,7 @@ const emit = defineEmits<{
   menuClick: [];
   authClick: [];
   callbackClick: [];
+  searchClick: [];
 }>();
 </script>
 
@@ -44,7 +45,12 @@ const emit = defineEmits<{
               </a>
             </div>
           </div>
-          <button type="button" class="header-adaptive__search-button">
+          <button
+            type="button"
+            class="header-adaptive__search-button"
+            @click="emit('searchClick')"
+            aria-label="Поиск"
+          >
             <SearchIcon/>
           </button>
         </div>
