@@ -1,46 +1,46 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
-import ProductCard, { type ProductCardModel } from '@/components/cards/ProductCard.vue';
-import CategorySidebar, { type Category } from '@/components/shared/CategorySidebar.vue';
-import ChevronButtonIcon from '@/components/icons/ChevronButtonIcon.vue';
-import ButtonComponent from '@/components/ui/ButtonComponent.vue';
-import { useRoute } from 'vue-router';
-import { useMediaStoreRefs } from '@/stores/useMediaStore';
-import { SHOP_CATEGORIES } from '@/constants/shopCategories';
+import { ref, computed } from 'vue'
+import ProductCard, { type ProductCardModel } from '@/components/cards/ProductCard.vue'
+import CategorySidebar, { type Category } from '@/components/shared/CategorySidebar.vue'
+import ChevronButtonIcon from '@/components/icons/ChevronButtonIcon.vue'
+import ButtonComponent from '@/components/ui/ButtonComponent.vue'
+import { useRoute } from 'vue-router'
+import { useMediaStoreRefs } from '@/stores/useMediaStore'
+import { SHOP_CATEGORIES } from '@/constants/shopCategories'
 
-const route = useRoute();
-const { isTablet, isMobile } = useMediaStoreRefs();
-const isCategoriesOpen = ref(false);
+const route = useRoute()
+const { isTablet, isMobile } = useMediaStoreRefs()
+const isCategoriesOpen = ref(false)
 
-const showCategoriesToggle = computed(() => isTablet.value || isMobile.value);
+const showCategoriesToggle = computed(() => isTablet.value || isMobile.value)
 
 const toggleCategories = () => {
-  isCategoriesOpen.value = !isCategoriesOpen.value;
-};
+  isCategoriesOpen.value = !isCategoriesOpen.value
+}
 
 const categoriesList: Category[] = SHOP_CATEGORIES.map((c) => ({
   id: c.id,
   title: c.title,
   slug: c.slug,
-}));
+}))
 
 const currentSlug = computed(() => {
-  const slug = route.params.slug;
-  return typeof slug === 'string' ? slug : undefined;
-});
+  const slug = route.params.slug
+  return typeof slug === 'string' ? slug : undefined
+})
 
 const categories = computed(() =>
   categoriesList.map((c) => ({
     ...c,
     isActive: c.slug === currentSlug.value,
-  }))
-);
+  })),
+)
 
 const selectedCategory = computed(() => {
-  const slug = currentSlug.value;
-  if (!slug) return undefined;
-  return categoriesList.find((c) => c.slug === slug);
-});
+  const slug = currentSlug.value
+  if (!slug) return undefined
+  return categoriesList.find((c) => c.slug === slug)
+})
 
 const products = ref<ProductCardModel[]>([
   {
@@ -97,12 +97,12 @@ const products = ref<ProductCardModel[]>([
     instock: 'В наличии',
     price: '573 100р',
   },
-]);
+])
 
 const loadMore = () => {
   // Логика загрузки дополнительных товаров
-  console.log('Загрузка дополнительных товаров...');
-};
+  console.log('Загрузка дополнительных товаров...')
+}
 </script>
 
 <template>
@@ -119,20 +119,32 @@ const loadMore = () => {
             :aria-expanded="isCategoriesOpen"
             @click="toggleCategories"
           >
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="14" viewBox="0 0 20 14" fill="none">
-            <rect y="0.941406" width="19.4634" height="1.81056" rx="0.905279" fill="#FDC043"/>
-            <circle cx="12.413" cy="1.84657" r="1.84657" fill="#FDC043"/>
-            <rect y="11.1685" width="19.4634" height="1.81056" rx="0.905279" fill="#FDC043"/>
-            <circle cx="12.413" cy="12.0736" r="1.84657" fill="#FDC043"/>
-            <rect x="2.49609" y="6.05518" width="16.9675" height="1.81056" rx="0.905279" fill="#FDC043"/>
-            <circle cx="7.88563" cy="6.96034" r="1.84657" fill="#FDC043"/>
-          </svg>
-            <span class="shop-page__categories-toggle-text">{{ selectedCategory?.title || 'Выбрать категорию запчастей' }}</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="14"
+              viewBox="0 0 20 14"
+              fill="none"
+            >
+              <rect y="0.941406" width="19.4634" height="1.81056" rx="0.905279" fill="#FDC043" />
+              <circle cx="12.413" cy="1.84657" r="1.84657" fill="#FDC043" />
+              <rect y="11.1685" width="19.4634" height="1.81056" rx="0.905279" fill="#FDC043" />
+              <circle cx="12.413" cy="12.0736" r="1.84657" fill="#FDC043" />
+              <rect
+                x="2.49609"
+                y="6.05518"
+                width="16.9675"
+                height="1.81056"
+                rx="0.905279"
+                fill="#FDC043"
+              />
+              <circle cx="7.88563" cy="6.96034" r="1.84657" fill="#FDC043" />
+            </svg>
+            <span class="shop-page__categories-toggle-text">{{
+              selectedCategory?.title || 'Выбрать категорию запчастей'
+            }}</span>
           </button>
-          <div
-            v-show="!showCategoriesToggle || isCategoriesOpen"
-            class="shop-page__sidebar-inner"
-          >
+          <div v-show="!showCategoriesToggle || isCategoriesOpen" class="shop-page__sidebar-inner">
             <CategorySidebar :categories="categories" @select="isCategoriesOpen = false" />
           </div>
         </aside>
@@ -231,7 +243,9 @@ const loadMore = () => {
     gap: 12px;
     color: $color-gray;
     cursor: pointer;
-    transition: border-color 0.2s, color 0.2s;
+    transition:
+      border-color 0.2s,
+      color 0.2s;
 
     &:hover {
       border-color: $color-yellow;
@@ -316,4 +330,3 @@ const loadMore = () => {
   }
 }
 </style>
-
