@@ -1,30 +1,34 @@
 <script setup lang="ts">
-import ButtonComponent from '../ui/ButtonComponent.vue';
-import CardDecoratorIcon from '../icons/CardDecoratorIcon.vue';
-
+import ButtonComponent from '../ui/ButtonComponent.vue'
+import CardDecoratorIcon from '../icons/CardDecoratorIcon.vue'
 
 export interface DefaultCardModel {
-  image: string;
-  title: string;
+  image: string
+  title: string
   id: string
   slug: string
 }
 
-
-const { image, title, id, slug } = defineProps<DefaultCardModel>();
-
+const props = defineProps<DefaultCardModel & { to?: string }>()
+const { image, title, id, slug, to } = props
+const linkTo = to ?? `/${slug}/${id}`
 </script>
 
 <template>
-  <RouterLink :to="`/${slug}/${id}`" class="default-card">
+  <RouterLink :to="linkTo" class="default-card">
     <div class="default-card__image-wrapper">
-      <img :src="image" :alt="title" class="default-card__image">
+      <img :src="image" :alt="title" class="default-card__image" />
     </div>
     <div class="default-card__content">
       <h3 class="default-card__title">{{ title }}</h3>
-      <ButtonComponent text="Заказать" size="small" variant="primary" custom-class="default-card__button"/>
+      <ButtonComponent
+        text="Заказать"
+        size="small"
+        variant="primary"
+        custom-class="default-card__button"
+      />
     </div>
-    <CardDecoratorIcon class="default-card__decorator"/>
+    <CardDecoratorIcon class="default-card__decorator" />
   </RouterLink>
 </template>
 
@@ -40,7 +44,9 @@ const { image, title, id, slug } = defineProps<DefaultCardModel>();
   position: relative;
   height: 100%;
   text-decoration: none;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
 
   @media (min-width: 1024px) {
     padding: 20px;

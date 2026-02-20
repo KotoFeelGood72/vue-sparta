@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router';
+import { inject } from 'vue';
+import { RouterLink, useRouter } from 'vue-router';
 import CheckFillIcon from '../icons/CheckFillIcon.vue';
 import ButtonComponent from '../ui/ButtonComponent.vue';
 import CardDecoratorIcon from '../icons/CardDecoratorIcon.vue';
+
+const openOrderModal = inject<() => void>('openOrderModal', () => {});
 
 export interface Manufacturer {
   name: string;
@@ -20,11 +23,27 @@ export interface ProductCardModel {
   price: string
 }
 
-const { image, title, manufacturers, instock, price } = defineProps<ProductCardModel>();
+const props = defineProps<ProductCardModel & { to?: string }>();
+const { image, title, manufacturers, instock, price, to } = props;
+const router = useRouter();
+
+const goToProduct = () => {
+  if (to) router.push(to);
+};
+
+const onLinkClick = (e: MouseEvent) => e.stopPropagation();
 </script>
 
 <template>
-  <div class="product-card">
+  <div
+    class="product-card"
+    :class="{ 'product-card--clickable': to }"
+    role="button"
+    :tabindex="to ? 0 : -1"
+    @click="goToProduct"
+    @keydown.enter="goToProduct"
+    @keydown.space.prevent="goToProduct"
+  >
     <CardDecoratorIcon class="product-card__decorator"/>
 
     <!-- Изображение -->
@@ -50,6 +69,7 @@ const { image, title, manufacturers, instock, price } = defineProps<ProductCardM
         :key="manufacturer.id"
         :to="`/manufacturer/${manufacturer.slug}`"
         class="product-card__manufacturer-link"
+        @click="onLinkClick"
       >
         {{ manufacturer.name }}<span v-if="index < manufacturers.length - 1">, </span>
       </RouterLink>
@@ -61,12 +81,14 @@ const { image, title, manufacturers, instock, price } = defineProps<ProductCardM
     </div>
 
     <!-- Кнопка заказа -->
-    <ButtonComponent
-      text="Заказать"
-      size="small"
-      variant="light"
-      custom-class="product-card__button"
-    />
+    <div class="product-card__button-wrap" @click.stop="openOrderModal">
+      <ButtonComponent
+        text="Заказать"
+        size="small"
+        variant="light"
+        custom-class="product-card__button"
+      />
+    </div>
   </div>
 </template>
 
@@ -80,6 +102,10 @@ const { image, title, manufacturers, instock, price } = defineProps<ProductCardM
   display: flex;
   flex-direction: column;
   transition: transform 0.2s, box-shadow 0.2s;
+
+  &--clickable {
+    cursor: pointer;
+  }
 
   &:hover {
     transform: translateY(-2px);
@@ -172,6 +198,10 @@ const { image, title, manufacturers, instock, price } = defineProps<ProductCardM
     line-height: $line-height-25;
     font-weight: 700;
     color: $color-gray;
+  }
+
+  &__button-wrap {
+    align-self: flex-start;
   }
 
   &__button {

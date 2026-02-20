@@ -1,23 +1,23 @@
 <script setup lang="ts">
-import 'swiper/css/pagination';
+import 'swiper/css/pagination'
 
-import { toRaw } from 'vue';
-import { Navigation, Pagination } from 'swiper/modules';
-import { useMediaStoreRefs } from '@/stores/useMediaStore';
-import ChevronButtonIcon from '@/components/icons/ChevronButtonIcon.vue';
+import { toRaw } from 'vue'
+import { Navigation, Pagination } from 'swiper/modules'
+import { useMediaStoreRefs } from '@/stores/useMediaStore'
+import ChevronButtonIcon from '@/components/icons/ChevronButtonIcon.vue'
 
-import IntroSlider from './sections/intro-slider/IntroSlider.vue';
-import ButtonComponent from '@/components/ui/ButtonComponent.vue';
-import BrandSlider from './sections/brand-slider/BrandSlider.vue';
-import AgregatesSection from './sections/agregates-section/AgregatesSection.vue';
-import SectionHead from '@/components/blocks/section-head/SectionHead.vue';
-import AboutBlock from '@/components/blocks/AboutBlock.vue';
-import DefaultCard from '@/components/cards/DefaultCard.vue';
-import BlockForm from '@/components/shared/BlockForm.vue';
-import RepairSection from './sections/repair/RepairSection.vue';
-import SliderPaginationNav from '@/components/ui/SliderPaginationNav.vue';
+import IntroSlider from './sections/intro-slider/IntroSlider.vue'
+import ButtonComponent from '@/components/ui/ButtonComponent.vue'
+import BrandSlider from './sections/brand-slider/BrandSlider.vue'
+import AgregatesSection from './sections/agregates-section/AgregatesSection.vue'
+import SectionHead from '@/components/blocks/section-head/SectionHead.vue'
+import AboutBlock from '@/components/blocks/AboutBlock.vue'
+import DefaultCard from '@/components/cards/DefaultCard.vue'
+import BlockForm from '@/components/shared/BlockForm.vue'
+import RepairSection from './sections/repair/RepairSection.vue'
+import SliderPaginationNav from '@/components/ui/SliderPaginationNav.vue'
 
-const { isMobile } = useMediaStoreRefs();
+const { isMobile } = useMediaStoreRefs()
 
 const categoriesBreakpoints = {
   0: {
@@ -28,7 +28,7 @@ const categoriesBreakpoints = {
     slidesPerView: 3,
     spaceBetween: 40,
   },
-};
+}
 
 const agregates = [
   {
@@ -150,21 +150,26 @@ const repairs = [
 
 <template>
   <div class="main-page">
-    <IntroSlider/>
+    <IntroSlider />
     <div class="">
-      <BrandSlider/>
+      <BrandSlider />
     </div>
     <div class="main-page__section">
-      <AgregatesSection :agregates="agregates"/>
+      <AgregatesSection :agregates="agregates" />
     </div>
     <div class="main-page__section">
-      <AboutBlock/>
+      <AboutBlock />
     </div>
     <div class="main-page__section main-page__section--small">
       <BrandSlider>
         <template #head>
           <div class="main-page__container">
-            <SectionHead title="категории запчастей" buttonText="смотреть все" class="main-page__section-head" buttonAbsolute/>
+            <SectionHead
+              title="категории запчастей"
+              buttonText="смотреть все"
+              class="main-page__section-head"
+              buttonAbsolute
+            />
           </div>
         </template>
       </BrandSlider>
@@ -186,8 +191,12 @@ const repairs = [
             }"
             class="main-page__categories-swiper"
           >
-            <SwiperSlide v-for="category in categories" :key="category.id" class="main-page__category-slide">
-              <DefaultCard v-bind="category"/>
+            <SwiperSlide
+              v-for="category in categories"
+              :key="category.id"
+              class="main-page__category-slide"
+            >
+              <DefaultCard v-bind="category" />
             </SwiperSlide>
           </Swiper>
           <div class="main-page__categories-navigation">
@@ -197,7 +206,14 @@ const repairs = [
               pagination-class="categories-slider-pagination"
             />
           </div>
-          <ButtonComponent :icon="ChevronButtonIcon" v-if="isMobile" text="СМОТРЕТЬ ВСЕ" size="small" variant="primary" custom-class="main-page__categories-button" />
+          <ButtonComponent
+            :icon="ChevronButtonIcon"
+            v-if="isMobile"
+            text="СМОТРЕТЬ ВСЕ"
+            size="small"
+            variant="primary"
+            custom-class="main-page__categories-button"
+          />
         </div>
       </div>
     </section>
@@ -211,13 +227,12 @@ const repairs = [
       />
     </div>
     <div class="main-page__section">
-      <RepairSection :repairs="repairs"/>
+      <RepairSection :repairs="repairs" />
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
-
 .main-page {
   &__section {
     margin-bottom: 96px;
@@ -228,7 +243,8 @@ const repairs = [
 
     &--small {
       margin-bottom: 40px;
-    }    &--form {
+    }
+    &--form {
       margin-bottom: 80px;
     }
   }
@@ -268,7 +284,6 @@ const repairs = [
   }
 
   &__categories-navigation {
-
     @include bp($point_2) {
       margin-top: 40px;
       margin-bottom: 30px;

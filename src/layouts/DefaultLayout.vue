@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, provide } from 'vue';
 import TheHeader from '@/components/shared/TheHeader.vue';
 import TheHeaderAdaptive from '@/components/shared/TheHeaderAdaptive.vue';
 import TheFooter from '@/components/shared/TheFooter.vue';
 import BurgerMenu from '@/components/shared/BurgerMenu.vue';
 import ModalAuth from '@/components/modals/ModalAuth.vue';
 import ModalCallback from '@/components/modals/ModalCallback.vue';
+import ModalOrder from '@/components/modals/ModalOrder.vue';
 import ModalSearch from '@/components/modals/ModalSearch.vue';
 import BreadcrumbsComponent from '@/components/ui/BreadcrumbsComponent.vue';
 
@@ -17,7 +18,12 @@ const { isTablet, isDesktop, isMobile } = useMediaStoreRefs();
 const isBurgerOpen = ref(false);
 const isAuthOpen = ref(false);
 const isCallbackOpen = ref(false);
+const isOrderOpen = ref(false);
 const isSearchOpen = ref(false);
+
+provide('openOrderModal', () => {
+  isOrderOpen.value = true;
+});
 </script>
 
 <template>
@@ -45,6 +51,10 @@ const isSearchOpen = ref(false);
     <ModalCallback
       :open="isCallbackOpen"
       @close="isCallbackOpen = false"
+    />
+    <ModalOrder
+      :open="isOrderOpen"
+      @close="isOrderOpen = false"
     />
     <ModalSearch
       :open="isSearchOpen"

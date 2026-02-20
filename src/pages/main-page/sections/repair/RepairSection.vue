@@ -1,20 +1,24 @@
 <script setup lang="ts">
-import 'swiper/css/pagination';
+import 'swiper/css/pagination'
 
-import { toRaw } from 'vue';
-import { Navigation, Pagination } from 'swiper/modules';
+import { toRaw } from 'vue'
+import { Navigation, Pagination } from 'swiper/modules'
 
-import SectionHead from '@/components/blocks/section-head/SectionHead.vue';
-import DefaultCard from '@/components/cards/DefaultCard.vue';
-import type { DefaultCardModel } from '@/components/cards/DefaultCard.vue';
-import SliderPaginationNav from '@/components/ui/SliderPaginationNav.vue';
+import SectionHead from '@/components/blocks/section-head/SectionHead.vue'
+import DefaultCard from '@/components/cards/DefaultCard.vue'
+import type { DefaultCardModel } from '@/components/cards/DefaultCard.vue'
+import SliderPaginationNav from '@/components/ui/SliderPaginationNav.vue'
 
-const { repairs, headerHidden, sliderEnabled = true } = defineProps<{
-  repairs: DefaultCardModel[];
-  headerHidden?: boolean;
+const {
+  repairs,
+  headerHidden,
+  sliderEnabled = true,
+} = defineProps<{
+  repairs: DefaultCardModel[]
+  headerHidden?: boolean
   /** Включить слайдер (true) или показывать карточки сеткой (false) */
-  sliderEnabled?: boolean;
-}>();
+  sliderEnabled?: boolean
+}>()
 
 const breakpoints = {
   0: {
@@ -25,14 +29,14 @@ const breakpoints = {
     slidesPerView: 3,
     spaceBetween: 40,
   },
-};
+}
 </script>
 
 <template>
   <div class="repair-section">
     <div class="repair-section__container">
       <div v-if="!headerHidden" class="repair-section__header">
-        <SectionHead title="ремонт" buttonText="смотреть все" buttonAbsolute/>
+        <SectionHead title="ремонт" buttonText="смотреть все" buttonAbsolute />
       </div>
       <div class="repair-section__slider-wrapper">
         <Swiper
@@ -51,7 +55,7 @@ const breakpoints = {
           class="repair-section__swiper"
         >
           <SwiperSlide v-for="repair in repairs" :key="repair.id" class="repair-section__slide">
-            <DefaultCard v-bind="repair"/>
+            <DefaultCard v-bind="repair" :to="`/repair/${repair.id}`" />
           </SwiperSlide>
         </Swiper>
         <div v-else class="repair-section__grid">
@@ -60,6 +64,7 @@ const breakpoints = {
             :key="repair.id"
             class="repair-section__grid-item"
             v-bind="repair"
+            :to="`/repair/${repair.id}`"
           />
         </div>
         <div v-if="sliderEnabled" class="repair-section__navigation">
@@ -70,7 +75,7 @@ const breakpoints = {
           />
         </div>
       </div>
-      <slot name="bottom"/>
+      <slot name="bottom" />
     </div>
   </div>
 </template>

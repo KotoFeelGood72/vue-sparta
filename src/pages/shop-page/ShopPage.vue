@@ -163,6 +163,7 @@ const loadMore = () => {
               :manufacturers="product.manufacturers"
               :instock="product.instock"
               :price="product.price"
+              :to="`/shop/${currentSlug ?? 'parts'}/${product.slug}`"
             />
           </div>
 
