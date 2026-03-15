@@ -13,7 +13,9 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
     "lint": "eslint . --fix --cache",
-    "format": "prettier --write src/"
+    "format": "prettier --write src/",
+    "clean-dot": "bash scripts/clean-appledouble.sh",
+    "install-hooks": "bash scripts/install-git-hooks.sh"
   },
   "dependencies": {
     "@kyvg/vue3-notification": "^3.4.2",
