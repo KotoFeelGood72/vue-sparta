@@ -136,7 +136,7 @@ defineProps<{
   &__title {
     font-size: $font-size-55;
     line-height: $line-height-55;
-    font-family: $font-family-bebas;
+    font-family: 'Bebas Neue', sans-serif;
     color: $color-gray;
     max-width: 560px;
     margin-bottom: 20px;
