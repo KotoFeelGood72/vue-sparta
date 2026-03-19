@@ -44,6 +44,6 @@ jobs:
           set log:enable true;
           set log:file /dev/stderr;
           open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_SERVER;
-          cd $FTP_REMOTE_PATH/wp-content/themes/spart;
+          cd https://spart.pro/wp-content/themes/spart.pro/vue;
           mirror -R --delete --verbose ./dist vue/dist;
           quit"
