@@ -44,6 +44,9 @@ jobs:
           set log:enable true;
           set log:file /dev/stderr;
           open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_SERVER;
-          cd https://spart.pro/wp-content/themes/spart.pro/vue;
-          mirror -R --delete --verbose ./dist vue/dist;
+          cd $FTP_REMOTE_PATH;
+          # Заливаем сборку Vue в папку `dist` (чтобы URL был `/vue/dist/`).
+          mirror -R --delete --verbose ./dist ./dist;
+          # Нужный PHP-роутер/хедер для WordPress тоже копируем в эту же директорию.
+          put -O ./ index.php;
           quit"
