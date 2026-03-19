@@ -34,6 +34,22 @@ jobs:
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
           FTP_REMOTE_PATH: ${{ secrets.FTP_REMOTE_PATH}}
         run: |
+          REMOTE_PATH="${FTP_REMOTE_PATH%/}"
+          # Ожидаем, что FTP_REMOTE_PATH - файловый путь (не URL), например:
+          # /www/spart.pro/wp-content/themes/spart.pro
+          # или /www/spart.pro/wp-content/themes/spart.pro/vue
+          # или /www/spart.pro/wp-content/themes/spart.pro/vue/dist
+          if [[ "$REMOTE_PATH" == *"/vue/dist" ]]; then
+            REMOTE_VUE_DIST="$REMOTE_PATH"
+            REMOTE_THEME_DIR="${REMOTE_PATH%/vue/dist}"
+          elif [[ "$REMOTE_PATH" == *"/vue" ]]; then
+            REMOTE_THEME_DIR="${REMOTE_PATH%/vue}"
+            REMOTE_VUE_DIST="$REMOTE_THEME_DIR/vue/dist"
+          else
+            REMOTE_THEME_DIR="$REMOTE_PATH"
+            REMOTE_VUE_DIST="$REMOTE_THEME_DIR/vue/dist"
+          fi
+
           lftp -c "
           set ssl:verify-certificate no;
           set ftp:passive-mode on;
@@ -44,9 +60,8 @@ jobs:
           set log:enable true;
           set log:file /dev/stderr;
           open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_SERVER;
-          cd $FTP_REMOTE_PATH;
-          # Заливаем сборку Vue в папку `dist` (чтобы URL был `/vue/dist/`).
-          mirror -R --delete --verbose ./dist ./dist;
-          # Нужный PHP-роутер/хедер для WordPress тоже копируем в эту же директорию.
-          put -O ./ index.php;
-          quit"
+          # Заливаем сборку Vue туда, где подключает WordPress: `.../vue/dist/assets/...`
+          mirror -R --delete --verbose ./dist $REMOTE_VUE_DIST;
+          # PHP-роутер для WordPress (используется в functions.php через `include(get_template_directory() . '/index.php')`).
+          put -O $REMOTE_THEME_DIR ./index.php;
+          quit" 
