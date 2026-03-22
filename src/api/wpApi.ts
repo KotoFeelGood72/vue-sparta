@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const WP_BASE = 'http://kotenkxj.beget.tech/wp-json/wp/v2'
+const WP_BASE = 'https://spart.pro/wp-json/wp/v2'
 
 const wpApi = axios.create({
   baseURL: WP_BASE,

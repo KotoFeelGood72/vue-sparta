@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3 
+        uses: actions/checkout@v3 # Используем последнюю версию checkout action
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -32,18 +32,9 @@ jobs:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
           FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-          FTP_REMOTE_PATH: ${{ secrets.FTP_REMOTE_PATH}}
         run: |
           lftp -c "
           set ssl:verify-certificate no;
-          set ftp:passive-mode on;
-          set ftp:chmod false;
-          set net:timeout 120;
-          set cmd:verbose true;
-          set xfer:log true;
-          set log:enable true;
-          set log:file /dev/stderr;
           open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_SERVER;
-          cd $FTP_REMOTE_PATH/wp-content/themes/spart;
-          mirror -R --delete --verbose ./dist vue/dist;
+          mirror -R --delete ./dist /www/spart.pro/wp-content/themes/spart.pro/vue/;
           quit"
