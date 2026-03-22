@@ -44,6 +44,8 @@ require('functions/spart_register_post_type_news.php');
 require('functions/spart_register_post_type_promo.php');
 // Регистрация типа записей "docs"
 require('functions/spart_register_post_type_docs.php');
+// REST: featured_media как объект медиа, не id
+require('functions/spart_rest_featured_media.php');
 // Предварительное создание страниц
 //require('functions/spart_create_pages.php');
 // Настройки внешнего вида бэкенда
