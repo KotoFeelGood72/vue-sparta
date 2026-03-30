@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 // Создаем экземпляр axios
-// Dev: .env — VITE_CATALOG_API_URL=/api + proxy в vite.config.ts → http://95.154.83.43/api
-// Production: .env.production — абсолютный VITE_CATALOG_API_URL, иначе относительный /api уйдёт на текущий хост (spart.pro)
+// Dev: VITE_CATALOG_API_URL=/api + proxy в vite.config.ts → каталог на 95.154.83.43
+// Prod: тоже /api (same-origin, HTTPS), иначе http:// IP даёт blocked:mixed-content; прокси — vercel.json / nginx на хосте
 const api = axios.create({
   baseURL: import.meta.env.VITE_CATALOG_API_URL || '/api',
   timeout: 10000,
